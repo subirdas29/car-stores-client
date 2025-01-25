@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, .navbar {
+  font-family: 'Montserrat', sans-serif;
+}
