@@ -4,6 +4,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import Login from "../pages/Login/Login";
 import AllCars from "../pages/AllCars/AllCars";
 import CarDetails from "../pages/CarDetails/CarDetails";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
  const router = createBrowserRouter([
     {
@@ -18,6 +19,16 @@ import CarDetails from "../pages/CarDetails/CarDetails";
     {
         path:'/cardetails',
         element:<CarDetails/>
+
+    },
+    {
+        path:'/user/dashboard',
+        element:<CarDetails/>
+
+    },
+    {
+        path:'/about',
+        element:<AboutUs/>
 
     },
     {

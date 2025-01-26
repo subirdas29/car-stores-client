@@ -1,5 +1,5 @@
 import  { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, } from 'react-router-dom';
 
 const menuData = [
   {
@@ -54,12 +54,12 @@ const menuData = [
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navigate = useNavigate()
+
 
   return (
     <div>
-      <div className="bg-white w-full z-50 shadow-lg px-8 lg:px-32">
-        <div className="flex justify-between items-center py-3">
+      <div className="bg-white w-full z-50 shadow-lg ">
+        <div className="flex justify-between items-center py-3 mx-12 md:mx-16 lg:mx-24">
           {/* Logo */}
           <div className="flex items-center">
             <h1 className="text-2xl">CarHunt</h1>
@@ -93,7 +93,7 @@ const Navbar = () => {
             {menuData.map((item, index) =>
               item.children ? (
                 <div key={index} className="relative group">
-                  <button className="hover:text-[#29AB51] font-medium">
+                  <button className="hover:text-[#1890ff] font-medium">
                     {item.title}
                   </button>
                   <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md p-4 space-y-2">
@@ -101,7 +101,7 @@ const Navbar = () => {
                       <a
                         key={childIndex}
                         href={child.href}
-                        className="block hover:text-[#29AB51]"
+                        className="block hover:text-[#1890ff]"
                       >
                         {child.title}
                       </a>
@@ -109,7 +109,7 @@ const Navbar = () => {
                   </div>
                 </div>
               ) : (
-                <a key={index} href={item.href} className="hover:text-[#29AB51] font-medium">
+                <a key={index} href={item.href} className="hover:text-[#1890ff] font-medium">
                   {item.title}
                 </a>
               )
@@ -119,32 +119,28 @@ const Navbar = () => {
           {/* Buttons */}
           <div className="hidden lg:flex space-x-4">
           <NavLink to='/login' >
-            <button className="bg-green-600 text-white font-bold py-2 px-4 rounded-md cursor-pointer">
-              Log In
-              </button>
+          <button className='rounded-md py-2 px-5 border-1 w-full bg-transparent  hover:text-white  text-[#1890ff]   hover:bg-[#1890ff] font-bold cursor-pointer '>LogIn</button>
             </NavLink>
             <NavLink to='/signup'>
-            <button className="bg-green-600 text-white font-bold py-2 px-4 rounded-md cursor-pointer">
-              Sign Up
-              </button>
+            <button className='rounded-md py-2 px-5 border-1 hover:text-[#1890ff]  w-full hover:bg-transparent  text-white  bg-[#1890ff] font-bold cursor-pointer '>SignUp</button>
             </NavLink>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden">
+          <div className="lg:hidden px-12 cursor-pointer">
             <div className="space-y-4 py-4">
               {menuData.map((item, index) =>
                 item.children ? (
                   <details key={index}>
-                    <summary className="hover:text-[#29AB51]">{item.title}</summary>
+                    <summary className="hover:text-[#1890ff]">{item.title}</summary>
                     <div className="pl-4 space-y-2">
                       {item.children.map((child, childIndex) => (
                         <a
                           key={childIndex}
                           href={child.href}
-                          className="block hover:text-[#29AB51]"
+                          className="block hover:text-[#1890ff]"
                         >
                           {child.title}
                         </a>
@@ -160,15 +156,11 @@ const Navbar = () => {
               <div className="flex flex-col space-y-4 mx-auto">
 
                 <NavLink to='/login' className=''>
-            <button  className="border-2 border-gray-300 w-full text-gray-800 font-bold py-2 px-4 rounded-md cursor-pointer mx-full ">
-              Log In
-              </button>
+                <button className='rounded-md py-2 px-5 border-1 w-full bg-transparent  hover:text-white  text-[#1890ff]   hover:bg-[#1890ff] font-bold cursor-pointer '>LogIn</button>
             </NavLink>
               
             <NavLink to='/signup'>
-            <button className="bg-green-600 w-full text-white font-bold py-2 px-4 rounded-md cursor-pointer">
-              Sign Up
-              </button>
+            <button className='rounded-md py-2 px-5 border-1 hover:text-[#1890ff]  w-full hover:bg-transparent  text-white  bg-[#1890ff] font-bold cursor-pointer '>SignUp</button>
             </NavLink>
               </div>
             </div>
