@@ -3,20 +3,14 @@ import { NavLink, } from 'react-router-dom';
 
 const menuData = [
   {
-    title: "Catalog",
-    href: "#",
+    title: "Home",
+    href: "/",
   },
   {
-    title: "How it Works",
-    children: [
-      { title: "How Printify Works", href: "#" },
-      { title: "Print On Demand", href: "#" },
-      { title: "Printify Quality Promise", href: "#" },
-      { title: "What to Sell?", href: "#" },
-    ],
+    title: "Dashboard",
   },
   {
-    title: "Pricing",
+    title: "About us",
     href: "#",
   },
   {
@@ -24,23 +18,8 @@ const menuData = [
     href: "#",
   },
   {
-    title: "Services",
-    children: [
-      { title: "Printify Studio", href: "#" },
-      { title: "Printify Express Delivery", href: "#" },
-      { title: "Transfer Products", href: "#" },
-      { title: "Order in Bulk", href: "#" },
-      { title: "Experts Program", href: "#" },
-    ],
-  },
-  {
-    title: "Use-cases",
-    children: [
-      { title: "Merch For Fans", href: "#" },
-      { title: "Merch For eCommerce", href: "#" },
-      { title: "Merch For Enterprises", href: "#" },
-      { title: "Grow Your Store", href: "#" },
-    ],
+    title: "Contact Us",
+   
   },
   {
     title: "Need Help?",
