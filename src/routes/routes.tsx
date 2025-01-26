@@ -6,8 +6,13 @@ import AllCars from "../pages/AllCars/AllCars";
 import CarDetails from "../pages/CarDetails/CarDetails";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import Main from "../Layout/Main";
-import Dashboard from "../Layout/DashboardLayout";
 import DashboardLayout from "../Layout/DashboardLayout";
+import UserDashboard from "../pages/Dashboard/user/UserDashboard";
+import AdminDashboard from "../pages/Dashboard/admin/AdminDashboard";
+import { routesGenerator } from "../utils/routesGenerator";
+import { adminPaths } from "./admin.routes";
+import { userPaths } from "./user.routes";
+
 
  const router = createBrowserRouter([
     {
@@ -42,16 +47,24 @@ import DashboardLayout from "../Layout/DashboardLayout";
                 path:'/login',
                 element:<Login/>
             },
-            // {
-            //     path:'/user',
-            //     element:<DashboardLayout></DashboardLayout>,
-            //     children:[
-            //         {
-            //             path:'dashboard',
-            //             element:
-            //         }
-            //     ]
-            // }
+            {
+                path:'/admin',
+                element:
+       (
+       
+        <DashboardLayout/>
+  
+       ),
+      children: routesGenerator(adminPaths)
+    },
+            {
+                path:'/user',
+                element:    (
+                    <DashboardLayout/>
+                   ),
+                  children: routesGenerator(userPaths)
+                },
+          
         ]
     }
 ])

@@ -1,36 +1,88 @@
 import { Layout } from 'antd'
 import { logOut } from '../redux/features/auth/authSlice';
-import { Outlet } from 'react-router-dom';
-import Sidebar from './Sidebar';
+import { NavLink, Outlet } from 'react-router-dom';
+// import Sidebar from './Sidebar';
 import { useAppDispatch } from '../redux/hook';
-const { Header, Content } = Layout;
-const DashboardLayout = () => {
-    const dispatch = useAppDispatch() 
+import Sidebar from './Sidebar';
 
-    const handleLogout = ()=>{
-      dispatch(logOut())
-    }
+const DashboardLayout = () => {
+    // const dispatch = useAppDispatch() 
+
+    // const handleLogout = ()=>{
+    //   dispatch(logOut())
+    // }
   return (
     <div>
-      <Layout style={{height:"100vh"}}>
-     <Sidebar/>
-      <Layout>
-        <Header>
-          <button onClick={handleLogout}>Logout</button>
-        </Header>
-        <Content style={{ margin: '24px 16px 0'}}>
+       <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <div
             style={{
-              padding: 24,
-              minHeight: 360,
+              backgroundImage: `url('assets/images/banner/car1.jpg')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              minHeight: "100%",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "white",
+              textAlign: "center",
+              padding: "80px",
+              position: "relative",
             }}
           >
-         <Outlet/>
+            {/* Dark Blue Shadow Overlay */}
+            <div
+              style={{
+                position: "absolute",
+                top: "0",
+                left: "0",
+                right: "0",
+                bottom: "0",
+                backgroundColor: "rgba(0, 0, 90, 0.4)", // Dark blue overlay
+                zIndex: "1",
+              }}
+            />
+            {/* Content */}
+            <div
+              style={{
+                position: "relative",
+                zIndex: "2",
+              }}
+            >
+              <h1 style={{ fontSize: "2.5rem", marginBottom: "10px", fontWeight:"bold", color:"white" }}>
+                Cars
+              </h1>
+              <p style={{ fontSize: "1.2rem", marginBottom: "20px" ,fontWeight:"bold", color:"white"  }}>
+              Explore the world’s finest cars and find your perfect match.
+              </p>
+           
+            </div>
           </div>
-        </Content>
-       
-      </Layout>
-    </Layout>
+        </div>
+
+      <div style={{height:"100vh"}}>
+      <div className='grid grid-cols-5 my-28 mx-8 md:mx-12 lg:mx-24 gap-5'>
+        <div className='border-1 border-gray-200 shadow-lg rounded-md p-6'>
+            <div>
+            <NavLink to='dashboard'><p>Dashboard</p></NavLink>
+           <NavLink to='account-profile'> <p>My Profile</p></NavLink>
+            <p>My Orders</p>
+            <p>Sign Out</p>
+            </div>
+        </div>
+       <div className='col-span-4'>
+       <Outlet/>
+       </div>
+    </div>
+      
+    </div>
     </div>
   )
 }

@@ -1,9 +1,9 @@
-import React from "react";
+
 
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300 py-10">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8 ">
         {/* Company Info */}
         <div>
           <h3 className="text-2xl font-bold text-white mb-4">Car Hunt</h3>
@@ -70,58 +70,17 @@ const Footer = () => {
 
           {/* Social Media Icons */}
           <div className="flex space-x-4 mt-6">
-            <a
-              href="#"
-              className="p-3 rounded-full bg-[#F2F2F2] bg-opacity-40 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-110"
-              style={{
-                width: "36px",
-                height: "36px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <i className="fab fa-facebook-f text-[#1890ff]"></i>
-            </a>
-            <a
-              href="#"
-              className="p-3 rounded-full bg-[#F2F2F2] bg-opacity-40 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-110"
-              style={{
-                width: "36px",
-                height: "36px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <i className="fab fa-twitter text-[#1890ff]"></i>
-            </a>
-            <a
-              href="#"
-              className="p-3 rounded-full bg-[#F2F2F2] bg-opacity-40 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-110"
-              style={{
-                width: "36px",
-                height: "36px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <i className="fab fa-instagram text-[#1890ff]"></i>
-            </a>
-            <a
-              href="#"
-              className="p-3 rounded-full bg-[#F2F2F2] bg-opacity-30 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-110"
-              style={{
-                width: "36px",
-                height: "36px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <i className="fab fa-linkedin-in text-[#1890ff]"></i>
-            </a>
+            {["facebook-f", "twitter", "instagram", "linkedin-in"].map((icon, index) => (
+              <a
+                key={index}
+                href="#"
+                className="group relative flex items-center justify-center w-10 h-10 rounded-full bg-[#F2F2F2] bg-opacity-40 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-110"
+              >
+                <i
+                  className={`fab fa-${icon} text-[#1890ff] transition-transform duration-300 group-hover:scale-125`}
+                ></i>
+              </a>
+            ))}
           </div>
         </div>
       </div>

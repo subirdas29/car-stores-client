@@ -12,13 +12,13 @@ type TInputProps = {
 const CarInput = ({type,name,label}:TInputProps) => {
    
   return (
-    <div style={{marginBottom:'20px'}}>
+    <div >
         
      <Controller
       name={name}
       render = {({field})=>(
        <Form.Item label={label}>
-         <Input {...field} size="large" type={type} id={name} />
+         <Input {...field}  size="large" type={type} id={name} />
        </Form.Item>
       )}
      />
