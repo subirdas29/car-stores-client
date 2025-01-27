@@ -67,7 +67,7 @@ const FeaturedCars = () => {
       </div>
     
       <div className='flex justify-center mt-8'>
-      <NavLink to='/allcars'>
+      <NavLink to='/all-cars'>
       <button className='rounded-md py-2 px-5 border-1 hover:text-[#1890ff] hover:bg-transparent  text-white  bg-[#1890ff] font-bold cursor-pointer '>View All</button>
       </NavLink>
        </div>

@@ -1,14 +1,20 @@
-import { Button, Col, Row } from "antd"
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Button,  } from "antd"
 import CarForm from "../../../components/form/CarForm"
 import CarInput from "../../../components/form/CarInput"
 import { toast } from "sonner"
-import { useNavigate } from "react-router-dom"
+
 import { FieldValues } from "react-hook-form"
+import { useGetMeQuery } from "../../../redux/features/user/userApi"
 
 
 const MyProfile = () => {
     // const [signup] = useSignupMutation(undefined)
    
+
+    const {data,isFetching} = useGetMeQuery(undefined)
+
+    
 
     const onSubmit = async(data:FieldValues) =>{
         const toastId = toast.loading('Logging in')

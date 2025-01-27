@@ -67,8 +67,8 @@ const DashboardLayout = () => {
           </div>
         </div>
 
-      <div style={{height:"100vh"}}>
-      <div className='grid grid-cols-1 md:grid-cols-5 my-28 mx-8 md:mx-12 lg:mx-24 gap-y-5 md:gap-5'>
+      <div>
+      <div className='grid grid-cols-1 md:grid-cols-5 my-28  mx-8 md:mx-12 lg:mx-24 gap-y-5 md:gap-5'>
         <Sidebar/>
        <div className='col-span-4'>
        <Outlet/>

@@ -24,12 +24,12 @@ import { userPaths } from "./user.routes";
                 element:<App/>
             },
             {
-                path:'/allcars',
+                path:'/all-cars',
                 element:<AllCars/>
         
             },
             {
-                path:'/cardetails',
+                path:'/car-details',
                 element:<CarDetails/>
         
             },
