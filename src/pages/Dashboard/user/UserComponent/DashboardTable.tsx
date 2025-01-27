@@ -70,13 +70,9 @@ const DashboardTable= () => {
       key: 'quantity',
       dataIndex: 'quantity',
     },
+   
     {
       title: 'Status',
-      key: 'status',
-      dataIndex: 'status',
-    },
-    {
-      title: 'Action',
       key: 'x',
       render: () => {
         return (

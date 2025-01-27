@@ -58,6 +58,17 @@ const ManagingUserTable = () => {
       dataIndex: 'status',
     },
     {
+      title: 'Status',
+      key: 'status',
+      dataIndex: 'status',
+    },
+    {
+      title: 'Status',
+      key: 'status',
+      dataIndex: 'status',
+    },
+   
+    {
       title: 'Action',
       key: 'x',
       render: () => {
@@ -101,6 +112,7 @@ const ManagingUserTable = () => {
       columns={columns}
     //   dataSource={columns}
       onChange={onChange}
+      scroll={{ x: 'max-content' }}
     />
   );
 }

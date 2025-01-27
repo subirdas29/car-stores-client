@@ -21,21 +21,21 @@ const DashboardLayout = () => {
           }}
         >
           <div
-            style={{
-              backgroundImage: `url('assets/images/banner/car1.jpg')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              minHeight: "100%",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              textAlign: "center",
-              padding: "80px",
-              position: "relative",
-            }}
+           style={{
+            backgroundImage: `url('/assets/images/banner/car1.jpg')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            minHeight: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "white",
+            textAlign: "center",
+            padding: "80px",
+            position: "relative",
+          }}
           >
             {/* Dark Blue Shadow Overlay */}
             <div
@@ -68,15 +68,8 @@ const DashboardLayout = () => {
         </div>
 
       <div style={{height:"100vh"}}>
-      <div className='grid grid-cols-5 my-28 mx-8 md:mx-12 lg:mx-24 gap-5'>
-        <div className='border-1 border-gray-200 shadow-lg rounded-md p-6'>
-            <div>
-            <NavLink to='dashboard'><p>Dashboard</p></NavLink>
-           <NavLink to='account-profile'> <p>My Profile</p></NavLink>
-            <p>My Orders</p>
-            <p>Sign Out</p>
-            </div>
-        </div>
+      <div className='grid grid-cols-1 md:grid-cols-5 my-28 mx-8 md:mx-12 lg:mx-24 gap-y-5 md:gap-5'>
+        <Sidebar/>
        <div className='col-span-4'>
        <Outlet/>
        </div>
