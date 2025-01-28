@@ -2,6 +2,7 @@ import { ContainerOutlined, DesktopOutlined } from "@ant-design/icons";
 import MyProfile from "../pages/Dashboard/user/MyProfile";
 import UserDashboard from "../pages/Dashboard/user/UserDashboard";
 
+
 export const userPaths = [
   {
     name: 'Dashboard',
@@ -14,6 +15,8 @@ export const userPaths = [
     path:'account-profile',
     icon: <ContainerOutlined />,
     element:<MyProfile/>
-  }
+  },
+
+
   
 ];

@@ -1,17 +1,12 @@
+import { TOrderView } from "../../../types/admin.types";
 import { TQueryParam, TResponseRedux } from "../../../types/global";
-import { TOrder } from "../../../types/users.types";
 
 import { baseApi } from "../../api/baseApi";
 
-const userApi = baseApi.injectEndpoints({
+const adminApi = baseApi.injectEndpoints({
     endpoints:(builder) =>({
-        getMe:builder.query({
-            query:()=>({
-                url:'/user/me',
-                method:'Get'
-            })
-        }),
-        getMyOrder: builder.query({
+       
+        viewOrders: builder.query({
             query: (args) => {
               const params = new URLSearchParams();
       
@@ -22,12 +17,12 @@ const userApi = baseApi.injectEndpoints({
               }
       
               return {
-                url: '/user/my-order',
+                url: '/orders',
                 method: 'GET',
                 params: params,
               };
             },
-            transformResponse: (response: TResponseRedux<TOrder[]>) => {
+            transformResponse: (response: TResponseRedux<TOrderView[]>) => {
               return {
                 data: response.data,
                 meta: response.meta,
@@ -36,10 +31,14 @@ const userApi = baseApi.injectEndpoints({
             
           }),
 
-          
-        
-        
+          createCar: builder.mutation({
+            query: (data) => ({
+              url: '/cars',
+              method: 'POST',
+              body: data,
+            }),
+          }),
     })
 })
 
-export const {useGetMeQuery,useGetMyOrderQuery} = userApi;
+export const {useViewOrdersQuery,useCreateCarMutation} = adminApi;

@@ -1,6 +1,12 @@
-import car2 from '../../../public/assets/images/banner/car2.jpg'
+
+import { useCarsQuery } from '../../redux/features/cars/carsApi'
+import Cars from './Cars'
 
 const AllCars = () => {
+
+  const {data:allCars} = useCarsQuery(undefined)
+  console.log(allCars)
+
   return (
     <div>
      <div
@@ -56,70 +62,13 @@ const AllCars = () => {
             </div>
           </div>
         </div>
-      <div className='my-28 mx-12 md:mx-16 lg:mx-24'>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5'>
-        
-      <div className='border-1 border-gray-200 shadow-lg rounded-md'>
-            <img src={car2} className='p-3 rounded-md' alt="" />
-           <div className='px-6 py-4'>
-           <h1 className='font-bold'>VW Polo</h1>
-           <div className='flex'>
-            <p>5</p>
-            <p>2</p>
-            <p>4</p>
-            <p>Hatchback</p>
-           </div>
-           <hr className='my-3 text-gray-300' />
-            <p className='text-sm text-gray-500'>Daily rate from</p>
-            <div className='flex justify-between items-center pb-4'>
-                <p className='text-2xl font-bold'>$147</p>
-                <button className='rounded-md px-4 py-1 text-white bg-[#1890ff] font-bold cursor-pointer'>Order Now</button>
-            </div>
-           </div>
-        </div>
-
-        <div className='border-1 border-gray-200 shadow-lg rounded-md'>
-            <img src={car2} className='p-3 rounded-md' alt="" />
-           <div className='px-6 py-4'>
-           <h1 className='font-bold'>VW Polo</h1>
-           <div className='flex'>
-            <p>5</p>
-            <p>2</p>
-            <p>4</p>
-            <p>Hatchback</p>
-           </div>
-           <hr className='my-3 text-gray-300' />
-            <p className='text-sm text-gray-500'>Daily rate from</p>
-            <div className='flex justify-between items-center pb-4'>
-                <p className='text-2xl font-bold'>$147</p>
-                <button className='rounded-md px-4 py-1 text-white bg-[#1890ff] font-bold cursor-pointer'>Order Now</button>
-            </div>
-           </div>
-        </div>
-        <div className='border-1 border-gray-200 shadow-lg rounded-md'>
-            <img src={car2} className='p-3 rounded-md' alt="" />
-           <div className='px-6 py-4'>
-           <h1 className='font-bold'>VW Polo</h1>
-           <div className='flex'>
-            <p>5</p>
-            <p>2</p>
-            <p>4</p>
-            <p>Hatchback</p>
-           </div>
-           <hr className='my-3 text-gray-300' />
-            <p className='text-sm text-gray-500'>Daily rate from</p>
-            <div className='flex justify-between items-center pb-4'>
-                <p className='text-2xl font-bold'>$147</p>
-                <button className='rounded-md px-4 py-1 text-white bg-[#1890ff] font-bold cursor-pointer'>Order Now</button>
-            </div>
-           </div>
-        </div>
-       
-       
-      </div>
-    
-     
-    </div>
+        <div className='my-28 mx-12 md:mx-16 lg:mx-24'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5'>
+     {
+        allCars?.data?.map((car)=><Cars key={car._id} car={car}></Cars>)
+     }
+     </div>
+     </div>
     </div>
   )
 }

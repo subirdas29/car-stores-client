@@ -22,7 +22,8 @@ const SignUp = () => {
           password:data.password
         }
        
-        await signup(userInfo).unwrap()
+        const res = await signup(userInfo).unwrap()
+        console.log(res)
     
       toast.success("Sign up", {id:toastId,duration:2000})
        navigate(`/login`)
@@ -65,7 +66,7 @@ const SignUp = () => {
           
           <CarForm onSubmit={onSubmit} >
             
-            <CarInput type="text" name="Name" label="Name:" />
+            <CarInput type="text" name="name" label="Name:" />
             <CarInput type="email" name="email" label="Email:" />
            
             <CarInput type="password" name="password" label="Password:" />

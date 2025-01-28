@@ -4,33 +4,47 @@ import CarInput from "../../../components/form/CarInput"
 import { toast } from "sonner"
 import { useNavigate } from "react-router-dom"
 import { FieldValues } from "react-hook-form"
+import { useCreateCarMutation } from "../../../redux/features/admin/adminApi"
+import { TResponse } from "../../../types/global"
+import { carCategoryOptions } from "../../../constants/global"
+import CarSelect from "../../../components/form/CarSelect"
+import TextArea from "antd/es/input/TextArea"
 
 
 const ManageCars = () => {
     // const [signup] = useSignupMutation(undefined)
    
+    const [createCar] = useCreateCarMutation()
 
     const onSubmit = async(data:FieldValues) =>{
         const toastId = toast.loading('Logging in')
-       try{
-        const userInfo ={
-            name:data.name,
-          email: data.email,
-          password:data.password
+      
+        const carInfo ={
+            brand:data.name,
+            model:data.model,
+            category:data.category,
+            image:data.image,
+            price:Number(data.price),
+            description:data.description,
+            quantity:Number(data.quantity)
         }
        
-        console.log(userInfo)
-        // await signup(userInfo).unwrap()
+        console.log(carInfo)
+       
     
-      toast.success("Update profile", {id:toastId,duration:2000})
-      
+        // try {
+        //   const res = (await createCar(carInfo)) as TResponse<any>;
+        //   console.log(res);
+        //   if (res.error) {
+        //     toast.error(res.error.data.message, { id: toastId });
+        //   } else {
+        //     toast.success('Car created', { id: toastId });
+        //   }
+        // } catch (err) {
+        //   toast.error('Something went wrong', { id: toastId });
+        // }
     
       }
-      catch(err){
-        toast.error("Something went wrong",{id:toastId,duration:2000})
-      }
-    
-       }
 
   return (
     
@@ -48,16 +62,29 @@ const ManageCars = () => {
    
 
    <CarInput type="text" name="model" label= "Model:"/>
+   <CarSelect
+            name="category"
+            label="Category"
+            options={carCategoryOptions}
+          />
  
-  
-    <CarInput type="text" name="year" label="Year:" />
-    <CarInput type="number" name="price" label="Price:" />
-    <CarInput type="textarea" name="Description" label="Description:" />
+  <CarInput type="file" name="image" label = "Picture"/>
+
     <CarInput type="text" name="price" label="Price:" />
+    <CarInput type="text" name="quantity" label="Quantity:" />
+
+
+    <CarInput
+  type="textarea"
+  name="description"
+  label="Description:"
+  placeholder="Write car details..."
+  rows={4}
+  maxLength={500}
+/>
+   
      </div>
      
-      
-      
       <Button htmlType="submit">Add</Button>
     </CarForm>
    </div>

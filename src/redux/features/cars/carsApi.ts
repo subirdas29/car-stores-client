@@ -1,17 +1,11 @@
 import { TQueryParam, TResponseRedux } from "../../../types/global";
-import { TOrder } from "../../../types/users.types";
-
+import { TCar } from "../../../types/users.types";
 import { baseApi } from "../../api/baseApi";
 
-const userApi = baseApi.injectEndpoints({
+const carsApi = baseApi.injectEndpoints({
     endpoints:(builder) =>({
-        getMe:builder.query({
-            query:()=>({
-                url:'/user/me',
-                method:'Get'
-            })
-        }),
-        getMyOrder: builder.query({
+       
+        cars: builder.query({
             query: (args) => {
               const params = new URLSearchParams();
       
@@ -22,12 +16,12 @@ const userApi = baseApi.injectEndpoints({
               }
       
               return {
-                url: '/user/my-order',
+                url: '/cars',
                 method: 'GET',
                 params: params,
               };
             },
-            transformResponse: (response: TResponseRedux<TOrder[]>) => {
+            transformResponse: (response: TResponseRedux<TCar[]>) => {
               return {
                 data: response.data,
                 meta: response.meta,
@@ -35,11 +29,22 @@ const userApi = baseApi.injectEndpoints({
             },
             
           }),
-
-          
-        
+          getACar: builder.query({
+            query: (_id) => {
+              return {
+                url: `/cars/${_id}`,
+                method: 'GET',
+              };
+            },
+            transformResponse: (response: TResponseRedux<TCar>) => {
+              return {
+                data: response.data,
+                meta: response.meta,
+              };
+            },
+          }),
         
     })
 })
 
-export const {useGetMeQuery,useGetMyOrderQuery} = userApi;
+export const {useCarsQuery,useGetACarQuery} = carsApi;

@@ -4,8 +4,22 @@ import car1 from '../../../public/assets/images/banner/car1.jpg'
 import car2 from '../../../public/assets/images/banner/car2.jpg'
 import car3 from '../../../public/assets/images/banner/car3.jpg'
 import car4 from '../../../public/assets/images/banner/car4.jpg'
+import { useParams } from 'react-router-dom'
+import { useGetACarQuery } from '../../redux/features/cars/carsApi'
+import { Toaster } from 'sonner'
 const CarDetails = () => {
   const [selectedImage, setSelectedImage] = useState(car1); // Initial big image
+  const { carId } = useParams();
+  const { data, isLoading, isError } = useGetACarQuery(carId);
+
+
+  if (isLoading) return <Toaster/>
+  if (isError) return <div>Error fetching data</div>;
+
+  
+
+  const {brand,category,model,year,price,quantity,description} = data.data
+
 
   const images = [car1, car2, car3, car4];
   return (
@@ -72,7 +86,7 @@ const CarDetails = () => {
       <img src={selectedImage} className="rounded-3xl w-full mb-6 lg:mb-8" alt="Selected" />
 
       {/* Thumbnails */}
-      <div className="grid grid-cols-3 md:grid-cols-4 gap-6 ">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 ">
         {images.map((image, index) => (
           <img
             key={index}
@@ -81,7 +95,7 @@ const CarDetails = () => {
               selectedImage === image ? "ring-3 ring-[#1890ff]" : ""
             }`}
             alt={`Thumbnail ${index + 1}`}
-            onClick={() => setSelectedImage(image)} // Update the big image on click
+            onClick={() => setSelectedImage(image)} 
           />
         ))}
       </div>
@@ -91,9 +105,8 @@ const CarDetails = () => {
 
 
               <div className='mt-12'>
-                <h1 className='text-3xl font-semibold mb-4'>Car descriptions</h1>
-                <p>How the adventure ended will be seen anon. Aouda was anxious, though she said nothing. As for Passepartout, he thought Mr. Fogg’s manoeuvre simply glorious. The captain had said “between eleven and twelve knots,” and the Henrietta confirmed his prediction.
-How the adventure ended will be seen anon. Aouda was anxious, though she said nothing. As for Passepartout, he thought Mr. Fogg’s manoeuvre simply glorious.</p>
+                <h1 className='text-3xl font-semibold mb-4'>{brand} {model} Descriptions</h1>
+                <p>{description}</p>
               </div>
               <div className='mt-10'>
                 <h1 className='text-2xl font-semibold mb-4'>Features</h1>
@@ -123,14 +136,23 @@ How the adventure ended will be seen anon. Aouda was anxious, though she said no
             </div>
            <div className='my-12 md:my-0'>
            <div>
-              <p>Chevrolet nexa bkuysn camaro 2-door convertible dark metblack</p>
-              <div className='flex'>
-                <p>2022</p>
-                <p>Convertible</p>
-                <p>Diesel</p>
+              <p className='text-xl'>Chevrolet nexa bkuysn camaro 2-door convertible dark metblack</p>
+              <div className='flex justify-between my-2'>
+              <div className='flex items-center '>
+               <span className='mr-1 lg:mr-2 w-2 h-2 bg-black rounded-full'></span> <p>22</p>
+               </div>
+
+               <div className='flex items-center '>
+               <span className='mr-1 lg:mr-2 w-2 h-2 bg-black rounded-full'></span> <p>Convertible</p>
+               </div>
+               <div className='flex items-center '>
+               <span className='mr-1 lg:mr-2 w-2 h-2 bg-black rounded-full'></span>  <p>Diesel</p>
+               </div>
+               
+               
               </div>
               <hr className='my-4' />
-              <p className='text-2xl font-bold'>$85,000</p>
+              <p className='text-2xl font-bold'>price: {price}</p>
               <p>Add to favorites</p>
             </div>
             <div className='my-8 rounded-4xl p-11 md:p-4 lg:p-11 bg-[#EDF1F4]'>
@@ -144,8 +166,8 @@ How the adventure ended will be seen anon. Aouda was anxious, though she said no
                 
               </div>
               <div>
-                <p>Chevrolet</p>
-                <p>Camaro</p>
+                <p>{brand}</p>
+                <p>{model}</p>
                 <p>Front wheel drive</p>
               </div>
               </div>

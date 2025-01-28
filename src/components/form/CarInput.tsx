@@ -1,29 +1,48 @@
-import { Form, Input } from "antd"
-import { Controller } from "react-hook-form"
+import { Form, Input } from "antd";
+import { Controller } from "react-hook-form";
+
+const { TextArea } = Input;
 
 type TInputProps = {
-    type:string,
-    name:string,
-    label?:string,
-   
+  type: string;
+  name: string;
+  label?: string;
+  placeholder?: string;
+  rows?: number; // For TextArea
+  maxLength?: number; // For TextArea
+};
 
-}
-
-const CarInput = ({type,name,label}:TInputProps) => {
-   
+const CarInput = ({ type, name, label, placeholder, rows, maxLength }: TInputProps) => {
   return (
-    <div >
-        
-     <Controller
-      name={name}
-      render = {({field})=>(
-       <Form.Item label={label}>
-         <Input {...field}  size="large" type={type} id={name} />
-       </Form.Item>
-      )}
-     />
+    <div>
+      <Controller
+        name={name}
+        render={({ field }) => (
+          <Form.Item label={label}>
+            {type === "textarea" ? (
+              <TextArea
+                {...field}
+                style={{ fontSize: "16px", fontWeight: "normal" }}
+                size="large"
+                placeholder={placeholder}
+                rows={rows}
+                maxLength={maxLength}
+              />
+            ) : (
+              <Input
+                {...field}
+                style={{ fontSize: "16px", fontWeight: "normal" }}
+                size="large"
+                type={type}
+                id={name}
+                placeholder={placeholder}
+              />
+            )}
+          </Form.Item>
+        )}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default CarInput
+export default CarInput;

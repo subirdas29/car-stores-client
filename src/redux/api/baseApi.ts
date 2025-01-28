@@ -19,7 +19,7 @@ import { RootState } from '../store';
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => { 
       const token = (getState() as RootState).auth.token;
-      console.log(token)
+   
   
       if (token) {
         headers.set('authorization', `${token}`);
