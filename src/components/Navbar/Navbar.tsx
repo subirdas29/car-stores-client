@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { logOut, useCurrentToken } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
+import { FiShoppingCart, FiHeart } from "react-icons/fi"; // Import icons
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,13 +14,15 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // Verify user token to extract role
+  // Simulating cart and wishlist quantities
+  const cartQuantity = 3; // Example: This should come from Redux store or API
+  const wishlistQuantity = 2; // Example: This should come from Redux store or API
+
   let user: { email: string; role: string } | null = null;
   if (token) {
-    user = verifyToken(token); // Example: { email: 'user@example.com', role: 'admin' }
+    user = verifyToken(token);
   }
 
-  // Dynamic Dashboard Path
   const dashboardPath = user ? `/${user.role}/dashboard` : "/login";
 
   const menuData = [
@@ -31,11 +34,10 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logOut());
-    setMenuOpen(false); // Close the menu
-    navigate("/"); // Redirect to the home page
+    setMenuOpen(false);
+    navigate("/");
   };
 
-  // Close the menu when clicking outside or on the cross icon
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -44,31 +46,89 @@ const Navbar = () => {
         closeIconRef.current &&
         event.target !== closeIconRef.current
       ) {
-        setMenuOpen(false); // Close the menu if clicked outside
+        setMenuOpen(false);
       }
     };
 
-    // Listen for clicks outside of the menu or cross icon to close it
     document.addEventListener("mousedown", handleClickOutside);
-
-    // Cleanup event listeners
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  // Handle click on the cross button to close the menu
-  const handleMenuToggle = () => {
-    setMenuOpen(false); // Close the menu
-  };
 
   return (
     <header className="relative">
       <div className="bg-white w-full z-50 shadow-lg">
         <div className="flex justify-between items-center py-3 mx-4 md:mx-12 lg:mx-16">
           {/* Logo */}
-          <div className="flex items-center">
-            <h1 className="text-2xl font-bold">CarHunt</h1>
+          <h1 className="text-2xl font-bold">CarHunt</h1>
+
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex space-x-8">
+            {menuData.map((item, index) => (
+              <NavLink
+                key={index}
+                to={item.path}
+                className={({ isActive }) =>
+                  `font-medium ${
+                    isActive ? "text-[#1890ff]" : "hover:text-[#1890ff]"
+                  }`
+                }
+                onClick={() => {
+                  if (item.title === "Dashboard" && !user) {
+                    navigate("/login");
+                  }
+                }}
+              >
+                {item.title}
+              </NavLink>
+            ))}
+          </div>
+
+          {/* Icons and Buttons */}
+          <div className="hidden lg:flex items-center space-x-6">
+            {/* Wishlist Icon */}
+            <NavLink to="/wishlist" className="relative">
+              <FiHeart className="text-2xl text-gray-600 hover:text-[#1890ff]" />
+              {wishlistQuantity > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {wishlistQuantity}
+                </span>
+              )}
+            </NavLink>
+
+            {/* Cart Icon */}
+            <NavLink to="/cart" className="relative">
+              <FiShoppingCart className="text-2xl text-gray-600 hover:text-[#1890ff]" />
+              {cartQuantity > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartQuantity}
+                </span>
+              )}
+            </NavLink>
+
+            {/* Authentication Buttons */}
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="rounded-md py-2 px-5 border hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer"
+              >
+                LogOut
+              </button>
+            ) : (
+              <>
+                <NavLink to="/login">
+                  <button className="rounded-md py-2 px-5 border bg-transparent hover:text-white text-[#1890ff] hover:bg-[#1890ff] font-bold cursor-pointer">
+                    LogIn
+                  </button>
+                </NavLink>
+                <NavLink to="/signup">
+                  <button className="rounded-md py-2 px-5 border hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer">
+                    SignUp
+                  </button>
+                </NavLink>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -76,7 +136,7 @@ const Navbar = () => {
             <button
               ref={closeIconRef}
               className="text-gray-700 focus:outline-none"
-              onClick={() => setMenuOpen((prev) => !prev)} // Toggle menu
+              onClick={() => setMenuOpen((prev) => !prev)}
             >
               {menuOpen ? (
                 <svg
@@ -111,119 +171,96 @@ const Navbar = () => {
               )}
             </button>
           </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex space-x-8">
-            {menuData.map((item, index) => (
-              <NavLink
-                key={index}
-                to={item.path}
-                className={({ isActive }) =>
-                  `font-medium ${
-                    isActive ? "text-[#1890ff]" : "hover:text-[#1890ff]"
-                  }`
-                }
-                onClick={() => {
-                  if (item.title === "Dashboard" && !user) {
-                    navigate("/login"); // Redirect to login if not logged in
-                  }
-                }}
-              >
-                {item.title}
-              </NavLink>
-            ))}
-          </div>
-
-          {/* Buttons */}
-          <div className="hidden lg:flex space-x-4">
-            {user ? (
-              <button
-                onClick={handleLogout}
-                className="rounded-md py-2 px-5 border-1 hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer"
-              >
-                LogOut
-              </button>
-            ) : (
-              <>
-                <NavLink
-                  to="/login"
-                  onClick={() => setMenuOpen(false)} // Close menu on click
-                >
-                  <button className="rounded-md py-2 px-5 border-1 bg-transparent hover:text-white text-[#1890ff] hover:bg-[#1890ff] font-bold cursor-pointer">
-                    LogIn
-                  </button>
-                </NavLink>
-                <NavLink
-                  to="/signup"
-                  onClick={() => setMenuOpen(false)} // Close menu on click
-                >
-                  <button className="rounded-md py-2 px-5 border-1 hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer">
-                    SignUp
-                  </button>
-                </NavLink>
-              </>
-            )}
-          </div>
         </div>
 
         {/* Mobile Menu */}
-        {menuOpen && (
-          <div
-            ref={menuRef}
-            className="lg:hidden bg-white shadow-md absolute top-full left-0 w-full z-50"
+     {/* Mobile Menu */}
+{menuOpen && (
+  <div
+    ref={menuRef}
+    className="lg:hidden bg-white shadow-md absolute top-full left-0 w-full z-50"
+  >
+    <div className="space-y-4 py-4 px-6">
+      {menuData.map((item, index) => (
+        <NavLink
+          key={index}
+          to={item.path}
+          className={({ isActive }) =>
+            `block font-medium ${
+              isActive ? "text-[#1890ff]" : "hover:text-[#1890ff]"
+            }`
+          }
+          onClick={() => {
+            if (item.title === "Dashboard" && !user) {
+              navigate("/login");
+            }
+            setMenuOpen(false);
+          }}
+        >
+          {item.title}
+        </NavLink>
+      ))}
+
+      {/* Icons */}
+      <div className="flex items-center space-x-6">
+        {/* Wishlist Icon */}
+        <NavLink to="/wishlist" className="relative">
+          <FiHeart className="text-2xl text-gray-600 hover:text-[#1890ff]" />
+          {wishlistQuantity > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {wishlistQuantity}
+            </span>
+          )}
+        </NavLink>
+
+        {/* Cart Icon */}
+        <NavLink to="/cart" className="relative">
+          <FiShoppingCart className="text-2xl text-gray-600 hover:text-[#1890ff]" />
+          {cartQuantity > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {cartQuantity}
+            </span>
+          )}
+        </NavLink>
+      </div>
+
+      {/* Auth Buttons (Login, Signup, Logout) */}
+      <div className="flex flex-col space-y-4">
+        {user ? (
+          <button
+            onClick={() => {
+              handleLogout();
+              setMenuOpen(false);
+            }}
+            className="w-full rounded-md py-2 px-5 border hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer"
           >
-            <div className="space-y-4 py-4 px-6">
-              {menuData.map((item, index) => (
-                <NavLink
-                  key={index}
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `block font-medium ${
-                      isActive ? "text-[#1890ff]" : "hover:text-[#1890ff]"
-                    }`
-                  }
-                  onClick={() => {
-                    if (item.title === "Dashboard" && !user) {
-                      navigate("/login"); // Redirect to login if not logged in
-                    }
-                    setMenuOpen(false); // Close menu on click
-                  }}
-                >
-                  {item.title}
-                </NavLink>
-              ))}
-              <div className="flex flex-col space-y-4">
-                {user ? (
-                  <button
-                    onClick={handleLogout}
-                    className="rounded-md py-2 px-5 border-1 hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer"
-                  >
-                    LogOut
-                  </button>
-                ) : (
-                  <>
-                    <NavLink
-                      to="/login"
-                      onClick={() => setMenuOpen(false)} // Close menu on click
-                    >
-                      <button className="rounded-md py-2 px-5 border-1 bg-transparent hover:text-white text-[#1890ff] hover:bg-[#1890ff] font-bold cursor-pointer">
-                        LogIn
-                      </button>
-                    </NavLink>
-                    <NavLink
-                      to="/signup"
-                      onClick={() => setMenuOpen(false)} // Close menu on click
-                    >
-                      <button className="rounded-md py-2 px-5 border-1 hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer">
-                        SignUp
-                      </button>
-                    </NavLink>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
+            LogOut
+          </button>
+        ) : (
+          <>
+            <NavLink to="/login">
+              <button
+                onClick={() => setMenuOpen(false)}
+                className="w-full rounded-md py-2 px-5 border bg-transparent hover:text-white text-[#1890ff] hover:bg-[#1890ff] font-bold cursor-pointer"
+              >
+                LogIn
+              </button>
+            </NavLink>
+            <NavLink to="/signup">
+              <button
+                onClick={() => setMenuOpen(false)}
+                className="w-full rounded-md py-2 px-5 border hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer"
+              >
+                SignUp
+              </button>
+            </NavLink>
+          </>
         )}
+      </div>
+    </div>
+  </div>
+)}
+
       </div>
     </header>
   );

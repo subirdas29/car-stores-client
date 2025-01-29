@@ -1,16 +1,18 @@
 import { NavLink } from "react-router-dom"
 import { useCarsQuery } from "../../redux/features/cars/carsApi"
 import FeaturedCars from "./FeaturedCars"
+import { Skeleton } from "antd"
 
 
 const AllFeaturedCars = () => {
 
-      const {data:allCars} = useCarsQuery(undefined)
+      const {data:allCars,isLoading} = useCarsQuery(undefined)
         console.log(allCars)
       
 
-  return (
-<div>
+  return isLoading ? (
+    <Skeleton active/>):
+(<div>
         <div  className='my-28 mx-12 md:mx-16 lg:mx-24'>
           <h1 className='text-4xl font-bold mb-4 text-center'>Featured Cars</h1>
           <p className='text-center mb-8'>Driving your dreams to reality with an exquisite fleet of versatile vehicles for unforgettable journeys.</p>

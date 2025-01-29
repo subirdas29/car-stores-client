@@ -16,7 +16,4 @@ export const userPaths = [
     icon: <ContainerOutlined />,
     element:<MyProfile/>
   },
-
-
-  
 ];

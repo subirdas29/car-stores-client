@@ -6,19 +6,31 @@ import car3 from '../../../public/assets/images/banner/car3.jpg'
 import car4 from '../../../public/assets/images/banner/car4.jpg'
 import { useParams } from 'react-router-dom'
 import { useGetACarQuery } from '../../redux/features/cars/carsApi'
-import { Toaster } from 'sonner'
+import { toast, Toaster } from 'sonner'
+import { useAppDispatch } from '../../redux/hook'
+import { addToCart } from '../../redux/features/cart/cartSlice'
 const CarDetails = () => {
   const [selectedImage, setSelectedImage] = useState(car1); // Initial big image
   const { carId } = useParams();
   const { data, isLoading, isError } = useGetACarQuery(carId);
 
+  const dispatch = useAppDispatch()
 
   if (isLoading) return <Toaster/>
   if (isError) return <div>Error fetching data</div>;
 
   
 
-  const {brand,category,model,year,price,quantity,description} = data.data
+  const {
+    _id,
+    brand,
+    // category,
+    model,
+    // year,
+    price,
+    quantity,
+    description,
+  } = data?.data ?? {};
 
 
   const images = [car1, car2, car3, car4];
@@ -101,10 +113,7 @@ const CarDetails = () => {
       </div>
     </div>
 
-
-
-
-              <div className='mt-12'>
+            <div className='mt-12'>
                 <h1 className='text-3xl font-semibold mb-4'>{brand} {model} Descriptions</h1>
                 <p>{description}</p>
               </div>
@@ -174,7 +183,14 @@ const CarDetails = () => {
             </div>
             <div>
            
-                <button className='rounded-md py-2 px-5 border-1 w-full bg-transparent  hover:text-white  text-[#1890ff]   hover:bg-[#1890ff] font-bold cursor-pointer mb-4'>Add To Cart</button>
+                <button onClick={()=>dispatch(addToCart({
+        car: _id!,
+        name: brand!,
+        price: price!,
+        quantity: quantity!,
+        stock: 5,
+        imageUrl: 'k',
+      })) } className='rounded-md py-2 px-5 border-1 w-full bg-transparent  hover:text-white  text-[#1890ff]   hover:bg-[#1890ff] font-bold cursor-pointer mb-4'>Add To Cart</button>
             
             <button className='rounded-md py-2 px-5 border-1 hover:text-[#1890ff]  w-full hover:bg-transparent  text-white  bg-[#1890ff] font-bold cursor-pointer '>Order Now</button>
             

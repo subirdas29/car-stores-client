@@ -43,7 +43,6 @@ const ManageCars = () => {
         // } catch (err) {
         //   toast.error('Something went wrong', { id: toastId });
         // }
-    
       }
 
   return (

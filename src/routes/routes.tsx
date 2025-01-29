@@ -13,6 +13,8 @@ import { adminPaths } from "./admin.routes";
 import { userPaths } from "./user.routes";
 import CarDetails from "../pages/CarDetails/CarDetails";
 import CarData from "../pages/CarDetails/CarData";
+import AddCart from "../pages/AddCart/AddCart";
+import VerifyOrder from "../pages/VerifyOrder/VerifyOrder";
 
 
  const router = createBrowserRouter([
@@ -32,6 +34,14 @@ import CarData from "../pages/CarDetails/CarData";
             {
                 path:'car-details/:carId',
                 element:<CarDetails/>
+            },
+            {
+                path:'/cart',
+                element:<AddCart/>
+            },
+            {
+                path:'orders/verify',
+                element:<VerifyOrder/>
             },
           
             {
