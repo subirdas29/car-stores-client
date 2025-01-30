@@ -19,6 +19,7 @@ const carsApi = baseApi.injectEndpoints({
                 url: '/cars',
                 method: 'GET',
                 params: params,
+                
               };
             },
             transformResponse: (response: TResponseRedux<TCar[]>) => {

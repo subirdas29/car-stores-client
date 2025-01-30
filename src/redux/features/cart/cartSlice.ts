@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Key } from "react";
 
 export type TCartItem = {
+  _id: Key | null | undefined;
   car: string; // Product ID
   name: string;
   price: number;
   quantity: number;
   stock: number;
   imageUrl: string; // Optional: for displaying in the UI
-}
+};
 
 interface CartState {
   items: TCartItem[];
@@ -26,7 +28,6 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action: PayloadAction<TCartItem>) {
-      console.log({ state: state.items });
       const existingItem = state.items.find(
         (item) => item.car === action.payload.car
       );
@@ -65,10 +66,16 @@ const cartSlice = createSlice({
       state.totalQuantity = 0;
       state.totalPrice = 0;
     },
+    resetCartOnLogout(state) {
+      // Explicitly clear cart when user logs out
+      state.items = [];
+      state.totalQuantity = 0;
+      state.totalPrice = 0;
+    },
   },
 });
 
-export const { addToCart, removeFromCart, updateQuantity, clearCart } =
+export const { addToCart, removeFromCart, updateQuantity, clearCart, resetCartOnLogout } =
   cartSlice.actions;
 
 export default cartSlice.reducer;

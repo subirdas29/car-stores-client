@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { logOut, useCurrentToken } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { FiShoppingCart, FiHeart } from "react-icons/fi"; // Import icons
+import { clearCart } from "../../redux/features/cart/cartSlice";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,8 +15,11 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const cartData = useAppSelector((state)=>state.cart)
+  const cartLength = cartData.items.length
+
   // Simulating cart and wishlist quantities
-  const cartQuantity = 3; // Example: This should come from Redux store or API
+  const cartQuantity = cartLength; // Example: This should come from Redux store or API
   const wishlistQuantity = 2; // Example: This should come from Redux store or API
 
   let user: { email: string; role: string } | null = null;
@@ -33,10 +37,13 @@ const Navbar = () => {
   ];
 
   const handleLogout = () => {
+    dispatch(clearCart())
     dispatch(logOut());
     setMenuOpen(false);
     navigate("/");
   };
+
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

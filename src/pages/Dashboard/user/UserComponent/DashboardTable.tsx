@@ -1,39 +1,47 @@
 import { Button, Table, TableColumnsType, TableProps } from 'antd';
 import { TQueryParam } from '../../../../types/global';
 import { useGetMyOrderQuery } from '../../../../redux/features/user/userApi';
-import { TOrder, TOrderData, TTableData } from '../../../../types/users.types';
-import { useState } from 'react';
+import { TCar, TOrder, TOrderCar, TOrderData, TTableData } from '../../../../types/users.types';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 
 
-export type TTableData = Pick<
-  TOrder,
-  'email' | 'car' | 'quantity' | 'totalPrice'
->;
+export type TTableData = {
+  key: string;
+  email: string;
+  brand: string;
+  model: string;
+  quantity: number;
+  price: number;
+  orderDate: string;
+};
+
 
 
 
 const DashboardTable= () => {
   // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
-  const { data: myOrderData, isFetching } = useGetMyOrderQuery(undefined);
+  const { data: myOrderData, refetch,isFetching } = useGetMyOrderQuery(undefined);
 
+useEffect(() => {
+  refetch();
+}, [refetch]);
 
-  console.log(myOrderData)
+ console.log(myOrderData)
 
- // Ensure `myOrderData?.data` has the correct type
- const tableData = myOrderData?.data?.map(
-  ({ _id,email,car,quantity,totalPrice,createdAt }) => ({
-    key: _id,
-    email,
-    brand: `${car.brand} `,
-    model: `${car.model} `,
-    category: `${car.category} `,
-    quantity,
-    price: totalPrice,
-    orderDate: moment(new Date(createdAt)).format('MMMM'),
-    
-  })
-);
+  const tableData: TTableData[] | undefined = myOrderData?.data?.flatMap((order) =>
+    order.cars.map(({ _id, car, quantity,status }) => ({
+      key: _id,
+      email: order.email, // Make sure order has email
+      brand: car?.brand || "N/A", // Prevent errors if car is undefined
+      model: car?.model || "N/A",
+      quantity,
+      status,
+      price: car?.price ? car.price * quantity : 0,
+      orderDate: moment(new Date(order.createdAt)).format('MMMM'),
+    }))
+  );
+  
 
 
   
@@ -77,11 +85,11 @@ const DashboardTable= () => {
        
       // ],
     },
-    {
-      title: 'Category',
-      key: 'category',
-      dataIndex: 'category',
-    },
+    // {
+    //   title: 'Category',
+    //   key: 'category',
+    //   dataIndex: 'category',
+    // },
     {
       title: 'Quantity',
       key: 'quantity',
@@ -104,9 +112,10 @@ const DashboardTable= () => {
       title: 'Status',
       key: 'x',
       render: () => {
+        console.log()
         return (
           <div>
-            <Button>Update</Button>
+            <Button>{}</Button>
           </div>
         );
       },

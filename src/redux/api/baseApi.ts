@@ -72,5 +72,6 @@ import { RootState } from '../store';
   export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQueryWithRefreshToken,
+    tagTypes:['my-order'],
     endpoints: () => ({}),
   });

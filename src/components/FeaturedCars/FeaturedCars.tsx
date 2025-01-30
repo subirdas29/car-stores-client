@@ -5,7 +5,10 @@ import car1 from '../../../public/assets/images/banner/car1.jpg'
 const FeaturedCars = ({car}) => {
  
 
-  const {_id ,brand,model,year,price,category,description,quantity,isStock} = car
+  
+
+  const {_id ,brand,model,
+    imageUrl,price,category,description,quantity,isStock} = car
   console.log(_id)
 
  
@@ -14,7 +17,7 @@ const FeaturedCars = ({car}) => {
     <div>
         
         <div className='border-1 border-gray-200 shadow-lg rounded-md'>
-            <img src={car1} className='p-3 rounded-md' alt="" />
+            <img src={imageUrl} className='p-3 rounded-md' alt="" />
            <div className='py-2 px-3 lg:px-6 lg:py-4'>
            <h1 className='font-bold'>{brand} {model}</h1>
            <div className='flex'>

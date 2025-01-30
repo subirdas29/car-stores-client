@@ -4,9 +4,9 @@ import car1 from '../../../public/assets/images/banner/car1.jpg'
 import car2 from '../../../public/assets/images/banner/car2.jpg'
 import car3 from '../../../public/assets/images/banner/car3.jpg'
 import car4 from '../../../public/assets/images/banner/car4.jpg'
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { useGetACarQuery } from '../../redux/features/cars/carsApi'
-import { toast, Toaster } from 'sonner'
+import {  toast, Toaster } from 'sonner'
 import { useAppDispatch } from '../../redux/hook'
 import { addToCart } from '../../redux/features/cart/cartSlice'
 const CarDetails = () => {
@@ -28,10 +28,40 @@ const CarDetails = () => {
     model,
     // year,
     price,
-    quantity,
+    stock,
     description,
+    imageUrl
   } = data?.data ?? {};
 
+
+  const handleAddToCart = () => {
+    dispatch(addToCart({
+      car: _id,
+      name: brand!,
+      price: price!,
+      quantity: 1,
+      stock: stock!,
+      imageUrl:imageUrl!,
+    }));
+
+    // Show toast notification
+    toast.success(`${brand} added to cart!`);
+  };
+
+  const handleBuyNow = () => {
+    dispatch(addToCart({
+      car: _id,
+      name: brand!,
+      price: price!,
+      quantity: 1,
+      stock: stock!,
+      imageUrl: imageUrl!,
+      
+    }));
+
+    // Show toast notification
+    toast.success(`${brand} Add to Cart and CheckOut Now!`);
+  };
 
   const images = [car1, car2, car3, car4];
   return (
@@ -183,16 +213,13 @@ const CarDetails = () => {
             </div>
             <div>
            
-                <button onClick={()=>dispatch(addToCart({
-        car: _id!,
-        name: brand!,
-        price: price!,
-        quantity: quantity!,
-        stock: 5,
-        imageUrl: 'k',
-      })) } className='rounded-md py-2 px-5 border-1 w-full bg-transparent  hover:text-white  text-[#1890ff]   hover:bg-[#1890ff] font-bold cursor-pointer mb-4'>Add To Cart</button>
+                <button onClick={handleAddToCart} className='rounded-md py-2 px-5 border-1 w-full bg-transparent  hover:text-white  text-[#1890ff]   hover:bg-[#1890ff] font-bold cursor-pointer mb-4'>
+        <Toaster/>
+        Add To Cart</button>
             
-            <button className='rounded-md py-2 px-5 border-1 hover:text-[#1890ff]  w-full hover:bg-transparent  text-white  bg-[#1890ff] font-bold cursor-pointer '>Order Now</button>
+           <NavLink to='/cart'>
+           <button onClick={handleBuyNow }  className='rounded-md py-2 px-5 border-1 hover:text-[#1890ff]  w-full hover:bg-transparent  text-white  bg-[#1890ff] font-bold cursor-pointer '>Buy Now</button>
+           </NavLink>
             
             </div>
            </div>

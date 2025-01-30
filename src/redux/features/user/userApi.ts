@@ -12,29 +12,28 @@ const userApi = baseApi.injectEndpoints({
             })
         }),
         getMyOrder: builder.query({
-            query: (args) => {
-              const params = new URLSearchParams();
-      
-              if (args) {
-                args.forEach((item: TQueryParam) => {
-                  params.append(item.name, item.value as string);
-                });
-              }
-      
-              return {
-                url: '/user/my-order',
-                method: 'GET',
-                params: params,
-              };
-            },
-            transformResponse: (response: TResponseRedux<TOrder[]>) => {
-              return {
-                data: response.data,
-                meta: response.meta,
-              };
-            },
-            
-          }),
+          query: (args) => {
+            const params = new URLSearchParams();
+        
+            if (args) {
+              args.forEach((item: TQueryParam) => {
+                params.append(item.name, item.value as string);
+              });
+            }
+        
+            return {
+              url: "/user/my-order",
+              method: "GET",
+              params: params,
+            };
+          },
+          providesTags: ["my-order"],
+          transformResponse: (response: TResponseRedux<TOrder[]>) => {
+            console.log("Transformed Response:", JSON.stringify(response, null, 2)); // Debug transformed response
+            return response; // No need to alter, just return as-is
+          },
+        }),
+        
 
           
         
