@@ -17,7 +17,7 @@ const CarInput = ({ type, name, label, placeholder, rows, maxLength }: TInputPro
     <div>
       <Controller
         name={name}
-        render={({ field }) => (
+        render={({ field, fieldState:{error}}) => (
           <Form.Item label={label}>
             {type === "textarea" ? (
               <TextArea
@@ -38,6 +38,7 @@ const CarInput = ({ type, name, label, placeholder, rows, maxLength }: TInputPro
                 placeholder={placeholder}
               />
             )}
+            {error && <small style={{color:'red'}}>{error.message}</small>}
           </Form.Item>
         )}
       />

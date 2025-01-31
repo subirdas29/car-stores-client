@@ -1,6 +1,7 @@
-import { ContainerOutlined, DesktopOutlined } from "@ant-design/icons";
+import { ContainerOutlined, DesktopOutlined, PieChartOutlined } from "@ant-design/icons";
 import MyProfile from "../pages/Dashboard/user/MyProfile";
 import UserDashboard from "../pages/Dashboard/user/UserDashboard";
+import ChangePassword from "../pages/Dashboard/changePassword/ChangePassword";
 
 
 export const userPaths = [
@@ -16,4 +17,10 @@ export const userPaths = [
     icon: <ContainerOutlined />,
     element:<MyProfile/>
   },
+  {
+    name:'Change Password',
+    path:'change-password',
+    icon:<PieChartOutlined/>,
+    element:<ChangePassword/>
+}
 ];

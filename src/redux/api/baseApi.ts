@@ -23,6 +23,7 @@ import { RootState } from '../store';
   
       if (token) {
         headers.set('authorization', `${token}`);
+        console.log(token)
       }
       return headers;
     },
@@ -59,6 +60,7 @@ import { RootState } from '../store';
             token: data.data.accessToken,
           })
         );
+
   
         result = await baseQuery(args, api, extraOptions);
       } else {

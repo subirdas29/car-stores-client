@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Row } from "antd";
 import { FieldValues } from "react-hook-form";
@@ -9,6 +10,7 @@ import { verifyToken } from "../../utils/verifyToken";
 import { setUser, TUser } from "../../redux/features/auth/authSlice";
 import CarForm from "../../components/form/CarForm";
 import CarInput from "../../components/form/CarInput";
+import { AlertTriangle } from "lucide-react";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -17,8 +19,10 @@ const Login = () => {
 
   const defaultValues = {
     email: "subir@gmail.com",
-    password: "123456789",
+    password: "987654321",
   };
+
+  const redWarningIcon = <AlertTriangle size={20} className="text-red-500" />;
 
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Logging in");
@@ -30,13 +34,16 @@ const Login = () => {
 
       const res = await login(userInfo).unwrap();
       const user = verifyToken(res.data.accessToken) as TUser;
+      console.log(res)
+      console.log(user)
 
       dispatch(setUser({ user: user, token: res.data.accessToken }));
 
       toast.success("Login successful", { id: toastId, duration: 2000 });
       navigate(`/`);
-    } catch (err) {
-      toast.error("Something went wrong", { id: toastId, duration: 2000 });
+    } catch (err:any) {
+      
+      toast.error(err.data.message, { id: toastId, duration: 2000,icon:redWarningIcon });
     }
   };
 

@@ -28,7 +28,7 @@ const MyProfile = () => {
         console.log(userInfo)
         // await signup(userInfo).unwrap()
     
-      toast.success("Update profile", {id:toastId,duration:2000})
+      toast.success("Updated profile", {id:toastId,duration:2000})
       
     
       }
