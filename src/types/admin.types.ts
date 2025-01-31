@@ -1,12 +1,11 @@
-import { TCar } from "./users.types";
-
-  
-  export type TOrderView = {
-    _id: string;
+export type TUser ={
+    _id: string;        
+    name: string;
     email: string;
-    quantity: number;
-    totalPrice: number;
-    createdAt: string; // ISO date string
-    updatedAt: string; // ISO date string
-    car: TCar;
-  };
+    phone: string;
+    address: string;
+    city: string;
+    status: string;    
+    createdAt: string; 
+    updatedAt:string;
+}

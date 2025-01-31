@@ -20,11 +20,13 @@ const orderApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+   
+    
   }),
 });
 
 export const {
   useCreateOrderMutation,
   useGetOrdersQuery,
-  useVerifyOrderQuery,
+  useVerifyOrderQuery
 } = orderApi;

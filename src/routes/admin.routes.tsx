@@ -1,8 +1,9 @@
-import { DashOutlined, PieChartOutlined } from "@ant-design/icons";
+import { PieChartOutlined } from "@ant-design/icons";
 import AdminDashboard from "../pages/Dashboard/admin/AdminDashboard";
 import ManageCars from "../pages/Dashboard/admin/ManageCars";
 import ViewOrders from "../pages/Dashboard/admin/ViewOrders";
 import ChangePassword from "../pages/Dashboard/changePassword/ChangePassword";
+import AllUsers from "../pages/Dashboard/admin/AllUsers";
 
 
 export const adminPaths =[
@@ -17,6 +18,12 @@ export const adminPaths =[
         path:'manage-cars',
         icon:<PieChartOutlined />,
         element:<ManageCars/>
+    },
+    {
+        name:'All Users',
+        path:'all-users',
+        icon:<PieChartOutlined />,
+        element:<AllUsers/>
     },
     {
         name:'View Orders',

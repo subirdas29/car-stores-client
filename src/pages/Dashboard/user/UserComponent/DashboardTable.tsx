@@ -1,20 +1,16 @@
-import { Button, Table, TableColumnsType, TableProps } from 'antd';
+import { Button, Space, Table, TableColumnsType, TableProps } from 'antd';
 import { TQueryParam } from '../../../../types/global';
 import { useGetMyOrderQuery } from '../../../../redux/features/user/userApi';
 import { TCar, TOrder, TOrderCar, TOrderData, TTableData } from '../../../../types/users.types';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
+import { Link, NavLink } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hook';
+import { useCreateOrderMutation, useUpdateOrderStatusMutation } from '../../../../redux/features/order/orderApi';
+import { addToCart, TCartItem } from '../../../../redux/features/cart/cartSlice';
+import { toast } from 'sonner';
 
 
-export type TTableData = {
-  key: string;
-  email: string;
-  brand: string;
-  model: string;
-  quantity: number;
-  price: number;
-  orderDate: string;
-};
 
 
 
@@ -23,104 +19,143 @@ const DashboardTable= () => {
   // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
   const { data: myOrderData, refetch,isFetching } = useGetMyOrderQuery(undefined);
 
+  console.log(myOrderData)
+
 useEffect(() => {
   refetch();
 }, [refetch]);
 
- console.log(myOrderData)
+// const [updateOrderStatus, { isLoading: isUpdating }] = useUpdateOrderStatusMutation();
 
-  const tableData: TTableData[] | undefined = myOrderData?.data?.flatMap((order) =>
-    order.cars.map(({ _id, car, quantity,status }) => ({
-      key: _id,
-      email: order.email, // Make sure order has email
-      brand: car?.brand || "N/A", // Prevent errors if car is undefined
-      model: car?.model || "N/A",
-      quantity,
-      status,
-      price: car?.price ? car.price * quantity : 0,
-      orderDate: moment(new Date(order.createdAt)).format('MMMM'),
-    }))
-  );
+const [createOrder] = useCreateOrderMutation()
+
+const handlePlaceOrder = async (item) => {
+  try {
+    console.log("Processing payment for:", item);
+
+    // Send the order details including price to backend
+    const response = await createOrder({
+      cars: [{ car: item.key, quantity: item.quantity }],
+      price: item.price, // Ensure you're sending price as part of the order
+    }).unwrap();
+
+    console.log("API Response:", response);
+
+    if (response.success && response.data) {
+      // Redirect to SurjoPay
+      window.location.href = response.data;
+    } else {
+      toast.error("Failed to initiate payment.");
+    }
+  } catch (error) {
+    console.error("Payment Error:", error);
+    toast.error("Something went wrong. Please try again.");
+  }
+};
+
+const tableData: TTableData[] | undefined = myOrderData?.data?.flatMap((order) =>
+  order.cars.map(({ _id, car, quantity }) => ({
+    key: _id, 
+    orderId: order._id, 
+    transactionId: order.transaction.id,
+    email: order.email,
+    brand: car?.brand || "N/A",
+    model: car?.model || "N/A",
+    quantity,
+    price: car?.price ? car.price * quantity : 0,
+    orderDate: moment(order.createdAt).format('DD-MM-YYYY'),
+    status: order.status,
+  }))
+);
+
+
+const columns: TableColumnsType<TTableData> = [
+  {
+    title: 'Transaction ID',
+    key: 'transactionId',
+    dataIndex: 'transactionId',
+  },
+  {
+    title: 'Customer Email',
+    key: 'email',
+    dataIndex: 'email',
+  },
+  {
+    title: 'Brand',
+    key: 'brand',
+    dataIndex: 'brand',
+  },
+  {
+    title: 'Model',
+    key: 'model',
+    dataIndex: 'model',
+  },
+  {
+    title: 'Quantity',
+    key: 'quantity',
+    dataIndex: 'quantity',
+  },
+  {
+    title: 'Price',
+    key: 'price',
+    dataIndex: 'price',
+  },
+  {
+    title: 'Order Date',
+    key: 'orderDate',
+    dataIndex: 'orderDate',
+  },
+  {
+    title: 'Status',
+    key: 'status',
+    dataIndex: 'status',
+    render: (status) => (
+      <span
+        className={`px-2 py-1 rounded-md ${
+          status === "Paid" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+        }`}
+      >
+        {status}
+      </span>
+    ),
+  },
+  // {
+  //   title: 'Action',
+  //   key: 'status',
+  //   dataIndex: 'status',
+  //   render: (status) => (
+  //     <span
+  //       className={`px-2 py-1 rounded-md ${
+  //         status === "Paid" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+  //       }`}
+  //     >
+  //       {status}
+  //     </span>
+  //   ),
+  // },
+ 
+  {
+    title: 'Action',
+    key: 'x',
+    render: (item) => (
+      <Space>
+        {item.status === 'Paid' ? (
+          <Link to={`/order-details/${item.orderId}`}>
+            <Button>View Details</Button>
+          </Link>
+        ) : (
+          <Button onClick={() => handlePlaceOrder(item)}>
+            Pay Now
+          </Button>
+        )}
+      </Space>
+    ),
+  },
   
-
-
   
-  const columns: TableColumnsType<TTableData> = [
-    {
-      title: 'Brand',
-      key: 'brand',
-      dataIndex: 'brand',
-      // filters: [
-      //   {
-      //     text: 'Tata',
-      //     value: 'Tata',
-      //   },
-      //   {
-      //     text: 'BMW',
-      //     value: 'BMW',
-      //   },
-      //   {
-      //     text: 'Audi',
-      //     value: 'Audi',
-      //   },
-      //   {
-      //     text: 'Toyota',
-      //     value: 'Toyota',
-      //   },
-      // ],
-    },
-    {
-      title: 'Model',
-      key: 'model',
-      dataIndex: 'model',
-      // filters: [
-      //   {
-      //     text: '3 Series',
-      //     value: '3 Series',
-      //   },
-      //   {
-      //     text: 'Croy',
-      //     value: 'Croy',
-      //   },
-       
-      // ],
-    },
-    // {
-    //   title: 'Category',
-    //   key: 'category',
-    //   dataIndex: 'category',
-    // },
-    {
-      title: 'Quantity',
-      key: 'quantity',
-      dataIndex: 'quantity',
-     
-    },
-    {
-      title: 'Price',
-      key: 'price',
-      dataIndex: 'price',
-    },
+];
 
-    {
-      title: 'Order Date',
-      key: 'orderDate',
-      dataIndex: 'orderDate',
-    },
-  
-    {
-      title: 'Status',
-      key: 'x',
-      render: () => {
-        console.log()
-        return (
-          <div>
-            <Button>{}</Button>
-          </div>
-        );
-      },
-    },
-  ];
+
 
   const onChange: TableProps<TTableData>['onChange'] = (
     _pagination,
@@ -152,7 +187,7 @@ useEffect(() => {
   <div className='border-1 border-gray-200 shadow-lg rounded-md  text-center md:text-left py-6 px-1'>
     <h1 className='text-center text-2xl font-bold mt-2 mb-2'>My Orders</h1>
       <Table
-      loading={isFetching}
+      // loading={isFetching}
       columns={columns}
       dataSource={tableData}
       onChange={onChange}

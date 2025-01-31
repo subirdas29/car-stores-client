@@ -6,13 +6,19 @@ import CarInput from "../../../components/form/CarInput"
 import { toast } from "sonner"
 
 import { FieldValues } from "react-hook-form"
-import { useGetMeQuery } from "../../../redux/features/user/userApi"
+
 import { useChangePasswordMutation } from "../../../redux/features/auth/authApi"
+import { TResponse } from "../../../types/global"
+import { useAppDispatch } from "../../../redux/hook"
+import { logOut } from "../../../redux/features/auth/authSlice"
+import {  useNavigate } from "react-router-dom"
 
 
 const ChangePassword = () => {
-    // const [signup] = useSignupMutation(undefined)
+
    
+    const dispatch = useAppDispatch()
+
     const defaultValues = {
         oldPassword: "987654321",
         newPassword: "123456789",
@@ -20,28 +26,17 @@ const ChangePassword = () => {
 
     const [changePassword] = useChangePasswordMutation()
 
-    const onSubmit = async(data:FieldValues) =>{
-        const toastId = toast.loading('Logging in')
-       try{
-        const passInfo ={
-            newPassword:data.newPassword,
-            oldPassword:data.oldPassword,
-         
-        }
-       
-        const res= await changePassword(passInfo)
+    const navigate = useNavigate()
 
-        console.log(res)
-        // await signup(userInfo).unwrap()
-    
-      toast.success("Changed Password", {id:toastId,duration:2000})
-      
-    
-      }
-      catch(err:any){
-        toast.error(err.data.message,{id:toastId,duration:2000})
-      }
-    
+    const onSubmit = async(data:FieldValues) =>{
+        // const toastId = toast.loading('Logging in')
+     const res= (await changePassword(data))as TResponse<any>
+
+     if(res.data.success){
+        toast.success(res.data.message)
+        dispatch(logOut());
+        navigate('/login')
+     }
        }
 
   return (
@@ -49,7 +44,6 @@ const ChangePassword = () => {
    
    <div className="border-1 border-gray-200 shadow-lg rounded-md p-10" >
      <CarForm  onSubmit={onSubmit} defaultValues={defaultValues}
-    //  defaultValues = {defaultValues}
      >
   
      <div className="grid grid-cols-1 gap-5 font-bold">
@@ -62,9 +56,8 @@ const ChangePassword = () => {
      
       
       
-      <Button  type="primary"
-      className="rounded-md py-2 px-6 font-bold cursor-pointer border border-[#1890ff] hover:text-[#1890ff] hover:bg-transparent"
-      style={{ backgroundColor: "#1890ff", color: "white", borderWidth: 1 }} htmlType="submit">Change Password</Button>
+      <button  type="submit"
+      className='rounded-md py-2 px-6  border-1 hover:text-[#1890ff] hover:bg-transparent  text-white  bg-[#1890ff] font-bold cursor-pointer'>Update</button>
 
     </CarForm>
    </div>

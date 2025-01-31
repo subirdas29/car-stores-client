@@ -1,140 +1,220 @@
-import { Button, Table, TableColumnsType, TableProps } from "antd";
-
-import { TQueryParam } from "../../../types/global";
-import {  TTableData } from "../../../types/users.types";
-import { useViewOrdersQuery } from "../../../redux/features/admin/adminApi";
-import { useState } from "react";
-import { TOrderView } from "../../../types/admin.types";
-import moment from "moment";
+import { Button, Space, Table, TableColumnsType, TableProps } from 'antd';
 
 
-const ViewOrders = () => {
+import { useEffect, useState } from 'react';
+import moment from 'moment';
+import { Link, NavLink } from 'react-router-dom';
 
 
-   const { data: myOrderData, isFetching } = useViewOrdersQuery(undefined);
+import { toast } from 'sonner';
+import { useViewOrdersQuery } from '../../../redux/features/admin/adminApi';
+
+
+export type TTableData = {
+  key: string;
+  email: string;
+  brand: string;
+  model: string;
+  quantity: number;
+  price: number;
+  orderDate: string;
+};
+
+
+
+
+
+const ViewOrders= () => {
+  // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+  const { data: myOrderData, refetch } = useViewOrdersQuery(undefined);
+
+  console.log(myOrderData)
+
+useEffect(() => {
+  refetch();
+}, [refetch]);
+
+// const [updateOrderStatus, { isLoading: isUpdating }] = useUpdateOrderStatusMutation();
+
+// const [createOrder] = useCreateOrderMutation()
+
+// const handlePlaceOrder = async (item) => {
+//   try {
+//     console.log("Processing payment for:", item);
+
+//     // Send the order details including price to backend
+//     const response = await createOrder({
+//       cars: [{ car: item.key, quantity: item.quantity }],
+//       price: item.price, // Ensure you're sending price as part of the order
+//     }).unwrap();
+
+//     console.log("API Response:", response);
+
+//     if (response.success && response.data) {
+//       // Redirect to SurjoPay
+//       window.location.href = response.data;
+//     } else {
+//       toast.error("Failed to initiate payment.");
+//     }
+//   } catch (error) {
+//     console.error("Payment Error:", error);
+//     toast.error("Something went wrong. Please try again.");
+//   }
+// };
+
+const tableData: TTableData[] | undefined = myOrderData?.data?.flatMap((order) =>
+  order.cars?.map(({ _id, car, quantity }) => {
+    // Check if car is missing or null
+    if (!car) {
+      console.warn(`Car is missing for order ${order._id}`); // Log the issue to debug
+      return null; // Skip this record if car is missing
+    }
+
+    // Check if car properties are valid before using them
+    const price = car?.price ? car.price * quantity : 0; // Avoid accessing price if car is invalid
+
+    return {
+      key: _id,
+      orderId: order._id,
+      transactionId: order.transaction?.id || "N/A",  // Ensure safe access to transaction id
+      email: order.email || "N/A", // Handle missing email
+      brand: car?.brand || "N/A",  // Default value for missing brand
+      model: car?.model || "N/A",  // Default value for missing model
+      quantity,
+      price, // Price calculation if car is available
+      orderDate: moment(order.createdAt).format('DD-MM-YYYY'),
+      status: order.status || "Pending",  // Default status if missing
+    };
+  }).filter((item) => item !== null) // Remove null records from the list
+);
+
+console.log("Table Data:", tableData); // Log to verify the table data structure
+
+
+
+const columns: TableColumnsType<TTableData> = [
+  {
+    title: 'Transaction ID',
+    key: 'transactionId',
+    dataIndex: 'transactionId',
+  },
+  {
+    title: 'Customer Email',
+    key: 'email',
+    dataIndex: 'email',
+  },
+  {
+    title: 'Brand',
+    key: 'brand',
+    dataIndex: 'brand',
+  },
+  {
+    title: 'Model',
+    key: 'model',
+    dataIndex: 'model',
+  },
+  {
+    title: 'Quantity',
+    key: 'quantity',
+    dataIndex: 'quantity',
+  },
+  {
+    title: 'Price',
+    key: 'price',
+    dataIndex: 'price',
+  },
+  {
+    title: 'Order Date',
+    key: 'orderDate',
+    dataIndex: 'orderDate',
+  },
+  {
+    title: 'Status',
+    key: 'status',
+    dataIndex: 'status',
+    render: (status) => (
+      <span
+        className={`px-2 py-1 rounded-md ${
+          status === "Paid" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+        }`}
+      >
+        {status}
+      </span>
+    ),
+  },
+  // {
+  //   title: 'Action',
+  //   key: 'status',
+  //   dataIndex: 'status',
+  //   render: (status) => (
+  //     <span
+  //       className={`px-2 py-1 rounded-md ${
+  //         status === "Paid" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+  //       }`}
+  //     >
+  //       {status}
+  //     </span>
+  //   ),
+  // },
  
- 
-   console.log(myOrderData)
- 
-  // Ensure `myOrderData?.data` has the correct type
-  const tableData = myOrderData?.data?.map(
-    ({ _id,email,car,quantity,totalPrice,createdAt }) => ({
-       key: _id,
-       email,
-       carName: `${car.brand} ${car.model} `,
-      
-       category: `${car.category} `,
-       quantity,
-       price: totalPrice,
-       orderDate: moment(new Date(createdAt)).format('MMMM'),
+  {
+    title: 'Action',
+    key: 'x',
+    render: (item) => (
+      <Space>
        
-     })
- );
+          <Link to={`/order-details/${item.orderId}`}>
+            <Button>View Details</Button>
+          </Link>
+        
+        
+      </Space>
+    ),
+  },
+  
+  
+];
 
-  const columns: TableColumnsType<TTableData> = [
-    {
-      title: 'Email',
-      key: 'email',
-      dataIndex: 'email',
-    },
-    {
-      title: 'Car Name',
-      key: 'carName',
-      dataIndex: 'carName',
-      // filters: [
-      //   {
-      //     text: 'Autumn',
-      //     value: 'Autumn',
-      //   },
-      //   {
-      //     text: 'Fall',
-      //     value: 'Fall',
-      //   },
-      //   {
-      //     text: 'Summer',
-      //     value: 'Summer',
-      //   },
-      // ],
-    },
-    {
-      title: 'OrderDate',
-      key: 'orderDate',
-      dataIndex: 'orderDate',
-      // filters: [
-      //   {
-      //     text: '2024',
-      //     value: '2024',
-      //   },
-      //   {
-      //     text: '2025',
-      //     value: '2025',
-      //   },
-      //   {
-      //     text: '2026',
-      //     value: '2026',
-      //   },
-      // ],
-    },
-    {
-      title: 'Quantity',
-      key: 'quantity',
-      dataIndex: 'quantity',
-    },
-    {
-      title: 'Price',
-      key: 'price',
-      dataIndex: 'price',
-    },
-    
-   
-   
-    {
-      title: 'Action',
-      key: 'x',
-      render: () => {
-        return (
-          <div>
-            <Button>Delete</Button>
-          </div>
-        );
-      },
-    },
-  ];
 
-  // const onChange: TableProps<TTableData>['onChange'] = (
-  //   _pagination,
-  //   filters,
-  //   _sorter,
-  //   extra
-  // ) => {
-  //   console.log({filters,extra})
 
-  //   if(extra.action=== 'filter'){
-  //     const queryParams :TQueryParam[] = []
-  //     filters.name?.forEach((item) => 
-  //       queryParams.push({name:'name', value:item}
-  //     ));
+  const onChange: TableProps<TTableData>['onChange'] = (
+    _pagination,
+    filters,
+    _sorter,
+    extra
+  ) => {
+    console.log({filters,extra})
 
-  //     filters.year?.forEach((item) =>
-  //           queryParams.push({ name: 'year', value: item })
-  //         );
-  //         // console.log(queryParams)
+    // if(extra.action=== 'filter'){
+    //   const queryParams :TQueryParam[] = []
+    //   filters.brand?.forEach((item) => 
+    //     queryParams.push({name:'brand', value:item}
+    //   ));
+
+    //   filters.model?.forEach((item) =>
+    //         queryParams.push({ name: 'model', value: item })
+    //       );
+        
+          
+    //   setParams(queryParams)
      
-  //     setParams(queryParams)
-  //   }
+    // }
     
    
-  // };
+  };
 
   return (
-    <Table
-      loading={isFetching}
+  <div className='border-1 border-gray-200 shadow-lg rounded-md  text-center md:text-left py-6 px-1'>
+    <h1 className='text-center text-2xl font-bold mt-2 mb-2'>My Orders</h1>
+      <Table
+      // loading={isFetching}
       columns={columns}
       dataSource={tableData}
-      // onChange={onChange}
+      onChange={onChange}
       scroll={{ x: 'max-content' }}
     />
-  )
-}
+  </div>
+  );
+};
 
-export default ViewOrders
+export default ViewOrders;

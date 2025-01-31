@@ -66,16 +66,11 @@ const cartSlice = createSlice({
       state.totalQuantity = 0;
       state.totalPrice = 0;
     },
-    resetCartOnLogout(state) {
-      // Explicitly clear cart when user logs out
-      state.items = [];
-      state.totalQuantity = 0;
-      state.totalPrice = 0;
-    },
+   
   },
 });
 
-export const { addToCart, removeFromCart, updateQuantity, clearCart, resetCartOnLogout } =
+export const { addToCart, removeFromCart, updateQuantity, clearCart } =
   cartSlice.actions;
 
 export default cartSlice.reducer;

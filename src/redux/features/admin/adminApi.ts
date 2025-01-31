@@ -1,5 +1,7 @@
-import { TOrderView } from "../../../types/admin.types";
+
+import { TUser } from "../../../types/admin.types";
 import { TQueryParam, TResponseRedux } from "../../../types/global";
+import { TOrder } from "../../../types/users.types";
 
 import { baseApi } from "../../api/baseApi";
 
@@ -22,7 +24,32 @@ const adminApi = baseApi.injectEndpoints({
                 params: params,
               };
             },
-            transformResponse: (response: TResponseRedux<TOrderView[]>) => {
+            transformResponse: (response: TResponseRedux<TOrder[]>) => {
+              return {
+                data: response.data,
+                meta: response.meta,
+              };
+            },
+            
+          }),
+        allUsers: builder.query({
+            query: (args) => {
+              const params = new URLSearchParams();
+      
+              if (args) {
+                args.forEach((item: TQueryParam) => {
+                  params.append(item.name, item.value as string);
+                });
+              }
+      
+              return {
+                url: '/user/all-users',
+                method: 'GET',
+                params: params,
+              };
+            },
+            transformResponse: (response: TResponseRedux<TUser[]>) => {
+              console.log(response)
               return {
                 data: response.data,
                 meta: response.meta,
@@ -41,4 +68,4 @@ const adminApi = baseApi.injectEndpoints({
     })
 })
 
-export const {useViewOrdersQuery,useCreateCarMutation} = adminApi;
+export const {useViewOrdersQuery,useCreateCarMutation,useAllUsersQuery} = adminApi;

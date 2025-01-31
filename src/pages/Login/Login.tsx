@@ -19,7 +19,7 @@ const Login = () => {
 
   const defaultValues = {
     email: "subir@gmail.com",
-    password: "987654321",
+    password: "123456",
   };
 
   const redWarningIcon = <AlertTriangle size={20} className="text-red-500" />;

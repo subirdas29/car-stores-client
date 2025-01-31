@@ -16,11 +16,10 @@ const AddCart = () => {
     console.log(cartData)
 
     const handlePlaceOrder = async()=>{
-        console.log(cartData.items)
+      
         await createOrder({cars:cartData.items})
     }
 
-    console.log(cartData.items)
 
     const dispatch = useAppDispatch()
     const toastId = 'cart'
