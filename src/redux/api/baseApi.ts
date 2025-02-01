@@ -23,7 +23,6 @@ import { RootState } from '../store';
   
       if (token) {
         headers.set('authorization', `${token}`);
-        console.log(token)
       }
       return headers;
     },
@@ -78,6 +77,6 @@ import { RootState } from '../store';
   export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQueryWithRefreshToken,
-    tagTypes:['my-order'],
+    tagTypes:['cars','users','orders','my-order'],
     endpoints: () => ({}),
   });

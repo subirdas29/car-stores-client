@@ -12,7 +12,10 @@ import { addToCart } from '../../redux/features/cart/cartSlice'
 const CarDetails = () => {
   const [selectedImage, setSelectedImage] = useState(car1); // Initial big image
   const { carId } = useParams();
-  const { data, isLoading, isError } = useGetACarQuery(carId);
+  const { data, isLoading, isError } = useGetACarQuery(carId,{
+    refetchOnMountOrArgChange:true,
+    refetchOnReconnect:true
+  });
 
   const dispatch = useAppDispatch()
 
@@ -50,6 +53,7 @@ const CarDetails = () => {
 
   const handleBuyNow = () => {
     dispatch(addToCart({
+    
       car: _id,
       name: brand!,
       price: price!,

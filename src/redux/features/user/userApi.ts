@@ -9,7 +9,8 @@ const userApi = baseApi.injectEndpoints({
             query:()=>({
                 url:'/user/me',
                 method:'Get'
-            })
+            }),
+            providesTags:['users']
         }),
         getMyOrder: builder.query({
           query: (args) => {
@@ -27,16 +28,12 @@ const userApi = baseApi.injectEndpoints({
               params: params,
             };
           },
-          providesTags: ["my-order"],
+          providesTags: ["my-order","orders"],
           transformResponse: (response: TResponseRedux<TOrder[]>) => {
             console.log("Transformed Response:", JSON.stringify(response, null, 2)); // Debug transformed response
             return response; // No need to alter, just return as-is
           },
         }),
-        
-
-          
-        
         
     })
 })

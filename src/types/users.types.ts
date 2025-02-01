@@ -1,12 +1,4 @@
-export type TCar = {
-  _id: string;
-  brand: string;
-  model: string;
-  price: number;
-  stock: number;
-  imageUrl: string;
-  createdAt: string; // ISO date string
-};
+import { TCar } from "./admin.types";
 
 export type TOrderCar = {
   car: TCar;

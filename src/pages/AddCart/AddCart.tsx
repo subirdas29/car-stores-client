@@ -3,8 +3,7 @@ import { useCreateOrderMutation } from "../../redux/features/order/orderApi"
 import { useAppDispatch, useAppSelector } from "../../redux/hook"
 import { toast } from "sonner"
 import { removeFromCart, updateQuantity } from "../../redux/features/cart/cartSlice"
-import { ShoppingBagIcon } from "@heroicons/react/16/solid"
-import { motion } from "framer-motion";
+
 import { AlertTriangle, MapPin, Trash } from "lucide-react";
 
 
@@ -27,7 +26,7 @@ const AddCart = () => {
     const redWarningIcon = <AlertTriangle size={20} className="text-red-500" />;
 
     useEffect(() => {
-        if (!data) return; // Prevents accessing properties on undefined
+        if (!data) return; 
       
         if (isLoading) toast.loading("Processing...", { id: toastId });
     

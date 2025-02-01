@@ -6,7 +6,10 @@ import { Skeleton } from "antd"
 
 const AllFeaturedCars = () => {
 
-      const {data:allCars,isLoading} = useCarsQuery(undefined)
+      const {data:allCars,isLoading} = useCarsQuery(undefined,{
+        refetchOnMountOrArgChange:true,
+        refetchOnReconnect:true
+      })
         console.log(allCars)
       
 

@@ -1,5 +1,6 @@
+import { TCar } from "../../../types/admin.types";
 import { TQueryParam, TResponseRedux } from "../../../types/global";
-import { TCar } from "../../../types/users.types";
+
 import { baseApi } from "../../api/baseApi";
 
 const carsApi = baseApi.injectEndpoints({
@@ -22,6 +23,7 @@ const carsApi = baseApi.injectEndpoints({
                 
               };
             },
+            providesTags:['cars'],
             transformResponse: (response: TResponseRedux<TCar[]>) => {
               return {
                 data: response.data,
@@ -37,6 +39,7 @@ const carsApi = baseApi.injectEndpoints({
                 method: 'GET',
               };
             },
+            providesTags:['cars'],
             transformResponse: (response: TResponseRedux<TCar>) => {
               return {
                 data: response.data,

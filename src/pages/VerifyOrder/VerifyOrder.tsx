@@ -1,6 +1,6 @@
 import { NavLink, useSearchParams } from "react-router-dom";
 
-import { CheckCircle, AlertCircle } from "lucide-react";
+
 import { useVerifyOrderQuery } from "../../redux/features/order/orderApi";
 import { TOrderData } from "../../types/order.types";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
@@ -9,9 +9,13 @@ import { useEffect } from "react";
 
 export default function VerifyOrder() {
   const [searchParams] = useSearchParams();
-  const { isLoading, data } = useVerifyOrderQuery(searchParams.get("order_id"), {
+  const { isLoading, data,refetch } = useVerifyOrderQuery(searchParams.get("order_id"), {
     refetchOnMountOrArgChange: true,
   });
+
+  useEffect(() => {
+    refetch(); 
+  }, [searchParams, refetch]);
 
   const dispatch = useAppDispatch()
 
@@ -22,6 +26,8 @@ export default function VerifyOrder() {
 
 
   const orderData:TOrderData = data?.data?.[0];
+  console.log("All Orders:", data?.data);
+  console.log("All Orders:", data?.data[0]);
 
   const CarId:string[] = CarData?.items.map((car)=>car.car)
   console.log(CarId)

@@ -1,5 +1,5 @@
 
-import { TUser } from "../../../types/admin.types";
+import { TCar, TUser } from "../../../types/admin.types";
 import { TQueryParam, TResponseRedux } from "../../../types/global";
 import { TOrder } from "../../../types/users.types";
 
@@ -8,30 +8,40 @@ import { baseApi } from "../../api/baseApi";
 const adminApi = baseApi.injectEndpoints({
     endpoints:(builder) =>({
        
-        viewOrders: builder.query({
-            query: (args) => {
-              const params = new URLSearchParams();
-      
-              if (args) {
-                args.forEach((item: TQueryParam) => {
-                  params.append(item.name, item.value as string);
-                });
-              }
-      
-              return {
-                url: '/orders',
-                method: 'GET',
-                params: params,
-              };
-            },
-            transformResponse: (response: TResponseRedux<TOrder[]>) => {
-              return {
-                data: response.data,
-                meta: response.meta,
-              };
-            },
-            
-          }),
+      viewOrders: builder.query({
+        query: (args) => {
+          const params = new URLSearchParams();
+  
+          if (args) {
+            args.forEach((item: TQueryParam) => {
+              params.append(item.name, item.value as string);
+            });
+          }
+  
+          return {
+            url: '/orders',
+            method: 'GET',
+            params: params,
+          };
+        },
+        providesTags:['orders'],
+        transformResponse: (response: TResponseRedux<TOrder[]>) => {
+          return {
+            data: response.data,
+            meta: response.meta,
+          };
+        },
+        
+      }),
+
+      deleteOrder: builder.mutation({
+        query: (carId) => ({
+          url: `/orders/${carId}`,
+          method: "DELETE",
+        }),
+        invalidatesTags: ['orders'],
+      }), 
+
         allUsers: builder.query({
             query: (args) => {
               const params = new URLSearchParams();
@@ -48,7 +58,53 @@ const adminApi = baseApi.injectEndpoints({
                 params: params,
               };
             },
+             providesTags: ['users'],
             transformResponse: (response: TResponseRedux<TUser[]>) => {
+              console.log(response)
+              return {
+                data: response.data,
+                meta: response.meta,
+              };
+            },
+            
+          }),
+
+          blockedUser: builder.mutation({
+            query: (userId) => ({
+              url: `/user/block-user/${userId}`,
+              method: 'PATCH',
+
+            }),
+            invalidatesTags: ['users'],
+          }),
+          
+          unblockedUser: builder.mutation({
+            query: (userId) => ({
+              url: `/user/unblock-user/${userId}`,
+              method: 'PATCH',
+
+            }),
+            invalidatesTags: [{ type: 'users', id: 'LIST' }],
+          }),
+
+          allCars: builder.query({
+            query: (args) => {
+              const params = new URLSearchParams();
+      
+              if (args) {
+                args.forEach((item: TQueryParam) => {
+                  params.append(item.name, item.value as string);
+                });
+              }
+      
+              return {
+                url: '/cars',
+                method: 'GET',
+                params: params,
+              };
+            },
+            providesTags:['cars'],
+            transformResponse: (response: TResponseRedux<TCar[]>) => {
               console.log(response)
               return {
                 data: response.data,
@@ -64,8 +120,30 @@ const adminApi = baseApi.injectEndpoints({
               method: 'POST',
               body: data,
             }),
+            invalidatesTags:['cars']
           }),
+          
+
+          updateCars: builder.mutation({
+            query: (args) => ({
+              url: `/cars/${args.carId}`,
+              method: 'PUT',
+              body: args.data,
+            }),
+            invalidatesTags:['cars']
+          }),
+          deleteCar: builder.mutation({
+            query: (carId) => ({
+              url: `/cars/${carId}`,
+              method: "PATCH",
+            }),
+            invalidatesTags: ['cars'],
+          }), 
+    
+         
     })
 })
 
-export const {useViewOrdersQuery,useCreateCarMutation,useAllUsersQuery} = adminApi;
+export const {useBlockedUserMutation,useUnblockedUserMutation,useDeleteOrderMutation,
+  useDeleteCarMutation
+  ,useViewOrdersQuery,useCreateCarMutation,useAllUsersQuery,useAllCarsQuery,useUpdateCarsMutation} = adminApi;

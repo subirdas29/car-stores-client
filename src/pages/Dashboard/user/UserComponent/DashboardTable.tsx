@@ -1,13 +1,13 @@
 import { Button, Space, Table, TableColumnsType, TableProps } from 'antd';
-import { TQueryParam } from '../../../../types/global';
+
 import { useGetMyOrderQuery } from '../../../../redux/features/user/userApi';
-import { TCar, TOrder, TOrderCar, TOrderData, TTableData } from '../../../../types/users.types';
-import { useEffect, useState } from 'react';
+
+import { useEffect,} from 'react';
 import moment from 'moment';
-import { Link, NavLink } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../redux/hook';
-import { useCreateOrderMutation, useUpdateOrderStatusMutation } from '../../../../redux/features/order/orderApi';
-import { addToCart, TCartItem } from '../../../../redux/features/cart/cartSlice';
+import { Link} from 'react-router-dom';
+
+import { useCreateOrderMutation} from '../../../../redux/features/order/orderApi';
+
 import { toast } from 'sonner';
 
 
@@ -17,13 +17,13 @@ import { toast } from 'sonner';
 
 const DashboardTable= () => {
   // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
-  const { data: myOrderData, refetch,isFetching } = useGetMyOrderQuery(undefined);
+  const { data: myOrderData,isFetching } = useGetMyOrderQuery(undefined,{
+    refetchOnMountOrArgChange:true,
+    refetchOnReconnect:true
+  });
 
   console.log(myOrderData)
 
-useEffect(() => {
-  refetch();
-}, [refetch]);
 
 // const [updateOrderStatus, { isLoading: isUpdating }] = useUpdateOrderStatusMutation();
 
@@ -187,7 +187,7 @@ const columns: TableColumnsType<TTableData> = [
   <div className='border-1 border-gray-200 shadow-lg rounded-md  text-center md:text-left py-6 px-1'>
     <h1 className='text-center text-2xl font-bold mt-2 mb-2'>My Orders</h1>
       <Table
-      // loading={isFetching}
+      loading={isFetching}
       columns={columns}
       dataSource={tableData}
       onChange={onChange}

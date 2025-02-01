@@ -1,26 +1,31 @@
-import { Table, TableColumnsType, TableProps } from 'antd';
+import { Button, Space, Table, TableColumnsType, TableProps } from 'antd';
 ;
 
-import { useAllUsersQuery } from '../../../redux/features/admin/adminApi';
+import { useAllUsersQuery, useBlockedUserMutation, useUnblockedUserMutation } from '../../../redux/features/admin/adminApi';
 import { TUser } from '../../../types/admin.types';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 
 
 
 const AllUsers= () => {
   // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
- const {data:allUsers,isFetching} = useAllUsersQuery(undefined)
-
-  console.log(allUsers)
-
+ const {data:allUsers,refetch,isFetching} = useAllUsersQuery(undefined,{
+  refetchOnMountOrArgChange:true,
+  refetchOnReconnect:true,
+  // pollingInterval:4000
+ })
 
   const tableData: TUser[] = allUsers?.data?.map(
-    ({ _id, name, email, phone, address, city, status, createdAt, updatedAt }) => ({
+    ({ _id, name, email,role, phone, address, city, status, createdAt, updatedAt }) => ({
       _id,
       key: _id, 
       name,
       email,
+      role,
       phone,
       address,
       city,
@@ -30,7 +35,42 @@ const AllUsers= () => {
     })
   ) || [];
 
+  // useEffect(()=>{
+  //   refetch()
+  // },[refetch])
 
+  const [blockedUser, { isLoading }] = useBlockedUserMutation(); 
+  const [unblockedUser] = useUnblockedUserMutation(); 
+
+  const handleBlockedUser = async (id: string) => {
+    try {
+      const res = await blockedUser(id);
+      
+      if ('error' in res) {
+        toast.error(res.error.data?.message || 'Blocking failed');
+      } else {
+        toast.success(res.data?.message || 'User blocked successfully');
+        await refetch();
+      }
+    } catch {
+      toast.error('Something went wrong');
+    }
+  };
+  const handleUnBlockedUser = async (id: string) => {
+    try {
+      const res = await unblockedUser(id);
+      
+      if ('error' in res) {
+        toast.error(res.error.data?.message || 'Blocking failed');
+      } else {
+        toast.success(res.data?.message || 'User blocked successfully');
+        
+        refetch(); 
+      }
+    } catch {
+      toast.error('Something went wrong');
+    }
+  };
 
 const columns: TableColumnsType<TUser> = [
   {
@@ -42,6 +82,11 @@ const columns: TableColumnsType<TUser> = [
     title: 'Email',
     key: 'email',
     dataIndex: 'email',
+  },
+  {
+    title:'Role',
+    key:'role',
+    dataIndex:'role'
   },
   {
     title: 'Phone',
@@ -72,6 +117,30 @@ const columns: TableColumnsType<TUser> = [
     title: 'UpdatedAt',
     key: 'updatedAt',
     dataIndex: 'updatedAt',
+  },
+
+  {
+    title: 'Action',
+    key: 'x',
+    render: (item) => 
+      
+     {
+      console.log(item)
+       return (
+        <Space>
+        <Link to={`/car-details/${item.key}`}>
+        <Button>Details</Button>
+        </Link>
+        {
+          item.status==='in-progress' ? <Button onClick={() => handleBlockedUser(item._id)} >
+          Block
+    </Button>: <Button onClick={() => handleUnBlockedUser(item._id)} >
+          Unblock
+    </Button>
+        }
+      </Space>
+    )
+     }
   },
 //   {
 //     title: 'Status',
@@ -137,9 +206,9 @@ const columns: TableColumnsType<TUser> = [
 
   return (
   <div className='border-1 border-gray-200 shadow-lg rounded-md  text-center md:text-left py-6 px-1'>
-    <h1 className='text-center text-2xl font-bold mt-2 mb-2'>My Orders</h1>
+    <h1 className='text-center text-2xl font-bold mt-2 mb-2'>All Users</h1>
       <Table
-      loading={isFetching}
+      // loading={isFetching}
       columns={columns}
       dataSource={tableData}
       onChange={onChange}
