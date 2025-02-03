@@ -1,13 +1,14 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import pic1 from '../../assets/img/connectstore/pic1.svg'
-import pic2 from '../../assets/img/connectstore/pic2.svg'
-import pic3 from '../../assets/img/connectstore/pic3.svg'
-import pic4 from '../../assets/img/connectstore/pic4.svg'
-import pic5 from '../../assets/img/connectstore/pic5.svg'
-import pic6 from '../../assets/img/connectstore/pic6.svg'
-import pic7 from '../../assets/img/connectstore/pic7.svg'
-import pic8 from '../../assets/img/connectstore/pic8.svg'
+import pic1 from '../../assets/img/connectstore/car_logo_1.png'
+import pic2 from '../../assets/img/connectstore/car_logo_2.png'
+import pic3 from '../../assets/img/connectstore/car_logo_3.png'
+import pic4 from '../../assets/img/connectstore/car_logo_4.png'
+import pic5 from '../../assets/img/connectstore/car_logo_5.png'
+import pic6 from '../../assets/img/connectstore/car_logo_6.png'
+import pic7 from '../../assets/img/connectstore/car_logo_7.png'
+import pic8 from '../../assets/img/connectstore/car_logo_8.png'
+import pic9 from '../../assets/img/connectstore/car_logo_9.png'
 
 
 
@@ -20,7 +21,7 @@ import { Autoplay, Pagination } from 'swiper/modules';
 
 const ConnectBrand = () => {
   return (
-    <div className='my-20 mx-8 lg:mx-32'>
+    <div className='my-20 mx-8 md:mx-12 lg:mx-24'>
      <div className='text-center'>
      <h1 className='text-4xl mb-4 font-bold '>Connected Brand </h1>
       <p>Car Hunt easily integrates with major car selling platforms and marketplaces</p>
@@ -30,24 +31,24 @@ const ConnectBrand = () => {
       breakpoints={{
                             
         1024: {
-            slidesPerView: 4,
+            slidesPerView: 6,
             spaceBetween: 30,
         },
       
         768: {
-          slidesPerView: 3,
+          slidesPerView: 5,
           spaceBetween: 30,
       },
         
         0: {
-            slidesPerView: 2,
+            slidesPerView: 3,
             spaceBetween: 30,
         }
     }}
    
-        // centeredSlides={true}
+
         autoplay={{
-          delay: 900,
+          delay: 1500,
           disableOnInteraction: false,
         }}
         pagination={{
@@ -58,43 +59,48 @@ const ConnectBrand = () => {
         className="mySwiper my-20"
       >
         <SwiperSlide>
-          <div className='p-4 w-28 h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg mb-8 ml-6'>
-          <img src={pic1} className=' w-16' alt="" />
+          <div className='p-4 w-22 h-22 md:w-28 md:h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg mb-8 '>
+          <img src={pic1} className='w-full' alt="" />
           </div>
         </SwiperSlide>
         <SwiperSlide>
-        <div className='p-4 w-28 h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
+        <div className='p-4 w-22 h-22 md:w-28 md:h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
           <img src={pic2} className=' w-full' alt="" />
           </div>
         </SwiperSlide>
         <SwiperSlide>
-        <div className='p-4 w-28 h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
+        <div className='p-4 w-22 h-22 md:w-28 md:h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
           <img src={pic3} className=' w-full' alt="" />
           </div>
         </SwiperSlide>
         <SwiperSlide>
-        <div className='p-4 w-28 h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
+        <div className='p-4 w-22 h-22 md:w-28 md:h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
           <img src={pic4} className=' w-full' alt="" />
           </div>
         </SwiperSlide>
         <SwiperSlide>
-        <div className='p-4 w-28 h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
+        <div className='p-4 w-22 h-22 md:w-28 md:h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
           <img src={pic5} className=' w-full' alt="" />
           </div>
         </SwiperSlide>
         <SwiperSlide>
-        <div className='p-4 w-28 h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
+        <div className='p-4 w-22 h-22 md:w-28 md:h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
           <img src={pic6} className=' w-full' alt="" />
           </div>
         </SwiperSlide>
         <SwiperSlide>
-        <div className='p-4 w-28 h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
+        <div className='p-4 w-22 h-22 md:w-28 md:h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
           <img src={pic7} className=' w-full' alt="" />
           </div>
         </SwiperSlide>
         <SwiperSlide>
-        <div className='p-4 w-28 h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
+        <div className='p-4 w-22 h-22 md:w-28 md:h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
           <img src={pic8} className=' w-full' alt="" />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+        <div className='p-4 w-22 h-22 md:w-28 md:h-28 flex items-center justify-center bg-[#FFFFFF] rounded-xl drop-shadow-lg'>
+          <img src={pic9} className=' w-full' alt="" />
           </div>
         </SwiperSlide>
       

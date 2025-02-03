@@ -25,10 +25,10 @@ const Reviews = () => {
 
     return (
         <div className='bg-[#F7F7F7] '>
-            <div className='mx-8 sm:mx-16 md:mx-32 py-24'>
+            <div className='mx-8 md:mx-16 lg:mx-24 py-24'>
                 <div className='mb-12 lg:mb-20 text-center lg:text-left lg:flex gap-12 lg:justify-start'>
-                    <h1 className='text-4xl font-bold w-full lg:w-2/6'>Trusted by over 8M sellers around the world</h1>
-                    <p className='w-full lg:w-2/6 mt-6 lg:mt-0'>Whether you are just getting started or run an enterprise-level e-commerce business, we do everything we can to ensure a positive merchant experience.</p>
+                    <h1 className='text-4xl font-bold w-full lg:w-2/6'>Trusted by thousands of buyers and sellers worldwide. 🚗</h1>
+                    <p className='w-full lg:w-2/6 mt-6 lg:mt-0'>Whether you're a first-time buyer or a seasoned car enthusiast, we are committed to providing a seamless and reliable car-buying experience. Our platform offers a wide selection of top brands, competitive pricing, and exceptional customer support to ensure your journey to owning the perfect car is smooth and hassle-free. 🚗✨</p>
                     <div className='hidden lg:block'></div>
                 </div>
                 <div>
@@ -49,8 +49,10 @@ const Reviews = () => {
                                 slidesPerView: 3,
                                 spaceBetween: 30,
                             },
-                          
-                          
+                            768: {
+                                slidesPerView: 1,
+                                spaceBetween: 30,
+                            },
                             
                             0: {
                                 slidesPerView: 1,
@@ -62,12 +64,12 @@ const Reviews = () => {
                           className="mySwiper "
                     >
                         <SwiperSlide>
-                            <div className=' p-6 md:p-10 rounded-3xl bg-[#FFFFFF]'>
-                                <div className='flex gap-6 mb-6'>
+                            <div className=' h-[340px] p-6 md:p-10 bg-[#FFFFFF] border-1 border-gray-200 shadow-lg rounded-md'>
+                                <div className=' flex gap-6 mb-6'>
                                     <img className='h-[64px] w-[64px] rounded-xl' src={person1} alt="" />
                                     <div>
                                         <h1 className='text-2xl font-bold'>Robert A.Voltaire</h1>
-                                        <p className='textcolor font-semibold mb-2'>Store link</p>
+                                        <p className=' font-semibold mb-2'>"Great Experience!" </p>
                                         <div className='flex gap-2'>
                                             <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
                                             <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
@@ -77,20 +79,20 @@ const Reviews = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <p>
-                                        Printify has been an incredible service for us musicians unable to keep large amount of inventory - now we can create designs previously too expensive to print without having to have 1,000 shirts in our jam space. Thanks Printify!
+                                <div className='pb-8'>
+                                    <p >
+                                    "I recently bought a car from this website, and the process was smooth and hassle-free. The customer service was excellent, and I got a great deal on my new car! Highly recommend."
                                     </p>
                                 </div>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <div className='p-10 rounded-3xl bg-[#FFFFFF]'>
+                            <div className=' h-[340px] p-10 bg-[#FFFFFF] border-1 border-gray-200 shadow-lg rounded-md'>
                                 <div className='flex gap-6 mb-6'>
                                     <img className='h-[64px] w-[64px] rounded-xl' src={person2} alt="" />
                                     <div>
                                         <h1 className='text-2xl font-bold'>Quinten Barney</h1>
-                                        <p className='textcolor font-semibold mb-2'> Etsy Merchant </p>
+                                        <p className=' font-semibold mb-2'> "Excellent Service!"  </p>
                                         <div className='flex gap-2'>
                                             <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
                                             <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
@@ -102,18 +104,18 @@ const Reviews = () => {
                                 </div>
                                 <div>
                                     <p>
-                                        We chose Printify because of their offerings as well as their incredibly low prices. After several years, we've come to find that their customer service is also top notch, and their platform just keeps getting better and better.
+                                    "The staff was very helpful in guiding me through the purchase process. The car was exactly as described, and the delivery was on time. I’m very satisfied with my purchase!"
                                     </p>
                                 </div>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <div className='p-10 rounded-3xl bg-[#FFFFFF]'>
+                            <div className='p-10 h-[340px] border-1 border-gray-200 shadow-lg rounded-md bg-[#FFFFFF]'>
                                 <div className='flex gap-6 mb-6'>
                                     <img className='h-[64px] w-[64px] rounded-xl' src={person3} alt="" />
                                     <div>
                                         <h1 className='text-2xl font-bold'>Nikki</h1>
-                                        <p className='textcolor font-semibold mb-2'>Store link</p>
+                                        <p className='textcolor font-semibold mb-2'>"Highly Recommended!"</p>
                                         <div className='flex gap-2'>
                                             <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
                                             <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
@@ -125,18 +127,18 @@ const Reviews = () => {
                                 </div>
                                 <div>
                                     <p>
-                                        Printify has been a amazing partner to work with as we grow our business, from the range of merch we can make for our customers to working with our Customer Service team (Hi Martin!) it's truly made the whole process a breeze.
+                                    "I was a bit skeptical about buying a car online, but this website made it easy. The car was in perfect condition, and the support team answered all my questions. Will definitely buy again!"
                                     </p>
                                 </div>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <div className='p-10 rounded-3xl bg-[#FFFFFF]'>
+                            <div className='p-10 h-[340px] border-1 border-gray-200 shadow-lg rounded-md bg-[#FFFFFF]'>
                                 <div className='flex gap-6 mb-6'>
                                     <img className='h-[64px] w-[64px] rounded-xl' src={person4} alt="" />
                                     <div>
-                                        <h1 className='text-2xl font-bold'>Spencer, Brett</h1>
-                                        <p className='textcolor font-semibold mb-2'>Store link</p>
+                                        <h1 className='text-2xl font-bold'>Emily T.</h1>
+                                        <p className='textcolor font-semibold mb-2'>"Best Car Buying Experience!"</p>
                                         <div className='flex gap-2'>
                                             <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
                                             <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
@@ -148,18 +150,18 @@ const Reviews = () => {
                                 </div>
                                 <div>
                                     <p>
-                                        Using Printify has been a great experience. Customer service is always very quick to respond and handle any issues that our customers may have. The premium account has more than paid for itself and has increased our margins significantly.
+                                    "I got my dream car at an unbeatable price! The whole transaction was transparent, and the customer service team was very responsive."
                                     </p>
                                 </div>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <div className='p-10 rounded-3xl bg-[#FFFFFF]'>
+                            <div className='p-10 h-[340px] border-1 border-gray-200 shadow-lg rounded-md bg-[#FFFFFF]'>
                                 <div className='flex gap-6 mb-6'>
                                     <img className='h-[64px] w-[64px] rounded-xl' src={person5} alt="" />
                                     <div>
-                                        <h1 className='text-2xl font-bold'>April Showers</h1>
-                                        <p className='textcolor font-semibold mb-2'>Store link</p>
+                                        <h1 className='text-2xl font-bold'>Michael B.</h1>
+                                        <p className='textcolor font-semibold mb-2'>"Reliable and Trustworthy!"</p>
                                         <div className='flex gap-2'>
                                             <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
                                             <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
@@ -171,7 +173,7 @@ const Reviews = () => {
                                 </div>
                                 <div>
                                     <p>
-                                        I really appreciate working with Printify on my brand. Afro Unicorn was only supposed to be my design on a white shirt. It is so much more. Printify allows me the time to run the business and not work in the business.
+                                    "This platform offers a wide variety of car brands with great prices. The process was straightforward, and I felt confident in my purchase."
                                     </p>
                                 </div>
                             </div>

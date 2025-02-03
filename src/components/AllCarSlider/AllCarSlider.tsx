@@ -21,28 +21,34 @@ import 'swiper/css/pagination';
 import { Scrollbar, FreeMode, Navigation, Pagination,Autoplay } from 'swiper/modules';
 
 import { FaArrowRight } from 'react-icons/fa';
+import { NavLink } from "react-router-dom";
 // import './styles.css'
 
 const AllCarSlider = () => {
     return (
         <section className=" dark:text-black">
-        <div className="flex flex-col justify-center py-6  mx-auto sm:py-12 lg:py-16 lg:flex-row xl:flex-row lg:justify-between relative ">
+        <div className="flex flex-col justify-center lg:items-center  mx-8 md:mx-12 lg:mx-24 md:py-12 lg:py-16 lg:flex-row xl:flex-row lg:justify-between relative ">
             
-            <div className="flex flex-col justify-top py-6 lg:pl-20 xl:pl-20 px-8 text-center rounded-sm  lg:max-w-md xl:max-w-lg lg:text-left">
+            <div className="flex flex-col justify-top  text-center rounded-sm  lg:max-w-md xl:max-w-lg lg:text-left">
                 <p>Tokens of appreciation</p>
                 <h1 className="text-3xl font-bold leading-none sm:text-2xl my-4">Corporate gifts
                 </h1>
                 <p className="mt-6 mb-8 text-lg sm:mb-12">Find a variety of gift-giving options, ideal for honouring treasured colleagues and clients. Trained consultants will be pleased to guide your selections and assist with delivery.
                 </p>
-                <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
+                <div className="flex flex-col space-y-4 items-center justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
                     
-                    <button className="btn border border-slate-300 hover:bg-black hover:text-white px-6 py-5 text-sm font-medium rounded flex items-center justify-between">Learn more about this service <FaArrowRight className='ml-8 text-xs'/></button>
+                  <NavLink to={`/about`}>
+                  <button className="btn border border-slate-300 hover:bg-[#1890ff] hover:text-white px-6 py-4  text-sm font-medium rounded-md  flex items-center justify-between ">Learn more about Our Company <FaArrowRight className='ml-8 text-xs'/></button>
+                  </NavLink>
                 </div>
             </div>
-            <div className="flex items-center justify-center mt-8 lg:mt-0 ml-10 lg:w-7/12 ">
+            <div className="flex items-center justify-center    lg:w-7/12 ">
             <Swiper
         slidesPerView={1}
-        // centeredSlides={false}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
         navigation={{
             nextEl: '.custom-next',
             prevEl: '.custom-prev',
@@ -73,8 +79,8 @@ const AllCarSlider = () => {
           <p>Aesop Harbour City</p>
         </SwiperSlide>       
       </Swiper>
-      <div className="absolute bottom-20 flex gap-80 mx-12 lg:mx-0 z-2">
-                        {/* Custom previous button */}
+      <div className="absolute bottom-10 lg:bottom-18  flex gap-10 mx-12  z-2">
+                      
                         <div
                             // ref={prevRef}
                             className="custom-prev text-white bg-[#1890ff] rounded-full p-3 cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
@@ -84,12 +90,11 @@ const AllCarSlider = () => {
                             </svg>
                         </div>
 
-                        {/* Pagination */}
                         <div className="custom-pagination flex justify-center gap-2"></div>
 
-                        {/* Custom next button */}
+                       
                         <div
-                            // ref={nextRef}
+                           
                             className="custom-next text-white bg-[#1890ff] rounded-full p-3 cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className=" w-4 h-4 md:w-6 md:h-6">

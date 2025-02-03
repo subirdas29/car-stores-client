@@ -3,7 +3,7 @@ import CarForm from "../../../components/form/CarForm";
 import CarInput from "../../../components/form/CarInput";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { Controller, FieldValues } from "react-hook-form";
+import { Controller, FieldValues, useForm } from "react-hook-form";
 import { useCreateCarMutation } from "../../../redux/features/admin/adminApi";
 import { TResponse } from "../../../types/global";
 import { carCategoryOptions } from "../../../constants/global";
@@ -13,7 +13,7 @@ import { UploadOutlined } from "@ant-design/icons";
 
 const AddCars = () => {
  
-
+  // const { handleSubmit } = useForm(); 
   const [createCar] = useCreateCarMutation();
 
   const onSubmit = async (data: FieldValues) => {

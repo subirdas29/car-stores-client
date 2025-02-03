@@ -2,6 +2,7 @@
 
 import { NavLink, useParams } from 'react-router-dom'
 import car1 from '../../../public/assets/images/banner/car1.jpg'
+import { Car, CarFront, ShoppingBag, User } from 'lucide-react'
 const FeaturedCars = ({car}) => {
  
 
@@ -11,23 +12,28 @@ const FeaturedCars = ({car}) => {
     imageUrl,price,category,description,quantity,isStock} = car
   console.log(_id)
 
- 
-
   return (
     <div>
         
         <div className='border-1 border-gray-200 shadow-lg rounded-md'>
-            <img src={imageUrl} className='p-3 rounded-md' alt="" />
+            <img src={imageUrl} className=' h-[250px] w-full p-3 rounded-md' alt="" />
            <div className='py-2 px-3 lg:px-6 lg:py-4'>
            <h1 className='font-bold'>{brand} {model}</h1>
-           <div className='flex'>
-            <p>5</p>
-            <p>2</p>
-            <p>4</p>
-            <p>Hatchback</p>
+           <div className='flex  justify-between items-center my-2'>
+           
+      <p className='flex gap-1'><User size={20} color="#1890ff" />5</p>
+
+
+    <p className='flex gap-1'><Car size={20} color="#1890ff" />2</p>
+
+
+<p className='flex gap-1'><CarFront size={20} color="#1890ff" />4</p>
+
+
+<p className='flex gap-1'><ShoppingBag size={20} color="#1890ff" />{category}</p>
            </div>
            <hr className='my-3 text-gray-300' />
-            <p className='text-sm text-gray-500'>Daily rate from</p>
+            <p className='text-sm text-gray-500'>Price:</p>
             <div className='flex justify-between items-center mt-4 pb-4'>
                 <p className='text-2xl font-bold mr-2'>{price}</p>
                 <NavLink to={`car-details/${_id}`}>
@@ -36,8 +42,6 @@ const FeaturedCars = ({car}) => {
             </div>
            </div>
         </div>
-       
-
     </div>
   )
 }

@@ -31,8 +31,9 @@ const Navbar = () => {
 
   const menuData = [
     { title: "Home", path: "/" },
-    { title: "About Us", path: "/about" },
+    { title: "All Cars", path:`/all-cars` },
     { title: "Dashboard", path: dashboardPath },
+    { title: "About Us", path: "/about" },
     { title: "Contact Us", path: "/contact" },
   ];
 
@@ -43,25 +44,6 @@ const Navbar = () => {
     navigate("/");
   };
 
-
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        closeIconRef.current &&
-        event.target !== closeIconRef.current
-      ) {
-        setMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   return (
     <header className="relative">
