@@ -13,11 +13,7 @@ import { toast } from 'sonner';
 
 const AllUsers= () => {
   // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
- const {data:allUsers,refetch,isFetching} = useAllUsersQuery(undefined,{
-  refetchOnMountOrArgChange:true,
-  refetchOnReconnect:true,
-  // pollingInterval:4000
- })
+ const {data:allUsers,isFetching} = useAllUsersQuery(undefined)
 
   const tableData: TUser[] = allUsers?.data?.map(
     ({ _id, name, email,role, phone, address, city, status, createdAt, updatedAt }) => ({
@@ -35,9 +31,7 @@ const AllUsers= () => {
     })
   ) || [];
 
-  // useEffect(()=>{
-  //   refetch()
-  // },[refetch])
+  
 
   const [blockedUser, { isLoading }] = useBlockedUserMutation(); 
   const [unblockedUser] = useUnblockedUserMutation(); 
@@ -50,7 +44,7 @@ const AllUsers= () => {
         toast.error(res.error.data?.message || 'Blocking failed');
       } else {
         toast.success(res.data?.message || 'User blocked successfully');
-        await refetch();
+      
       }
     } catch {
       toast.error('Something went wrong');
@@ -65,7 +59,7 @@ const AllUsers= () => {
       } else {
         toast.success(res.data?.message || 'User blocked successfully');
         
-        refetch(); 
+       
       }
     } catch {
       toast.error('Something went wrong');
@@ -128,7 +122,7 @@ const columns: TableColumnsType<TUser> = [
       console.log(item)
        return (
         <Space>
-        <Link to={`/car-details/${item.key}`}>
+        <Link to={`/user/${item.key}`}>
         <Button>Details</Button>
         </Link>
         {
@@ -208,7 +202,7 @@ const columns: TableColumnsType<TUser> = [
   <div className='border-1 border-gray-200 shadow-lg rounded-md  text-center md:text-left py-6 px-1'>
     <h1 className='text-center text-2xl font-bold mt-2 mb-2'>All Users</h1>
       <Table
-      // loading={isFetching}
+      loading={isFetching}
       columns={columns}
       dataSource={tableData}
       onChange={onChange}

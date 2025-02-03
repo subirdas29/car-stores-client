@@ -3,7 +3,7 @@ export type TUser ={
     name: string;
     email: string;
     role:string;
-    phone: string;
+    phone: number;
     address: string;
     city: string;
     status: string;    

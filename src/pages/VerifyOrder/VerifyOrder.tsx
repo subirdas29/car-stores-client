@@ -22,8 +22,6 @@ export default function VerifyOrder() {
   const CarData = useAppSelector((state) =>state.cart)
   console.log(CarData)
 
- 
-
 
   const orderData:TOrderData = data?.data?.[0];
   console.log("All Orders:", data?.data);

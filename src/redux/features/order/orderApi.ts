@@ -8,7 +8,7 @@ const orderApi = baseApi.injectEndpoints({
         method: "POST",
         body: userInfo,
       }),
-      invalidatesTags:['my-order','orders']
+      invalidatesTags:['orders']
     }),
 
   
@@ -19,7 +19,7 @@ const orderApi = baseApi.injectEndpoints({
         params: { order_id },
         method: "GET",
       }),
-      providesTags:['my-order','orders']
+      providesTags:['orders']
     }),
 
   

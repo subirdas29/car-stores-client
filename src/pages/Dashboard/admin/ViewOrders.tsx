@@ -1,10 +1,11 @@
 import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useDeleteCarMutation, useDeleteOrderMutation, useViewOrdersQuery } from '../../../redux/features/admin/adminApi';
+import { useDeleteOrderMutation, useViewOrdersQuery } from '../../../redux/features/admin/adminApi';
 import { TQueryParam } from '../../../types/global';
+import { resetCache } from '../../../utils/cacheUtils';
 
 export type TTableData = {
   key: string;
@@ -24,53 +25,51 @@ const ViewOrders = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
   const [page, setPage] = useState(1);
 
-
-  const { data: OrderData,refetch } = useViewOrdersQuery(
-    [{ name: 'page', value: page }, 
-      { name: 'sort', value: '-createdAt' }, ...params],
-    {
-      skipPollingIfUnfocused:true,
-      pollingInterval:30000,
-      refetchOnFocus:true,
-      refetchOnMountOrArgChange:true,
-      refetchOnReconnect:true,
-    }
+  const { data: OrderData, isFetching} = useViewOrdersQuery(
+    [
+      { name: 'page', value: page },
+      { name: 'sort', value: '-createdAt' },
+      ...params,
+    ]
   );
+  
 
-  console.log(OrderData)
 
-  const [deleteOrder] = useDeleteOrderMutation()
-
+  const [deleteOrder] = useDeleteOrderMutation();
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await deleteOrder(id);
-      if ('error' in res) {
-        toast.error(res.error.data.message || 'Delete failed');
-      } else {
-        toast.success(res.data.message || 'Order deleted successfully');
-        await refetch();
-      }
-    } catch {
+      await deleteOrder(id).unwrap();
+      toast.success('Order deleted successfully');
+     
+    
+    } catch (err) {
       toast.error('Something went wrong');
     }
   };
 
-  const tableData: TTableData[] | undefined = OrderData?.data?.flatMap((order) =>
-    order.cars?.map(({ _id, car, quantity }) => ({
-      key: _id,
-      orderId: order._id,
-      transactionId: order.transaction?.id || 'N/A',
-      email: order.email || 'N/A',
-      brand: car.brand || 'N/A',
-      model: car.model || 'N/A',
-      quantity,
-      price: car.price ? car.price * quantity : 0,
-      orderDate: moment(order.createdAt).format('DD-MM-YYYY'),
-      orderTime: moment(order.createdAt).format('hh:mm A'),
-      status: order?.transaction.bank_status || 'Pending',
-    }))
-  );
+  
+
+  const tableData: TTableData[] = OrderData?.data?.flatMap((order) =>
+    order.cars
+      ?.filter(({ car }) => car !== null) // 
+      .map(({ _id, car, quantity }) => ({
+        key: _id,
+        orderId: order._id,
+        transactionId: order.transaction?.id || 'N/A',
+        email: order.email || 'N/A',
+        brand: car?.brand || 'N/A',
+        model: car?.model || 'N/A',
+        quantity,
+        price: car?.price ? car.price * quantity : 0,
+        orderDate: moment(order.createdAt).format('DD-MM-YYYY'),
+        orderTime: moment(order.createdAt).format('hh:mm A'),
+        status: order?.transaction?.bank_status || 'Pending',
+      }))
+  ) || [];
+  
+
+
 
   const columns: TableColumnsType<TTableData> = [
     { title: 'Transaction ID', key: 'transactionId', dataIndex: 'transactionId' },
@@ -126,7 +125,7 @@ const ViewOrders = () => {
     <div className='border-1 border-gray-200 shadow-lg rounded-md text-center md:text-left py-6 px-1'>
       <h1 className='text-center text-2xl font-bold mt-2 mb-2'>All Orders</h1>
       <Table
-        // loading={isFetching}
+      loading={isFetching}
         columns={columns}
         dataSource={tableData}
         onChange={onChange}

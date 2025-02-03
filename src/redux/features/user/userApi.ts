@@ -5,13 +5,15 @@ import { baseApi } from "../../api/baseApi";
 
 const userApi = baseApi.injectEndpoints({
     endpoints:(builder) =>({
-        getMe:builder.query({
+        getMe:builder.query(
+          {
             query:()=>({
                 url:'/user/me',
-                method:'Get'
+                method:'Get',
+                providesTags:['users']
             }),
-            providesTags:['users']
         }),
+
         getMyOrder: builder.query({
           query: (args) => {
             const params = new URLSearchParams();
@@ -26,16 +28,28 @@ const userApi = baseApi.injectEndpoints({
               url: "/user/my-order",
               method: "GET",
               params: params,
+              
             };
           },
-          providesTags: ["my-order","orders"],
+          providesTags: ["orders"],
           transformResponse: (response: TResponseRedux<TOrder[]>) => {
-            console.log("Transformed Response:", JSON.stringify(response, null, 2)); // Debug transformed response
-            return response; // No need to alter, just return as-is
+           
+            return response;
           },
+        }),
+
+        profileUpdate: builder.mutation({
+          query: (args) => ({
+            url: `/user/profile-data`,
+            method: 'PUT',
+            body: args.data,
+            
+          }),
+          invalidatesTags:['users']
+          
         }),
         
     })
 })
 
-export const {useGetMeQuery,useGetMyOrderQuery} = userApi;
+export const {useGetMeQuery,useGetMyOrderQuery,useProfileUpdateMutation} = userApi;

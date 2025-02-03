@@ -5,6 +5,7 @@ import { toast } from "sonner"
 import { removeFromCart, updateQuantity } from "../../redux/features/cart/cartSlice"
 
 import { AlertTriangle, MapPin, Trash } from "lucide-react";
+import { TResponse } from "../../types/global"
 
 
 const AddCart = () => {
@@ -13,12 +14,25 @@ const AddCart = () => {
     const [createOrder,{isLoading,isSuccess,data,isError,error}] = useCreateOrderMutation()
 
     console.log(cartData)
+    console.log(data)
 
     const handlePlaceOrder = async()=>{
-      
-        await createOrder({cars:cartData.items})
+      console.log('order running')
+          try {
+              const res = (await createOrder({cars:cartData.items})) as TResponse<any>;
+              console.log('order entry')
+              console.log(res);
+              if (res.error) {
+                toast.error(res.error.data.message, { id: toastId });
+                console.log(res);
+              } else {
+                toast.success("Order Placed", { id: toastId });
+              }
+            } catch (err) {
+              toast.error("Something went wrong", { id: toastId });
+            }
+        
     }
-
 
     const dispatch = useAppDispatch()
     const toastId = 'cart'
@@ -26,10 +40,11 @@ const AddCart = () => {
     const redWarningIcon = <AlertTriangle size={20} className="text-red-500" />;
 
     useEffect(() => {
-        if (!data) return; 
+        // if (!data) return; 
       
         if (isLoading) toast.loading("Processing...", { id: toastId });
     
+        console.log(data?.data)
         if (isSuccess) {
           toast.success(data.message, { id: toastId });
         

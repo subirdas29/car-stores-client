@@ -12,9 +12,10 @@ import { routesGenerator } from "../utils/routesGenerator";
 import { adminPaths } from "./admin.routes";
 import { userPaths } from "./user.routes";
 import CarDetails from "../pages/CarDetails/CarDetails";
-import CarData from "../pages/CarDetails/CarData";
+
 import AddCart from "../pages/AddCart/AddCart";
 import VerifyOrder from "../pages/VerifyOrder/VerifyOrder";
+import UserDetails from "../pages/Dashboard/admin/UserDetails";
 
 
  const router = createBrowserRouter([
@@ -30,6 +31,10 @@ import VerifyOrder from "../pages/VerifyOrder/VerifyOrder";
                 path:'/all-cars',
                 element:<AllCars/>
         
+            },
+            {
+                path:'user/:userId',
+                element:<UserDetails/>
             },
             {
                 path:'car-details/:carId',

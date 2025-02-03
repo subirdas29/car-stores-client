@@ -23,7 +23,7 @@ const carsApi = baseApi.injectEndpoints({
                 
               };
             },
-            providesTags:['cars'],
+            // providesTags:['cars'],
             transformResponse: (response: TResponseRedux<TCar[]>) => {
               return {
                 data: response.data,
@@ -39,7 +39,7 @@ const carsApi = baseApi.injectEndpoints({
                 method: 'GET',
               };
             },
-            providesTags:['cars'],
+            // providesTags:['cars'],
             transformResponse: (response: TResponseRedux<TCar>) => {
               return {
                 data: response.data,

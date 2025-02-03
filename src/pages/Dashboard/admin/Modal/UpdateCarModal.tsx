@@ -16,10 +16,6 @@ import { TResponse } from "../../../../types/global";
 const UpdateCarModal = ({carInfo}:TCar)=>{
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const { data: allCars,refetch, isFetching } = useAllCarsQuery(undefined,{
-      refetchOnMountOrArgChange:true,
-      refetchOnReconnect:true
-    });
  
     const [updateCars,{isLoading}] = useUpdateCarsMutation()
 
@@ -41,7 +37,7 @@ const UpdateCarModal = ({carInfo}:TCar)=>{
                 toast.error(res.error.data.message,{id:toastId})
             } else{
                 toast.success(`${data.brand} ${data.model} updated successfully`,{id:toastId}) 
-                await refetch();
+                
                
             }
             console.log(res)

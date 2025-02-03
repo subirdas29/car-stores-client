@@ -12,7 +12,7 @@ import TextArea from "antd/es/input/TextArea";
 import { UploadOutlined } from "@ant-design/icons";
 
 const AddCars = () => {
-  // const [signup] = useSignupMutation(undefined)
+ 
 
   const [createCar] = useCreateCarMutation();
 
@@ -56,7 +56,7 @@ const AddCars = () => {
       <h1 className="text-center text-2xl font-bold mt-2 mb-6">Add Cars</h1>
       <CarForm
         onSubmit={onSubmit}
-        //  defaultValues = {defaultValues}
+       
       >
         <div className="grid grid-cols-2 gap-5 font-bold">
           <CarInput type="text" name="brand" label="Brand Name:" />

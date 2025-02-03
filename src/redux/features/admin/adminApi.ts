@@ -22,24 +22,26 @@ const adminApi = baseApi.injectEndpoints({
             url: '/orders',
             method: 'GET',
             params: params,
+           
           };
         },
-        providesTags:['orders'],
+        providesTags: ['orders'],
         transformResponse: (response: TResponseRedux<TOrder[]>) => {
           return {
             data: response.data,
             meta: response.meta,
           };
         },
+
         
       }),
 
       deleteOrder: builder.mutation({
-        query: (carId) => ({
-          url: `/orders/${carId}`,
+        query: (orderId) => ({
+          url: `/orders/${orderId}`,
           method: "DELETE",
         }),
-        invalidatesTags: ['orders'],
+        invalidatesTags: ['orders'],  
       }), 
 
         allUsers: builder.query({
@@ -58,7 +60,7 @@ const adminApi = baseApi.injectEndpoints({
                 params: params,
               };
             },
-             providesTags: ['users'],
+             providesTags: ['allusers'],
             transformResponse: (response: TResponseRedux<TUser[]>) => {
               console.log(response)
               return {
@@ -69,22 +71,38 @@ const adminApi = baseApi.injectEndpoints({
             
           }),
 
+          getAUser: builder.query({
+            query: (userId) => {
+              return {
+                url: `/user/${userId}`,
+                method: 'GET',
+              };
+            },
+            // providesTags:['allusers'],
+            transformResponse: (response: TResponseRedux<TCar>) => {
+              return {
+                data: response.data,
+                meta: response.meta,
+              };
+            },
+          }),
+
           blockedUser: builder.mutation({
             query: (userId) => ({
               url: `/user/block-user/${userId}`,
               method: 'PATCH',
-
+              
             }),
-            invalidatesTags: ['users'],
+            invalidatesTags: ['allusers'],
           }),
           
           unblockedUser: builder.mutation({
             query: (userId) => ({
               url: `/user/unblock-user/${userId}`,
               method: 'PATCH',
-
+               
             }),
-            invalidatesTags: [{ type: 'users', id: 'LIST' }],
+            invalidatesTags: ['allusers'],
           }),
 
           allCars: builder.query({
@@ -146,4 +164,4 @@ const adminApi = baseApi.injectEndpoints({
 
 export const {useBlockedUserMutation,useUnblockedUserMutation,useDeleteOrderMutation,
   useDeleteCarMutation
-  ,useViewOrdersQuery,useCreateCarMutation,useAllUsersQuery,useAllCarsQuery,useUpdateCarsMutation} = adminApi;
+  ,useViewOrdersQuery,useCreateCarMutation,useAllUsersQuery,useAllCarsQuery,useUpdateCarsMutation,useGetAUserQuery} = adminApi;

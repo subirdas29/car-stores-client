@@ -15,11 +15,7 @@ import { toast } from 'sonner';
 
 const ViewCars= () => {
   // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
-  const { data: allCars,refetch, isFetching } = useAllCarsQuery(undefined,{
-    refetchOnFocus:true,
-    refetchOnMountOrArgChange:true,
-    refetchOnReconnect:true
-  });
+  const { data: allCars,isFetching} = useAllCarsQuery(undefined);
 
 const [deleteCar] = useDeleteCarMutation()
 
@@ -31,7 +27,7 @@ const handleDeleteCar = async(id:string)=>{
       toast.error(res.error.data.message || 'Delete failed');
     } else {
       toast.success(res.data.message || 'Order deleted successfully');
-      await refetch();
+     
     }
   } catch {
     toast.error('Something went wrong');
@@ -41,9 +37,8 @@ const handleDeleteCar = async(id:string)=>{
   console.log(allCars)
 
 
-  const tableData = useMemo(() => {
-    if (!allCars?.data) return [];
-    return allCars.data.map(({ _id, brand, model, category, imageUrl, price, stock, description, createdAt, updatedAt }) => ({
+  const tableData = allCars?.data
+  ? allCars.data.map(({ _id, brand, model, category, imageUrl, price, stock, description, createdAt, updatedAt }) => ({
       _id,
       key: _id, 
       brand,
@@ -55,8 +50,8 @@ const handleDeleteCar = async(id:string)=>{
       stock,
       createdAt: createdAt ? moment(createdAt).format("DD-MM-YYYY") : "N/A",
       updatedAt: updatedAt ? moment(updatedAt).format("DD-MM-YYYY") : "N/A",
-    }));
-  }, [allCars]); 
+    }))
+  : [];
 
   
 
@@ -162,7 +157,7 @@ const columns: TableColumnsType<TCar> = [
   <div className='border-1 border-gray-200 shadow-lg rounded-md  text-center md:text-left py-6 px-1'>
     <h1 className='text-center text-2xl font-bold mt-2 mb-2'>All Cars</h1>
       <Table
-      // loading={isFetching}
+      loading={isFetching}
       columns={columns}
       dataSource={tableData}
       onChange={onChange}
