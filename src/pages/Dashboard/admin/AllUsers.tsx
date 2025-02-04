@@ -87,11 +87,7 @@ const columns: TableColumnsType<TUser> = [
     key: 'phone',
     dataIndex: 'phone',
   },
-  {
-    title: 'Address',
-    key: 'address',
-    dataIndex: 'address',
-  },
+
   {
     title: 'City',
     key: 'city',

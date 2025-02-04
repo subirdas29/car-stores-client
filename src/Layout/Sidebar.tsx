@@ -8,7 +8,7 @@ import { TUser, useCurrentToken } from '../redux/features/auth/authSlice';
 import { verifyToken } from '../utils/verifyToken';
 
 
-// const { Sider } = Layout;
+
 
 const userRole = {
   ADMIN: 'admin',

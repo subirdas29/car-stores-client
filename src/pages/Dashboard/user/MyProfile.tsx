@@ -8,36 +8,48 @@ import { FieldValues } from "react-hook-form"
 import { useGetMeQuery, useProfileUpdateMutation } from "../../../redux/features/user/userApi"
 import { TResponse } from "../../../types/global"
 import { TUser } from "../../../types/admin.types"
+import { useEffect, useState } from "react"
 
 
 const MyProfile = () => {
-    // const [signup] = useSignupMutation(undefined)
+    
    
 
     const {data:userData,refetch} = useGetMeQuery(undefined,{
-      refetchOnMountOrArgChange:true,
-      refetchOnReconnect:true,
+      // refetchOnMountOrArgChange:true,
+      // refetchOnReconnect:true,
       // pollingInterval:3000
 })
 
-
-
-console.log('userData:',userData)
-
   const [profileUpdate,{isLoading}]= useProfileUpdateMutation()
+  
 
     const defaultValues = {
-        name: userData.data.name,
-        email: userData.data.email,
-        phone: userData.data.phone,
-        address: userData.data.address,
-        city:  userData.data.city
+        name: userData?.data?.name,
+        email: userData?.data?.email,
+        phone: userData?.data?.phone,
+        address: userData?.data?.address,
+        city:  userData?.data?.city
     }
+    const [formValues, setFormValues] = useState(defaultValues);
 
+    useEffect(() => {
+      if (userData?.data) {
+        setFormValues({
+          name: userData.data.name,
+          email: userData.data.email,
+          phone: userData.data.phone,
+          address: userData.data.address,
+          city: userData.data.city
+        });
+      }
+    }, [userData]);
+
+    console.log(defaultValues)
    
 
     const onSubmit = async(data:FieldValues) =>{
-        const toastId = toast.loading('Logging in')
+        const toastId = toast.loading('Loading...')
         const userInfo = {
           data
         }
@@ -49,7 +61,7 @@ console.log('userData:',userData)
                       toast.error(res.error.data.message,{id:toastId})
                   } else{
                       toast.success(`${data.name} profile updated successfully`,{id:toastId}) 
-                      await refetch()
+                      // await refetch()
                       // setTimeout(()=>{
                       //    refetch();
                       // },1000)
@@ -68,7 +80,7 @@ console.log('userData:',userData)
    
    <div className="border-1 border-gray-200 shadow-lg rounded-md p-10" >
      <CarForm  onSubmit={onSubmit}
-     defaultValues = {defaultValues}
+     defaultValues = {formValues}
      >
   
      <div className="grid grid-cols-2 gap-5 font-bold">
@@ -77,9 +89,17 @@ console.log('userData:',userData)
 
    <CarInput type="email" name="email" label= "Email:"/>
    <CarInput type="number" name="phone" label= "Phone:"/>
- 
-   <CarInput  type="text" name="address" label= "Address:"/>
+
    <CarInput  type="text" name="city" label= "City:"/>
+    
+   <CarInput
+            type="textarea"
+            name="address"
+            label="Address:"
+            placeholder="Write your address..."
+            rows={4}
+            maxLength={500}
+          />
   
     
      </div>

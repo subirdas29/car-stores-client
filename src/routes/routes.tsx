@@ -16,72 +16,70 @@ import CarDetails from "../pages/CarDetails/CarDetails";
 import AddCart from "../pages/AddCart/AddCart";
 import VerifyOrder from "../pages/VerifyOrder/VerifyOrder";
 import UserDetails from "../pages/Dashboard/admin/UserDetails";
+import ProtectedRoute from "../Layout/ProtectedRoute";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
+        element: <App />,
+      },
+      {
+        path: "/all-cars",
+        element: <AllCars />,
+      },
+      {
+        path: "user/:userId",
+        element: <UserDetails />,
+      },
+      {
+        path: "car-details/:carId",
+        element: <CarDetails />,
+      },
+      {
+        path: "/cart",
+        element: <AddCart />,
+      },
+      {
+        path: "orders/verify",
+        element: <VerifyOrder />,
+      },
 
- const router = createBrowserRouter([
-    {
-        path:'/',
-        element:<Main></Main>,
-        children:[
-            {
-                path:'/',
-                element:<App/>
-            },
-            {
-                path:'/all-cars',
-                element:<AllCars/>
-        
-            },
-            {
-                path:'user/:userId',
-                element:<UserDetails/>
-            },
-            {
-                path:'car-details/:carId',
-                element:<CarDetails/>
-            },
-            {
-                path:'/cart',
-                element:<AddCart/>
-            },
-            {
-                path:'orders/verify',
-                element:<VerifyOrder/>
-            },
-          
-            {
-                path:'/about',
-                element:<AboutUs/>
-        
-            },
-            {
-                path:'/signup',
-                element:<SignUp/>
-            },
-            {
-                path:'/login',
-                element:<Login/>
-            },
-            {
-                path:'/admin',
-                element:
-       (
-       
-        <DashboardLayout/>
-  
-       ),
-      children: routesGenerator(adminPaths)
-    },
-            {
-                path:'/user',
-                element:    (
-                    <DashboardLayout/>
-                   ),
-                  children: routesGenerator(userPaths)
-                },
-          
-        ]
-    }
-])
+      {
+        path: "/about",
+        element: <AboutUs />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/admin",
+        element: (
+            <ProtectedRoute role="admin">
+            <DashboardLayout />,
+        </ProtectedRoute>
+        ),
+        children: routesGenerator(adminPaths),
+      },
+      {
+        path: "/user",
+        element: (
+            <ProtectedRoute role="user">
+            <DashboardLayout />,
+        </ProtectedRoute>
+        ),
+        children: routesGenerator(userPaths),
+      },
+    ],
+  },
+]);
 
-export default router
+export default router;

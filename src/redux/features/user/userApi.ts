@@ -7,11 +7,14 @@ const userApi = baseApi.injectEndpoints({
     endpoints:(builder) =>({
         getMe:builder.query(
           {
-            query:()=>({
-                url:'/user/me',
+            query:()=>(
+              
+            {
+                url:'/user/me/details',
                 method:'Get',
-                providesTags:['users']
-            }),
+                // providesTags:['users']
+            }
+          ),
         }),
 
         getMyOrder: builder.query({
@@ -45,8 +48,7 @@ const userApi = baseApi.injectEndpoints({
             body: args.data,
             
           }),
-          invalidatesTags:['users']
-          
+          // invalidatesTags:['users']
         }),
         
     })

@@ -27,12 +27,12 @@ const authSlice = createSlice({
             const {user,token} = action.payload
             state.user = user
             state.token = token
-            console.log(state)
+            
         },
         logOut:(state)=>{
             state.user =null
             state.token = null
-            console.log(state)
+            
         }
     }
 })

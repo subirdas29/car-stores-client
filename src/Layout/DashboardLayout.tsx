@@ -1,16 +1,11 @@
-import { Layout } from 'antd'
-import { logOut } from '../redux/features/auth/authSlice';
-import { NavLink, Outlet } from 'react-router-dom';
-// import Sidebar from './Sidebar';
-import { useAppDispatch } from '../redux/hook';
+
+import { Outlet } from 'react-router-dom';
+
+
 import Sidebar from './Sidebar';
 
 const DashboardLayout = () => {
-    // const dispatch = useAppDispatch() 
-
-    // const handleLogout = ()=>{
-    //   dispatch(logOut())
-    // }
+ 
   return (
     <div>
        <div
