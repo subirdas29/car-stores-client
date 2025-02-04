@@ -1,4 +1,4 @@
-import AllCarSlider from "../../components/AllCarSlider/AllCarSlider"
+
 import Banner from "../../components/Banner/Banner"
 import ConnectBrand from "../../components/ConnectBrand/ConnectBrand"
 import EventList from "../../components/Events/EventList"
@@ -15,7 +15,6 @@ const Home = () => {
     <div >
       <Banner></Banner>
     <AllFeaturedCars/>
-    <AllCarSlider/>
     <CarGallery/>
     <EventList/>
     <ConnectBrand/>

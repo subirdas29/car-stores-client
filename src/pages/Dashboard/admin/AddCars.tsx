@@ -1,19 +1,20 @@
-import { Button, Col, Form, Input, Row, Upload } from "antd";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Button, Form, Upload } from "antd";
 import CarForm from "../../../components/form/CarForm";
 import CarInput from "../../../components/form/CarInput";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
-import { Controller, FieldValues, useForm } from "react-hook-form";
+
+import { Controller, FieldValues } from "react-hook-form";
 import { useCreateCarMutation } from "../../../redux/features/admin/adminApi";
 import { TResponse } from "../../../types/global";
 import { carCategoryOptions } from "../../../constants/global";
 import CarSelect from "../../../components/form/CarSelect";
-import TextArea from "antd/es/input/TextArea";
+
 import { UploadOutlined } from "@ant-design/icons";
 
 const AddCars = () => {
- 
-  // const { handleSubmit } = useForm(); 
+
   const [createCar] = useCreateCarMutation();
 
   const onSubmit = async (data: FieldValues) => {
@@ -70,7 +71,7 @@ const AddCars = () => {
 
 <Controller
   name="image"
-  render={({ field: { onChange, value, ...field } }) => (
+  render={({ field: { onChange, value } }) => (
     <Form.Item label="Picture">
       <Upload
         beforeUpload={() => false} 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button,  } from "antd"
 import CarForm from "../../../components/form/CarForm"
@@ -15,7 +16,7 @@ const MyProfile = () => {
     
    
 
-    const {data:userData,refetch} = useGetMeQuery(undefined,{
+    const {data:userData} = useGetMeQuery(undefined,{
       // refetchOnMountOrArgChange:true,
       // refetchOnReconnect:true,
       // pollingInterval:3000

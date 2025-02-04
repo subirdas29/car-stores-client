@@ -8,12 +8,16 @@ import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
 import CarForm from "../../../../components/form/CarForm";
 import CarSelect from "../../../../components/form/CarSelect";
 import { carCategoryOptions } from "../../../../constants/global";
-import { useAllCarsQuery, useUpdateCarsMutation } from "../../../../redux/features/admin/adminApi";
+import {  useUpdateCarsMutation } from "../../../../redux/features/admin/adminApi";
 import { toast } from "sonner";
 import { TResponse } from "../../../../types/global";
 
 
-const UpdateCarModal = ({carInfo}:TCar)=>{
+type TCarProps = {
+  carInfo:TCar
+}
+
+const UpdateCarModal = ({carInfo}:TCarProps)=>{
     const [isModalOpen, setIsModalOpen] = useState(false);
 
  
@@ -21,12 +25,19 @@ const UpdateCarModal = ({carInfo}:TCar)=>{
 
     const onSubmit:SubmitHandler<FieldValues>  = async(data) => {
         console.log(data);
+        
        
         const toastId = toast.loading('Updating...')
         const carData = {
             carId:data._id,
-            data,
+            data: {
+              ...data,
+              price: Number(data.price),  
+              stock: Number(data.stock)   
+          }
         }
+
+        console.log(carData)
 
 
         try{
@@ -37,16 +48,12 @@ const UpdateCarModal = ({carInfo}:TCar)=>{
                 toast.error(res.error.data.message,{id:toastId})
             } else{
                 toast.success(`${data.brand} ${data.model} updated successfully`,{id:toastId}) 
-                
-               
             }
             console.log(res)
         }
         catch(err:any){
             toast.error('Something went wrong',{id:toastId})
         }
-
-      
       
       };
     
@@ -110,8 +117,8 @@ const UpdateCarModal = ({carInfo}:TCar)=>{
               )}
             />
 
-    <CarInput type="text" name="price" label="Price:"  />
-    <CarInput type="text" name="stock" label="Stock:"  />
+    <CarInput type="number" name="price" label="Price:"  />
+    <CarInput type="number" name="stock" label="Stock:"  />
     <CarInput
   type="textarea"
   name="description"

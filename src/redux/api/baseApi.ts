@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import {
     BaseQueryApi,
@@ -15,7 +16,7 @@ import { RootState } from '../store';
 
   
   const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:5000/api',
+    baseUrl: 'https://car-stores-api.vercel.app/',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => { 
       const token = (getState() as RootState).auth.token;
@@ -35,18 +36,20 @@ import { RootState } from '../store';
   > = async (args, api, extraOptions): Promise<any> => {
     let result = await baseQuery(args, api, extraOptions);
   
-    if(result?.error?.status===404){
-      toast.error(result.error.data.message)
-    }
-
-    if(result?.error?.status===403){
-      toast.error(result.error.data.message)
+    if (result?.error?.status === 404 || result?.error?.status === 403) {
+      
+      const errorData = result.error.data as { message?: string };
+  
+      
+      const errorMessage = errorData.message || 'An unexpected error occurred.';
+  
+      toast.error(errorMessage);
     }
 
     if (result?.error?.status === 401) {
     
   
-      const res = await fetch('http://localhost:5000/api/auth/refresh-token', {
+      const res = await fetch('https://car-stores-api.vercel.app/api/auth/refresh-token', {
         method: 'POST',
         credentials: 'include'
       });

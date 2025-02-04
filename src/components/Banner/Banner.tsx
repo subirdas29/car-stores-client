@@ -1,10 +1,11 @@
 
 import { Carousel } from "antd";
+import { NavLink } from "react-router-dom";
 
 const Banner = () => {
   return (
     <div style={{ width: "100%", height: "100%", overflow: "hidden" }}>
-      <Carousel>
+      <Carousel autoplay autoplaySpeed={1500}>
         {/* Slide Template with Consistent Background and Overlay */}
         {/* First Slide */}
         <div
@@ -57,6 +58,7 @@ const Banner = () => {
               <p style={{ fontSize: "1.2rem", marginBottom: "20px" ,fontWeight:"bold", color:"white"  }}>
                 Explore our products.
               </p>
+              <NavLink to='/all-cars'>
               <button
                 style={{
                   padding: "10px 20px",
@@ -68,8 +70,12 @@ const Banner = () => {
                   cursor: "pointer",
                 }}
               >
+               
                 Learn More
+              
+               
               </button>
+              </NavLink>
             </div>
           </div>
         </div>
@@ -126,6 +132,7 @@ const Banner = () => {
               <p style={{ fontSize: "1.2rem", marginBottom: "20px", fontWeight:"bold", color:"white" }}>
                 Check out our latest arrivals.
               </p>
+              <NavLink to='/all-cars'>
               <button
                 style={{
                   padding: "10px 20px",
@@ -139,6 +146,7 @@ const Banner = () => {
               >
                 Shop Now
               </button>
+              </NavLink>
             </div>
           </div>
         </div>
@@ -195,6 +203,7 @@ const Banner = () => {
               <p style={{ fontSize: "1.2rem", marginBottom: "20px", fontWeight:"bold", color:"white" }}>
                 Don't miss out on great discounts.
               </p>
+              <NavLink to='/all-cars'>
               <button
                 style={{
                   padding: "10px 20px",
@@ -208,6 +217,7 @@ const Banner = () => {
               >
                 Explore Offers
               </button>
+              </NavLink>
             </div>
           </div>
         </div>
@@ -264,6 +274,7 @@ const Banner = () => {
               <p style={{ fontSize: "1.2rem", marginBottom: "20px" , fontWeight:"bold", color:"white" }}>
                 Grab them before they're gone.
               </p>
+              <NavLink to='/all-cars'>
               <button
                 style={{
                   padding: "10px 20px",
@@ -277,6 +288,7 @@ const Banner = () => {
               >
                 Buy Now
               </button>
+              </NavLink>
             </div>
           </div>
         </div>

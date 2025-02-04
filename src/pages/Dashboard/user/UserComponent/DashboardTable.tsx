@@ -1,28 +1,34 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Space, Table, TableColumnsType, TableProps } from 'antd';
-import {  useGetMyOrderQuery } from '../../../../redux/features/user/userApi';
+import { useGetMyOrderQuery } from '../../../../redux/features/user/userApi';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useAppDispatch } from '../../../../redux/hook';
-import { baseApi } from '../../../../redux/api/baseApi';
 import { useDeleteOrderMutation } from '../../../../redux/features/admin/adminApi';
-import { TQueryParam } from '../../../../types/global';
+
+export type TTableData = {
+  key: string;
+  orderId: string;
+  transactionId: string;
+  email: string;
+  brand: string;
+  model: string;
+  quantity: number;
+  price: number;
+  orderDate: string;
+  status: 'Pending' | 'Paid' | 'Shipped' | 'Completed' | 'Cancelled';
+};
 
 const DashboardTable = () => {
-  const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
-  const { data: myOrderData, isFetching } = useGetMyOrderQuery(params, {
+  const { data: myOrderData, isFetching } = useGetMyOrderQuery(undefined, {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
   });
 
-  const [page, setPage] = useState(1);
- 
   const [deleteOrder] = useDeleteOrderMutation();
   const [tableData, setTableData] = useState<TTableData[]>([]);
 
-  console.log('order data',myOrderData)
-  // Update tableData when myOrderData changes
   useEffect(() => {
     if (myOrderData?.data) {
       setTableData(
@@ -48,12 +54,6 @@ const DashboardTable = () => {
     try {
       await deleteOrder(id).unwrap();
       toast.success('Order deleted successfully');
-
-   
-      // Refetch data immediately
-      // await refetch();
-
-      // Optional: Optimistically update tableData
       setTableData((prevData) => prevData.filter((item) => item.orderId !== id));
     } catch (err) {
       toast.error('Something went wrong');
@@ -102,9 +102,7 @@ const DashboardTable = () => {
       dataIndex: 'status',
       render: (status) => (
         <span
-          className={`px-2 py-1 rounded-md ${
-            status === "Paid" ? "bg-green-500 text-white" : "bg-red-500 text-white"
-          }`}
+          className={`px-2 py-1 rounded-md ${status === "Paid" ? "bg-green-500 text-white" : "bg-red-500 text-white"}`}
         >
           {status}
         </span>
@@ -127,12 +125,7 @@ const DashboardTable = () => {
     },
   ];
 
-  const onChange: TableProps<TTableData>['onChange'] = (
-    _pagination,
-    filters,
-    _sorter,
-    extra
-  ) => {
+  const onChange: TableProps<TTableData>['onChange'] = (_pagination, filters, _sorter, extra) => {
     console.log({ filters, extra });
   };
 

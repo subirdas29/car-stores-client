@@ -1,11 +1,13 @@
 
-import { useCarsQuery } from '../../redux/features/cars/carsApi'
+import { useAllCarsQuery } from '../../redux/features/admin/adminApi'
+
 import Cars from './Cars'
 
 const AllCars = () => {
 
-  const {data:allCars} = useCarsQuery(undefined)
+  const {data:allCars} = useAllCarsQuery(undefined)
   console.log(allCars)
+
 
   return (
     <div>

@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect } from "react"
 import { useCreateOrderMutation } from "../../redux/features/order/orderApi"
 import { useAppDispatch, useAppSelector } from "../../redux/hook"
 import { toast } from "sonner"
@@ -40,7 +42,7 @@ const AddCart = () => {
     const redWarningIcon = <AlertTriangle size={20} className="text-red-500" />;
 
     useEffect(() => {
-        // if (!data) return; 
+   
       
         if (isLoading) toast.loading("Processing...", { id: toastId });
     
@@ -59,7 +61,7 @@ const AddCart = () => {
       }, [data, error, isError, isLoading, isSuccess]); 
 
       console.log(data)
-      // const [added, setAdded] = useState(false);
+      
 
   return (
     <div className="my-24  grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl  mx-8 md:mx-12 lg:mx-auto p-6 bg-white shadow-lg rounded-2xl border border-gray-200">
@@ -117,7 +119,7 @@ const AddCart = () => {
       )}
     </div>
 
-    {/* Right Side - Order Summary */}
+
     <div className="md:col-span-1 bg-gray-100 p-4 rounded-xl shadow-md">
       <h3 className="text-lg font-semibold flex items-center gap-2">
         <MapPin size={18} /> Location

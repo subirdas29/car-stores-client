@@ -7,7 +7,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import UpdateCarModal from './Modal/UpdateCarModal';
-import { useMemo } from 'react';
+
 import { toast } from 'sonner';
 
 
@@ -17,22 +17,44 @@ const ViewCars= () => {
   // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
   const { data: allCars,isFetching} = useAllCarsQuery(undefined);
 
+console.log(allCars)
+
+
 const [deleteCar] = useDeleteCarMutation()
 
-const handleDeleteCar = async(id:string)=>{
+const handleDeleteCar = async (id: string) => {
   try {
     const res = await deleteCar(id);
-    console.log(res)
-    if ('error' in res) {
-      toast.error(res.error.data.message || 'Delete failed');
-    } else {
-      toast.success(res.data.message || 'Order deleted successfully');
+
+   
+    if ('error' in res && res.error) {
+      const error = res.error;
+
      
+      if ((error as { data: unknown }).data) {
+        const message = (error as { data: { message?: string } }).data?.message || 'Delete failed';
+        toast.error(message);
+      }
+    
+      else if ((error as { message?: string }).message) {
+        const message = (error as { message?: string }).message || 'Delete failed';
+        toast.error(message);
+      } else {
+        toast.error('Delete failed');
+      }
+    } else {
+     
+      toast.success(res.data.message || 'Car deleted successfully');
     }
-  } catch {
+  } catch (err) {
+    
+    console.error(err); 
     toast.error('Something went wrong');
   }
-}
+};
+
+
+
 
   console.log(allCars)
 
@@ -52,6 +74,7 @@ const handleDeleteCar = async(id:string)=>{
       updatedAt: updatedAt ? moment(updatedAt).format("DD-MM-YYYY") : "N/A",
     }))
   : [];
+  console.log(tableData)
 
   
 

@@ -1,4 +1,4 @@
-import { MenuItemProps } from "antd"
+
 import { ReactNode } from "react"
 
 
@@ -10,7 +10,7 @@ export type TRoute = {
 export type TUserPath = {
   name?:string
   path?:string,
-  icon?:MenuItemProps
+  icon?:ReactNode
   element?:ReactNode,
   children?: TUserPath[]
 }

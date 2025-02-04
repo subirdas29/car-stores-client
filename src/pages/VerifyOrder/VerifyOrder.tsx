@@ -79,7 +79,7 @@ export default function VerifyOrder() {
       
       </div>
      <div className="flex justify-center mt-12">
-     <NavLink to='/order' >
+     <NavLink to='/user/dashboard' >
       <button className="px-6  py-2  cursor-pointer bg-[#1890ff] border hover:text-[#1890ff] text-white font-semibold rounded-md  hover:bg-transparent">View Orders</button>
       </NavLink>
       <NavLink to='/' >

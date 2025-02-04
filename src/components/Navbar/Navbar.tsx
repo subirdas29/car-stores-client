@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { logOut, useCurrentToken } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
-import { FiShoppingCart, FiHeart } from "react-icons/fi"; // Import icons
+import { FiShoppingCart } from "react-icons/fi"; // Import icons
 import { clearCart } from "../../redux/features/cart/cartSlice";
 
 const Navbar = () => {
@@ -18,9 +18,9 @@ const Navbar = () => {
   const cartData = useAppSelector((state)=>state.cart)
   const cartLength = cartData.items.length
 
-  // Simulating cart and wishlist quantities
-  const cartQuantity = cartLength; // Example: This should come from Redux store or API
-  const wishlistQuantity = 2; // Example: This should come from Redux store or API
+
+  const cartQuantity = cartLength; 
+
 
   let user: { email: string; role: string } | null = null;
   if (token) {
@@ -34,7 +34,7 @@ const Navbar = () => {
     { title: "All Cars", path:`/all-cars` },
     { title: "Dashboard", path: dashboardPath },
     { title: "About Us", path: "/about" },
-    { title: "Contact Us", path: "/contact" },
+    { title: "Contact Us", path: "/contact-us" },
   ];
 
   const handleLogout = () => {
@@ -76,15 +76,7 @@ const Navbar = () => {
 
           {/* Icons and Buttons */}
           <div className="hidden lg:flex items-center space-x-6">
-            {/* Wishlist Icon */}
-            <NavLink to="/wishlist" className="relative">
-              <FiHeart className="text-2xl text-gray-600 hover:text-[#1890ff]" />
-              {wishlistQuantity > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {wishlistQuantity}
-                </span>
-              )}
-            </NavLink>
+          
 
             {/* Cart Icon */}
             <NavLink to="/cart" className="relative">
@@ -162,12 +154,12 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+  
      {/* Mobile Menu */}
 {menuOpen && (
   <div
     ref={menuRef}
-    className="lg:hidden bg-white shadow-md absolute top-full left-0 w-full z-50"
+    className="lg:hidden bg-white shadow-md absolute top-full left-0 w-full z-50 text-center "
   >
     <div className="space-y-4 py-4 px-6">
       {menuData.map((item, index) => (
@@ -191,17 +183,8 @@ const Navbar = () => {
       ))}
 
       {/* Icons */}
-      <div className="flex items-center space-x-6">
-        {/* Wishlist Icon */}
-        <NavLink to="/wishlist" className="relative">
-          <FiHeart className="text-2xl text-gray-600 hover:text-[#1890ff]" />
-          {wishlistQuantity > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              {wishlistQuantity}
-            </span>
-          )}
-        </NavLink>
-
+      <div className="flex items-center justify-center space-x-6">
+     
         {/* Cart Icon */}
         <NavLink to="/cart" className="relative">
           <FiShoppingCart className="text-2xl text-gray-600 hover:text-[#1890ff]" />

@@ -1,5 +1,5 @@
-import React from 'react'
-import { NavLink, useParams } from 'react-router-dom';
+
+import { useParams } from 'react-router-dom';
 import { useGetAUserQuery } from '../../../redux/features/admin/adminApi';
 import moment from 'moment';
 
@@ -12,17 +12,7 @@ const UserDetails = () => {
 
     console.log(userData)
 
-    // const {key: _id, 
-    //       name,
-    //       email,
-    //       role,
-    //       phone,
-    //       address,
-    //       city,
-    //       status,
-    //       createdAt: moment(createdAt).format("DD-MM-YYYY"),
-    //       updatedAt: moment(updatedAt).format("DD-MM-YYYY"),}=data.data
-
+  
 
   return isLoading?(
     <div className="flex justify-center items-center h-screen">
@@ -39,7 +29,7 @@ const UserDetails = () => {
         
         <p><strong>Name:</strong> {userData?.data?.name}</p>
         <p><strong>Email:</strong> {userData?.data?.email}</p>
-        <p><strong>Phone:</strong> {userData?.data?.phone_no}</p>
+        <p><strong>Phone:</strong> {userData?.data?.phone}</p>
         <p><strong>Address:</strong> {userData?.data?.address}</p>
         <p><strong>City:</strong> {userData?.data?.city}</p>
         <p><strong>Role:</strong> {userData?.data?.role}</p>
@@ -48,9 +38,6 @@ const UserDetails = () => {
         </p>
         <p><strong>Account Updated:</strong> {moment(userData?.data?.updatedAt).format('DD-MM-YYYY')}</p>
       </div>
-
-
-    
     </div>
    
   </div>

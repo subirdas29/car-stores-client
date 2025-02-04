@@ -1,15 +1,17 @@
 
 
-import { NavLink, useParams } from 'react-router-dom'
-import car1 from '../../../public/assets/images/banner/car1.jpg'
-import { Car, CarFront, ShoppingBag, User } from 'lucide-react'
-const FeaturedCars = ({car}) => {
- 
+import { NavLink } from 'react-router-dom'
 
-  
+import { Car, CarFront, ShoppingBag, User } from 'lucide-react'
+import { TCar } from '../../types/admin.types'
+
+type FeaturedCarsProps = {
+  car: TCar;
+};
+const FeaturedCars = ({car}:FeaturedCarsProps) => {
 
   const {_id ,brand,model,
-    imageUrl,price,category,description,quantity,isStock} = car
+    imageUrl,price,category} = car
   console.log(_id)
 
   return (

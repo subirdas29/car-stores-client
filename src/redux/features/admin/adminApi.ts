@@ -78,8 +78,8 @@ const adminApi = baseApi.injectEndpoints({
                 method: 'GET',
               };
             },
-            // providesTags:['allusers'],
-            transformResponse: (response: TResponseRedux<TCar>) => {
+            providesTags:['allusers'],
+            transformResponse: (response: TResponseRedux<TUser>) => {
               return {
                 data: response.data,
                 meta: response.meta,
@@ -132,6 +132,22 @@ const adminApi = baseApi.injectEndpoints({
             
           }),
 
+          getACar: builder.query({
+            query: (_id) => {
+              return {
+                url: `/cars/${_id}`,
+                method: 'GET',
+              };
+            },
+            providesTags:['cars'],
+            transformResponse: (response: TResponseRedux<TCar>) => {
+              return {
+                data: response.data,
+                meta: response.meta,
+              };
+            },
+          }),
+
           createCar: builder.mutation({
             query: (data) => ({
               url: '/cars',
@@ -162,6 +178,6 @@ const adminApi = baseApi.injectEndpoints({
     })
 })
 
-export const {useBlockedUserMutation,useUnblockedUserMutation,useDeleteOrderMutation,
+export const {useGetACarQuery,useBlockedUserMutation,useUnblockedUserMutation,useDeleteOrderMutation,
   useDeleteCarMutation
   ,useViewOrdersQuery,useCreateCarMutation,useAllUsersQuery,useAllCarsQuery,useUpdateCarsMutation,useGetAUserQuery} = adminApi;

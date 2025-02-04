@@ -1,12 +1,18 @@
-import { TCar } from "../../types/users.types"
-import car2 from '../../../public/assets/images/banner/car2.jpg'
+
+
 import { NavLink } from "react-router-dom"
 import { Car, CarFront, ShoppingBag, User } from "lucide-react"
+import { TCar } from "../../types/admin.types";
 
-const Cars = ({car}) => {
+
+type FeaturedCarsProps = {
+  car: TCar;
+};
+
+const Cars = ({car}:FeaturedCarsProps) => {
 
   console.log(car)
-    const {_id,brand,model,imageUrl,price,category,description,quantity,isStock} = car
+    const {_id,brand,imageUrl,price,category} = car
 
   return (
    

@@ -5,10 +5,11 @@ import car2 from '../../../public/assets/images/banner/car2.jpg'
 import car3 from '../../../public/assets/images/banner/car3.jpg'
 import car4 from '../../../public/assets/images/banner/car4.jpg'
 import { NavLink, useParams } from 'react-router-dom'
-import { useGetACarQuery } from '../../redux/features/cars/carsApi'
+
 import {  toast, Toaster } from 'sonner'
 import { useAppDispatch } from '../../redux/hook'
 import { addToCart } from '../../redux/features/cart/cartSlice'
+import { useGetACarQuery } from '../../redux/features/admin/adminApi'
 const CarDetails = () => {
   const [selectedImage, setSelectedImage] = useState(car1); // Initial big image
   const { carId } = useParams();
@@ -38,7 +39,12 @@ const CarDetails = () => {
 
 
   const handleAddToCart = () => {
+    if (!_id) {
+      toast.error("Car ID is missing.");
+      return;
+    }
     dispatch(addToCart({
+      _id, 
       car: _id,
       name: brand!,
       price: price!,
@@ -52,8 +58,13 @@ const CarDetails = () => {
   };
 
   const handleBuyNow = () => {
+    if (!_id) {
+      toast.error("Car ID is missing.");
+      return;
+    }
+
     dispatch(addToCart({
-    
+     _id, 
       car: _id,
       name: brand!,
       price: price!,

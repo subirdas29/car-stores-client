@@ -12,7 +12,7 @@ const userApi = baseApi.injectEndpoints({
             {
                 url:'/user/me/details',
                 method:'Get',
-                // providesTags:['users']
+                providesTags:['users']
             }
           ),
         }),
@@ -28,7 +28,7 @@ const userApi = baseApi.injectEndpoints({
             }
         
             return {
-              url: "/user/my-order",
+              url: "/user/my-order/details",
               method: "GET",
               params: params,
               
@@ -48,7 +48,7 @@ const userApi = baseApi.injectEndpoints({
             body: args.data,
             
           }),
-          // invalidatesTags:['users']
+          invalidatesTags:['users']
         }),
         
     })

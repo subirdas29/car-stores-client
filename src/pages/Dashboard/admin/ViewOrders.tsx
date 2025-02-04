@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from 'antd';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useDeleteOrderMutation, useViewOrdersQuery } from '../../../redux/features/admin/adminApi';
 import { TQueryParam } from '../../../types/global';
-import { resetCache } from '../../../utils/cacheUtils';
+
 
 export type TTableData = {
   key: string;

@@ -17,6 +17,7 @@ import AddCart from "../pages/AddCart/AddCart";
 import VerifyOrder from "../pages/VerifyOrder/VerifyOrder";
 import UserDetails from "../pages/Dashboard/admin/UserDetails";
 import ProtectedRoute from "../Layout/ProtectedRoute";
+import ContactUs from "../pages/ContactUs/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutUs />,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs />,
       },
       {
         path: "/signup",

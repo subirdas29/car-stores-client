@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Key } from "react";
 
 export type TCartItem = {
-  _id: Key | null | undefined;
-  car: string; // Product ID
+  _id?: Key | null; 
+  car: string;
   name: string;
   price: number;
   quantity: number;
   stock: number;
-  imageUrl: string; // Optional: for displaying in the UI
+  imageUrl: string; 
 };
 
 interface CartState {

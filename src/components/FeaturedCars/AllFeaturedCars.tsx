@@ -1,15 +1,19 @@
 import { NavLink } from "react-router-dom"
-import { useCarsQuery } from "../../redux/features/cars/carsApi"
+
 import FeaturedCars from "./FeaturedCars"
 import { Skeleton } from "antd"
+import { useAllCarsQuery } from "../../redux/features/admin/adminApi";
 
 
 const AllFeaturedCars = () => {
-  const { data: allCars, isLoading } = useCarsQuery(undefined, {
+  const { data: allCars, isLoading } = useAllCarsQuery(undefined, {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true
   });
 
+ 
+
+  console.log(allCars)
   return isLoading ? (
     <Skeleton active />
   ) : (

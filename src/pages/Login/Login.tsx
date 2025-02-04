@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Button, Row } from "antd";
 import { FieldValues } from "react-hook-form";
 import { useAppDispatch } from "../../redux/hook";
@@ -31,6 +31,8 @@ const Login = () => {
         email: data.email,
         password: data.password,
       };
+
+      console.log(userInfo)
 
       const res = await login(userInfo).unwrap();
       const user = verifyToken(res.data.accessToken) as TUser;

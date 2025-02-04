@@ -1,213 +1,137 @@
-import React, { useEffect, useRef } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { FaStar } from "react-icons/fa6";
+import { Carousel, Button, Rate } from "antd";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { useRef, useState, useEffect } from "react";
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { CarouselRef } from "antd/es/carousel";
 
-import person1 from '../../assets/img/reviews/person1.png'
-import person2 from '../../assets/img/reviews/person2.png'
-import person3 from '../../assets/img/reviews/person3.png'
-import person4 from '../../assets/img/reviews/person4.png'
-import person5 from '../../assets/img/reviews/person5.jpeg'
+import person1 from "../../assets/img/reviews/person1.png";
+import person2 from "../../assets/img/reviews/person2.png";
+import person3 from "../../assets/img/reviews/person3.png";
+import person4 from "../../assets/img/reviews/person4.png";
+import person5 from "../../assets/img/reviews/person5.jpeg";
 
-// import './styles.css';
-
-// import required modules
-import { FreeMode, Pagination, Navigation } from 'swiper/modules';
+const reviews = [
+  {
+    img: person1,
+    name: "Robert A. Voltaire",
+    title: "Great Experience!",
+    rating: 5,
+    feedback:
+      "I recently bought a car from this website, and the process was smooth and hassle-free. Highly recommend!",
+  },
+  {
+    img: person2,
+    name: "Emily Johnson",
+    title: "Excellent Service!",
+    rating: 4.5,
+    feedback:
+      "Fantastic experience! The customer support was responsive, and the car I received was exactly as described.",
+  },
+  {
+    img: person3,
+    name: "Michael Smith",
+    title: "Highly Recommend!",
+    rating: 5,
+    feedback:
+      "This website made my car-buying journey easy and convenient. The listings were clear, and the purchase process was seamless.",
+  },
+  {
+    img: person4,
+    name: "Sophia Williams",
+    title: "Trustworthy Platform",
+    rating: 4.5,
+    feedback:
+      "I was skeptical at first, but after my first purchase, I can say this is one of the best platforms to buy used cars safely.",
+  },
+  {
+    img: person5,
+    name: "David Brown",
+    title: "Smooth Transaction",
+    rating: 5,
+    feedback:
+      "A great platform with a variety of car options. I found exactly what I was looking for, and the process was stress-free.",
+  },
+];
 
 const Reviews = () => {
-  
+  const carouselRef = useRef<CarouselRef | null>(null);
+  const [visibleSlides, setVisibleSlides] = useState(3);
 
+  useEffect(() => {
+    const updateSlides = () => {
+      if (window.innerWidth < 768) {
+        setVisibleSlides(1);
+      } else if (window.innerWidth < 1024) {
+        setVisibleSlides(1);
+      } else {
+        setVisibleSlides(2);
+      }
+    };
 
-    return (
-        <div className='bg-[#F7F7F7] '>
-            <div className='mx-8 md:mx-16 lg:mx-24 py-24'>
-                <div className='mb-12 lg:mb-20 text-center lg:text-left lg:flex gap-12 lg:justify-start'>
-                    <h1 className='text-4xl font-bold w-full lg:w-2/6'>Trusted by thousands of buyers and sellers worldwide. 🚗</h1>
-                    <p className='w-full lg:w-2/6 mt-6 lg:mt-0'>Whether you're a first-time buyer or a seasoned car enthusiast, we are committed to providing a seamless and reliable car-buying experience. Our platform offers a wide selection of top brands, competitive pricing, and exceptional customer support to ensure your journey to owning the perfect car is smooth and hassle-free. 🚗✨</p>
-                    <div className='hidden lg:block'></div>
-                </div>
-                <div>
+    updateSlides();
+    window.addEventListener("resize", updateSlides);
+    return () => window.removeEventListener("resize", updateSlides);
+  }, []);
 
-                    {/* review */}
-                    <Swiper
-                         navigation={{
-                            nextEl: '.custom-next',
-                            prevEl: '.custom-prev',
-                          }}
-                          pagination={{
-                            el: '.custom-pagination',
-                            clickable: true,
-                          }}
-                          breakpoints={{
-                            
-                            1024: {
-                                slidesPerView: 3,
-                                spaceBetween: 30,
-                            },
-                            768: {
-                                slidesPerView: 1,
-                                spaceBetween: 30,
-                            },
-                            
-                            0: {
-                                slidesPerView: 1,
-                                spaceBetween: 10,
-                            }
-                        }}
-                          freeMode={true}
-                          modules={[FreeMode, Pagination, Navigation]}
-                          className="mySwiper "
-                    >
-                        <SwiperSlide>
-                            <div className=' h-[340px] p-6 md:p-10 bg-[#FFFFFF] border-1 border-gray-200 shadow-lg rounded-md'>
-                                <div className=' flex gap-6 mb-6'>
-                                    <img className='h-[64px] w-[64px] rounded-xl' src={person1} alt="" />
-                                    <div>
-                                        <h1 className='text-2xl font-bold'>Robert A.Voltaire</h1>
-                                        <p className=' font-semibold mb-2'>"Great Experience!" </p>
-                                        <div className='flex gap-2'>
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='pb-8'>
-                                    <p >
-                                    "I recently bought a car from this website, and the process was smooth and hassle-free. The customer service was excellent, and I got a great deal on my new car! Highly recommend."
-                                    </p>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className=' h-[340px] p-10 bg-[#FFFFFF] border-1 border-gray-200 shadow-lg rounded-md'>
-                                <div className='flex gap-6 mb-6'>
-                                    <img className='h-[64px] w-[64px] rounded-xl' src={person2} alt="" />
-                                    <div>
-                                        <h1 className='text-2xl font-bold'>Quinten Barney</h1>
-                                        <p className=' font-semibold mb-2'> "Excellent Service!"  </p>
-                                        <div className='flex gap-2'>
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p>
-                                    "The staff was very helpful in guiding me through the purchase process. The car was exactly as described, and the delivery was on time. I’m very satisfied with my purchase!"
-                                    </p>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='p-10 h-[340px] border-1 border-gray-200 shadow-lg rounded-md bg-[#FFFFFF]'>
-                                <div className='flex gap-6 mb-6'>
-                                    <img className='h-[64px] w-[64px] rounded-xl' src={person3} alt="" />
-                                    <div>
-                                        <h1 className='text-2xl font-bold'>Nikki</h1>
-                                        <p className='textcolor font-semibold mb-2'>"Highly Recommended!"</p>
-                                        <div className='flex gap-2'>
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p>
-                                    "I was a bit skeptical about buying a car online, but this website made it easy. The car was in perfect condition, and the support team answered all my questions. Will definitely buy again!"
-                                    </p>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='p-10 h-[340px] border-1 border-gray-200 shadow-lg rounded-md bg-[#FFFFFF]'>
-                                <div className='flex gap-6 mb-6'>
-                                    <img className='h-[64px] w-[64px] rounded-xl' src={person4} alt="" />
-                                    <div>
-                                        <h1 className='text-2xl font-bold'>Emily T.</h1>
-                                        <p className='textcolor font-semibold mb-2'>"Best Car Buying Experience!"</p>
-                                        <div className='flex gap-2'>
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p>
-                                    "I got my dream car at an unbeatable price! The whole transaction was transparent, and the customer service team was very responsive."
-                                    </p>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='p-10 h-[340px] border-1 border-gray-200 shadow-lg rounded-md bg-[#FFFFFF]'>
-                                <div className='flex gap-6 mb-6'>
-                                    <img className='h-[64px] w-[64px] rounded-xl' src={person5} alt="" />
-                                    <div>
-                                        <h1 className='text-2xl font-bold'>Michael B.</h1>
-                                        <p className='textcolor font-semibold mb-2'>"Reliable and Trustworthy!"</p>
-                                        <div className='flex gap-2'>
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                            <FaStar className='text-[#F18F02] h-[18px] w-[18px]' />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p>
-                                    "This platform offers a wide variety of car brands with great prices. The process was straightforward, and I felt confident in my purchase."
-                                    </p>
-                                </div>
-                            </div>
-                        </SwiperSlide>
+  const handlePrev = () => {
+    carouselRef.current?.prev();
+  };
 
-                    </Swiper>
-                    <div className="flex justify-between items-center mt-6 mx-12 lg:mx-0">
-                        {/* Custom previous button */}
-                        <div
-                            // ref={prevRef}
-                            className="custom-prev text-white bg-[#1890ff] rounded-full p-3 cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 md:w-6 md:h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </div>
+  const handleNext = () => {
+    carouselRef.current?.next();
+  };
 
-                        {/* Pagination */}
-                        <div className="custom-pagination flex justify-center gap-2"></div>
-
-                        {/* Custom next button */}
-                        <div
-                            // ref={nextRef}
-                            className="custom-next text-white bg-[#1890ff] rounded-full p-3 cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className=" w-4 h-4 md:w-6 md:h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="bg-[#F7F7F7] relative py-24 mt-28">
+      <div className="mx-8 md:mx-16 lg:mx-24">
+        <div className="mb-12 lg:mb-20 text-center lg:text-left lg:flex gap-12 lg:justify-start">
+          <h1 className="text-4xl font-bold w-full lg:w-2/6">
+            Trusted by thousands of buyers and sellers worldwide. 🚗
+          </h1>
+          <p className="w-full lg:w-2/6 mt-6 lg:mt-0">
+            Whether you're a first-time buyer or a seasoned car enthusiast, we
+            are committed to providing a seamless and reliable car-buying
+            experience. 🚗✨
+          </p>
         </div>
-    )
-}
 
-export default Reviews
+        {/* Fixed Navigation Buttons (Visible on all screen sizes) */}
+        <div className="absolute top-130 md:top-120 transform z-50 -translate-y-1/2 lg:left-16 md:left-10  sm:left-4">
+          <Button
+            onClick={handlePrev}
+            className="text-white bg-[#1890ff] hover:bg-[#0073e6] rounded-full p-3 cursor-pointer shadow-lg"
+            icon={<LeftOutlined />}
+          />
+        </div>
+        <div className="absolute top-130 md:top-120 right-8 z-50 transform -translate-y-1/2 lg:right-16 md:right-10 sm:right-4 ">
+          <Button
+            onClick={handleNext}
+            className="text-white bg-[#1890ff] hover:bg-[#0073e6] rounded-full p-3 cursor-pointer shadow-lg"
+            icon={<RightOutlined />}
+          />
+        </div>
+
+        {/* Carousel */}
+        <Carousel ref={carouselRef} dots autoplay infinite slidesToShow={visibleSlides}>
+          {reviews.map((review, index) => (
+            <div key={index} className="p-3">
+              <div className="h-[340px] p-6 md:p-10 bg-white border border-gray-200 shadow-lg rounded-md">
+                <div className="flex gap-6 mb-6">
+                  <img className="h-[64px] w-[64px] rounded-xl" src={review.img} alt={review.name} />
+                  <div>
+                    <h1 className="text-2xl font-bold">{review.name}</h1>
+                    <p className="font-semibold mb-2">"{review.title}"</p>
+                    <Rate defaultValue={review.rating} disabled allowHalf />
+                  </div>
+                </div>
+                <p>{review.feedback}</p>
+              </div>
+            </div>
+          ))}
+        </Carousel>
+      </div>
+    </div>
+  );
+};
+
+export default Reviews;

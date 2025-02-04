@@ -3,7 +3,7 @@ import { BaseQueryApi } from "@reduxjs/toolkit/query"
 export type TError = {
     data:{
     message:string,
-    stack:string,
+    stack?:string,
     success: boolean
     }
     status:number

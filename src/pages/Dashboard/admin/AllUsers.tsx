@@ -5,7 +5,7 @@ import { useAllUsersQuery, useBlockedUserMutation, useUnblockedUserMutation } fr
 import { TUser } from '../../../types/admin.types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+
 import { toast } from 'sonner';
 
 
@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 
 const AllUsers= () => {
   // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
- const {data:allUsers,isFetching} = useAllUsersQuery(undefined)
+ const {data:allUsers,isFetching,refetch} = useAllUsersQuery(undefined)
 
   const tableData: TUser[] = allUsers?.data?.map(
     ({ _id, name, email,role, phone, address, city, status, createdAt, updatedAt }) => ({
@@ -33,18 +33,31 @@ const AllUsers= () => {
 
   
 
-  const [blockedUser, { isLoading }] = useBlockedUserMutation(); 
+  const [blockedUser] = useBlockedUserMutation(); 
   const [unblockedUser] = useUnblockedUserMutation(); 
 
   const handleBlockedUser = async (id: string) => {
     try {
       const res = await blockedUser(id);
       
-      if ('error' in res) {
-        toast.error(res.error.data?.message || 'Blocking failed');
-      } else {
-        toast.success(res.data?.message || 'User blocked successfully');
+      if ('error' in res && res.error) {
+        const error = res.error;
+  
+       
+        if ((error as { data: unknown }).data) {
+          const message = (error as { data: { message?: string } }).data?.message || 'Delete failed';
+          toast.error(message);
+        }
       
+        else if ((error as { message?: string }).message) {
+          const message = (error as { message?: string }).message || 'Delete failed';
+          toast.error(message);
+        } else {
+          toast.error('Delete failed');
+        }
+      }  else {
+        toast.success(res.data?.message || 'User blocked successfully');
+        await refetch()
       }
     } catch {
       toast.error('Something went wrong');
@@ -54,11 +67,24 @@ const AllUsers= () => {
     try {
       const res = await unblockedUser(id);
       
-      if ('error' in res) {
-        toast.error(res.error.data?.message || 'Blocking failed');
-      } else {
+      if ('error' in res && res.error) {
+        const error = res.error;
+  
+       
+        if ((error as { data: unknown }).data) {
+          const message = (error as { data: { message?: string } }).data?.message || 'Delete failed';
+          toast.error(message);
+        }
+      
+        else if ((error as { message?: string }).message) {
+          const message = (error as { message?: string }).message || 'Delete failed';
+          toast.error(message);
+        } else {
+          toast.error('Delete failed');
+        }
+      }  else {
         toast.success(res.data?.message || 'User blocked successfully');
-        
+        await refetch()
        
       }
     } catch {
