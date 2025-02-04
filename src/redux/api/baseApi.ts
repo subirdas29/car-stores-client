@@ -16,7 +16,7 @@ import { RootState } from '../store';
 
   
   const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://car-stores-api.vercel.app/',
+    baseUrl: 'https://car-stores-api.vercel.app/api',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => { 
       const token = (getState() as RootState).auth.token;
