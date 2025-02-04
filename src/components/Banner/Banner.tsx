@@ -1,297 +1,66 @@
-
 import { Carousel } from "antd";
 import { NavLink } from "react-router-dom";
 
+const slides = [
+  {
+    image: "assets/images/banner/car1.jpg",
+    title: "Welcome to Our Store",
+    description: "Explore our products.",
+    buttonText: "Learn More",
+  },
+  {
+    image: "assets/images/banner/car2.jpg",
+    title: "New Collection",
+    description: "Check out our latest arrivals.",
+    buttonText: "Shop Now",
+  },
+  {
+    image: "assets/images/banner/car3.jpg",
+    title: "Seasonal Offers",
+    description: "Don't miss out on great discounts.",
+    buttonText: "Explore Offers",
+  },
+  {
+    image: "assets/images/banner/car4.jpg",
+    title: "Exclusive Deals",
+    description: "Grab them before they're gone.",
+    buttonText: "Buy Now",
+  },
+];
+
 const Banner = () => {
   return (
-    <div style={{ width: "100%", height: "100%", overflow: "hidden" }}>
+    <div className="w-full h-[540px] overflow-hidden">
       <Carousel autoplay autoplaySpeed={1500}>
-        {/* Slide Template with Consistent Background and Overlay */}
-        {/* First Slide */}
-        <div
-          style={{
-            minHeight: "100vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        {slides.map((slide, index) => (
           <div
-            style={{
-              backgroundImage: `url('assets/images/banner/car1.jpg')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              minHeight: "100%",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              textAlign: "center",
-              padding: "160px",
-              position: "relative",
-            }}
+            key={index}
+            className="flex items-center justify-center h-[540px]" // Ensures full height
           >
-            {/* Dark Blue Shadow Overlay */}
             <div
-              style={{
-                position: "absolute",
-                top: "0",
-                left: "0",
-                right: "0",
-                bottom: "0",
-                backgroundColor: "rgba(0, 0, 90, 0.4)", // Dark blue overlay
-                zIndex: "1",
-              }}
-            />
-            {/* Content */}
-            <div
-              style={{
-                position: "relative",
-                zIndex: "2",
-              }}
+              className="w-full flex flex-col items-center justify-center text-center relative bg-cover bg-center h-full"
+              style={{ backgroundImage: `url('${slide.image}')` }}
             >
-              <h1 style={{ fontSize: "2.5rem", marginBottom: "10px", fontWeight:"bold", color:"white" }}>
-                Welcome to Our Store
-              </h1>
-              <p style={{ fontSize: "1.2rem", marginBottom: "20px" ,fontWeight:"bold", color:"white"  }}>
-                Explore our products.
-              </p>
-              <NavLink to='/all-cars'>
-              <button
-                style={{
-                  padding: "10px 20px",
-                  fontSize: "1rem",
-                  backgroundColor: "#1890ff",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-               
-                Learn More
-              
-               
-              </button>
-              </NavLink>
-            </div>
-          </div>
-        </div>
+              {/* Dark Blue Shadow Overlay */}
+              <div className="absolute inset-0 bg-[rgba(0,0,90,0.4)]" />
 
-        {/* Second Slide */}
-        <div
-          style={{
-            minHeight: "100vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              backgroundImage: `url('assets/images/banner/car2.jpg')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              minHeight: "100%",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              textAlign: "center",
-              padding: "160px",
-              
-              position: "relative",
-            }}
-          >
-            {/* Dark Blue Shadow Overlay */}
-            <div
-              style={{
-                position: "absolute",
-                top: "0",
-                left: "0",
-                right: "0",
-                bottom: "0",
-                backgroundColor: "rgba(0, 0, 90, 0.4)",
-                zIndex: "1",
-              }}
-            />
-            {/* Content */}
-            <div
-              style={{
-                position: "relative",
-                zIndex: "2",
-              }}
-            >
-              <h1 style={{ fontSize: "2.5rem",fontWeight:"bold", color:"white", marginBottom: "10px" }}>
-                New Collection
-              </h1>
-              <p style={{ fontSize: "1.2rem", marginBottom: "20px", fontWeight:"bold", color:"white" }}>
-                Check out our latest arrivals.
-              </p>
-              <NavLink to='/all-cars'>
-              <button
-                style={{
-                  padding: "10px 20px",
-                  fontSize: "1rem",
-                  backgroundColor: "#1890ff",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-                Shop Now
-              </button>
-              </NavLink>
+              {/* Content */}
+              <div className="relative z-10 px-6 md:px-12">
+                <h1 className="text-white text-2xl md:text-4xl font-bold mb-2">
+                  {slide.title}
+                </h1>
+                <p className="text-white text-lg font-bold mb-4">
+                  {slide.description}
+                </p>
+                <NavLink to="/all-cars">
+                  <button className="bg-[#1890ff] text-white px-6 py-3 text-lg rounded-md hover:bg-[#0073e6] transition-all">
+                    {slide.buttonText}
+                  </button>
+                </NavLink>
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* Third Slide */}
-        <div
-          style={{
-            minHeight: "100vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              backgroundImage: `url('assets/images/banner/car3.jpg')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              minHeight: "100%",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              textAlign: "center",
-              padding: "160px",
-             
-              position: "relative",
-            }}
-          >
-            {/* Dark Blue Shadow Overlay */}
-            <div
-              style={{
-                position: "absolute",
-                top: "0",
-                left: "0",
-                right: "0",
-                bottom: "0",
-                backgroundColor: "rgba(0, 0, 90, 0.4)",
-                zIndex: "1",
-              }}
-            />
-            {/* Content */}
-            <div
-              style={{
-                position: "relative",
-                zIndex: "2",
-              }}
-            >
-              <h1 style={{ fontSize: "2.5rem", marginBottom: "10px", fontWeight:"bold", color:"white" }}>
-                Seasonal Offers
-              </h1>
-              <p style={{ fontSize: "1.2rem", marginBottom: "20px", fontWeight:"bold", color:"white" }}>
-                Don't miss out on great discounts.
-              </p>
-              <NavLink to='/all-cars'>
-              <button
-                style={{
-                  padding: "10px 20px",
-                  fontSize: "1rem",
-                  backgroundColor: "#1890ff",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-                Explore Offers
-              </button>
-              </NavLink>
-            </div>
-          </div>
-        </div>
-
-        {/* Fourth Slide */}
-        <div
-          style={{
-            minHeight: "100vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              backgroundImage: `url('assets/images/banner/car4.jpg')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              minHeight: "100%",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              textAlign: "center",
-              padding: "160px",
-             
-              position: "relative",
-            }}
-          >
-            {/* Dark Blue Shadow Overlay */}
-            <div
-              style={{
-                position: "absolute",
-                top: "0",
-                left: "0",
-                right: "0",
-                bottom: "0",
-                backgroundColor: "rgba(0, 0, 90, 0.4)",
-                zIndex: "1",
-              }}
-            />
-            {/* Content */}
-            <div
-              style={{
-                position: "relative",
-                zIndex: "2",
-              }}
-            >
-              <h1 style={{ fontSize: "2.5rem", marginBottom: "10px" , fontWeight:"bold", color:"white" }}>
-                Exclusive Deals
-              </h1>
-              <p style={{ fontSize: "1.2rem", marginBottom: "20px" , fontWeight:"bold", color:"white" }}>
-                Grab them before they're gone.
-              </p>
-              <NavLink to='/all-cars'>
-              <button
-                style={{
-                  padding: "10px 20px",
-                  fontSize: "1rem",
-                  backgroundColor: "#1890ff",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-                Buy Now
-              </button>
-              </NavLink>
-            </div>
-          </div>
-        </div>
+        ))}
       </Carousel>
     </div>
   );
