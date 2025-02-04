@@ -2,11 +2,15 @@
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-10">
+    <footer className="bg-gray-900 text-gray-300 py-10 ">
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8 ">
         {/* Company Info */}
         <div>
-          <h3 className="text-2xl font-bold text-white mb-4">Car Hunt</h3>
+      <div className="flex gap-3 items-center">
+      <img src="https://i.ibb.co.com/SXZRH721/car-hunt.png" className="h-14 w-14" alt="" />
+      <h1 className="text-2xl font-bold text-[#1890ff]">CarHunt</h1>
+      </div>
+        
           <p className="text-sm leading-relaxed">
             Car Hunt is your ultimate destination for exploring, discovering,
             and purchasing top-tier cars. We strive to provide you with the best

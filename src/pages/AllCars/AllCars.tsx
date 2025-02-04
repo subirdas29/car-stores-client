@@ -1,15 +1,17 @@
 
+import { Skeleton } from 'antd'
 import { useAllCarsQuery } from '../../redux/features/admin/adminApi'
 
 import Cars from './Cars'
 
 const AllCars = () => {
 
-  const {data:allCars} = useAllCarsQuery(undefined)
+  const {data:allCars,isLoading} = useAllCarsQuery(undefined)
   console.log(allCars)
 
 
-  return (
+  return isLoading?(<Skeleton className="my-28" active />):
+  (
     <div>
      <div
           style={{

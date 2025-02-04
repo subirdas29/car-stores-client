@@ -6,6 +6,7 @@ import { TOrderData } from "../../types/order.types";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { clearCart } from "../../redux/features/cart/cartSlice";
 import { useEffect } from "react";
+import { Skeleton } from "antd";
 
 export default function VerifyOrder() {
   const [searchParams] = useSearchParams();
@@ -40,7 +41,7 @@ export default function VerifyOrder() {
 
   return isLoading ? (
     <div className="flex justify-center items-center h-screen">
-      <p className="text-lg font-semibold">Loading...</p>
+      <p className="text-lg font-semibold"><Skeleton className="my-28" active /></p>
     </div>
   ) : (
     <div className="mx-8 md:mx-12 lg:mx-24 p-6 my-28">

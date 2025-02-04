@@ -48,9 +48,12 @@ const Navbar = () => {
   return (
     <header className="relative">
       <div className="bg-white w-full z-50 shadow-lg">
-        <div className="flex justify-between items-center py-3 mx-4 md:mx-12 lg:mx-16">
+        <div className="flex justify-between items-center py-3 mx-8 md:mx-12 lg:mx-24">
           {/* Logo */}
-          <h1 className="text-2xl font-bold">CarHunt</h1>
+          <div className="flex justify-center items-center">
+          <img src="https://i.ibb.co.com/SXZRH721/car-hunt.png" className="h-14 w-14" alt="" />
+          <h1 className="text-2xl font-bold text-[#1890ff]">CarHunt</h1>
+          </div>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex space-x-8">

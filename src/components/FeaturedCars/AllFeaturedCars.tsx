@@ -15,7 +15,7 @@ const AllFeaturedCars = () => {
 
   console.log(allCars)
   return isLoading ? (
-    <Skeleton active />
+    <Skeleton className="my-28" active />
   ) : (
     <div>
       <div className='mt-28 mx-12 md:mx-16 lg:mx-24'>

@@ -50,6 +50,7 @@ import { RootState } from '../store';
     
   
       const res = await fetch('https://car-stores-api.vercel.app/api/auth/refresh-token', {
+     
         method: 'POST',
         credentials: 'include'
       });
