@@ -15,7 +15,7 @@ import { toast } from 'sonner';
 
 const ViewCars= () => {
   // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
-  const { data: allCars,isFetching} = useAllCarsQuery(undefined);
+  const { data: allCars,isFetching,refetch} = useAllCarsQuery(undefined);
 
 console.log(allCars)
 
@@ -45,6 +45,7 @@ const handleDeleteCar = async (id: string) => {
     } else {
      
       toast.success(res.data.message || 'Car deleted successfully');
+       await refetch()
     }
   } catch (err) {
     

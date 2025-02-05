@@ -34,7 +34,7 @@ const ViewOrders = () => {
     ]
   );
   
-
+ console.log(OrderData)
 
   const [deleteOrder] = useDeleteOrderMutation();
 

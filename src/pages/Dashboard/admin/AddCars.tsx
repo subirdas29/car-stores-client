@@ -1,25 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button, Form, Upload } from "antd";
+import { toast } from "sonner";
+import { useCreateCarMutation } from "../../../redux/features/admin/adminApi";
+import { TCar } from "../../../types/admin.types";
+import { TResponse } from "../../../types/global";
 import CarForm from "../../../components/form/CarForm";
 import CarInput from "../../../components/form/CarInput";
-import { toast } from "sonner";
-
-import { Controller, FieldValues } from "react-hook-form";
-import { useCreateCarMutation } from "../../../redux/features/admin/adminApi";
-import { TResponse } from "../../../types/global";
-import { carCategoryOptions } from "../../../constants/global";
 import CarSelect from "../../../components/form/CarSelect";
-
-import { UploadOutlined } from "@ant-design/icons";
+import { carCategoryOptions } from "../../../constants/global";
+import UploadImage from "../../../components/form/UploadImage";
 
 const AddCars = () => {
+  const [createCar, { isLoading }] = useCreateCarMutation();
 
-  const [createCar] = useCreateCarMutation();
-
-  const onSubmit = async (data: FieldValues) => {
-    const toastId = toast.loading("Logging in");
-
+  const onSubmit = async (data: any) => {
+    const toastId = toast.loading("Loading...");
     const carInfo = {
       brand: data.brand,
       model: data.model,
@@ -30,78 +25,44 @@ const AddCars = () => {
       description: data.description,
     };
 
-    console.log(carInfo);
-
-    const formData = new FormData();
-
-    formData.append("data", JSON.stringify(carInfo));
-
-    formData.append("file", data.image);
-
     try {
-      const res = (await createCar(formData)) as TResponse<any>;
-      console.log(res);
+      const res = await createCar(carInfo) as TResponse<TCar>;
+
       if (res.error) {
         toast.error(res.error.data.message, { id: toastId });
-        console.log(res);
       } else {
-        toast.success("Car created", { id: toastId });
+        toast.success(`Car created successfully`, { id: toastId });
       }
-    } catch (err) {
+      console.log(res);
+    } catch (err: any) {
       toast.error("Something went wrong", { id: toastId });
     }
   };
 
   return (
-    <div className="border-1 border-gray-200 shadow-lg rounded-md p-10">
-      <h1 className="text-center text-2xl font-bold mt-2 mb-6">Add Cars</h1>
-      <CarForm
-        onSubmit={onSubmit}
-       
-      >
-        <div className="grid grid-cols-2 gap-5 font-bold">
-          <CarInput type="text" name="brand" label="Brand Name:" />
-
-          <CarInput type="text" name="model" label="Model:" />
-          <CarSelect
-            name="category"
-            label="Category"
-            options={carCategoryOptions}
-          />
-
-<Controller
-  name="image"
-  render={({ field: { onChange, value } }) => (
-    <Form.Item label="Picture">
-      <Upload
-        beforeUpload={() => false} 
-        maxCount={1} 
-        accept="image/*" 
-        showUploadList={false} 
-        onChange={({ file }) => onChange(file)}
-      >
-        <Button icon={<UploadOutlined />}>Click to Upload</Button>
-      </Upload>
-      {value && <p style={{ marginTop: 5 }}>{value.name}</p>} {/* Show selected file name */}
-    </Form.Item>
-  )}
-/>
-
-          <CarInput type="text" name="price" label="Price:" />
-          <CarInput type="text" name="stock" label="Stock:" />
-          <CarInput
-            type="textarea"
-            name="description"
-            label="Description:"
-            placeholder="Write car details..."
-            rows={4}
-            maxLength={500}
-          />
-        </div>
-
-        <Button htmlType="submit">Add</Button>
-      </CarForm>
+    <CarForm onSubmit={onSubmit} >
+    <div className="grid grid-cols-2 gap-4">
+    <CarInput type="text" name="brand" label="Brand" placeholder="Enter Car Brand" />
+      <CarInput type="text" name="model" label="Model" placeholder="Enter Car Model" />
+      <CarSelect name="category" label="Category" options={carCategoryOptions} />
+      <CarInput type="text" name="price" label="Price:" />
+      <CarInput type="text" name="stock" label="Stock:" />
+      <CarInput type="textarea" name="description" label="Description" placeholder="Enter Car Description" rows={4} />
+     
     </div>
+    <p className="mb-4">Image</p>
+    <UploadImage /> 
+<div className="flex justify-center">
+  
+<button
+        type="submit"
+        className="px-8 cursor-pointer bg-[#1890ff] border hover:text-[#1890ff] text-white font-semibold rounded-md py-3 mt-4 hover:bg-transparent"
+        disabled={isLoading} 
+      >
+        {isLoading ? "Creating..." : "Add Car"}
+      </button>
+</div>
+    </CarForm>
   );
 };
 

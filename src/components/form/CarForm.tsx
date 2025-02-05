@@ -17,16 +17,22 @@ const CarForm = ({ onSubmit, children, defaultValues, resolver }: TFormProps) =>
   const formConfig: TFormConfig = {};
 
   if (defaultValues) {
-    formConfig['defaultValues'] = defaultValues;
+    formConfig["defaultValues"] = defaultValues;
   }
 
   if (resolver) {
-    formConfig['resolver'] = resolver;
+    formConfig["resolver"] = resolver;
   }
 
   const methods = useForm(formConfig);
 
   const submit: SubmitHandler<FieldValues> = (data) => {
+    if (!data.imageUrl) {
+      console.error("Error: Image URL is missing!");
+      return;
+    }
+
+    console.log("Final Form Data:", data); // Debugging before submission
     onSubmit(data);
     methods.reset();
   };

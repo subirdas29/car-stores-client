@@ -105,6 +105,8 @@ const adminApi = baseApi.injectEndpoints({
             invalidatesTags: ['allusers'],
           }),
 
+      
+
           allCars: builder.query({
             query: (args) => {
               const params = new URLSearchParams();
@@ -114,7 +116,7 @@ const adminApi = baseApi.injectEndpoints({
                   params.append(item.name, item.value as string);
                 });
               }
-      
+              
               return {
                 url: '/cars',
                 method: 'GET',
@@ -123,7 +125,6 @@ const adminApi = baseApi.injectEndpoints({
             },
             providesTags:['cars'],
             transformResponse: (response: TResponseRedux<TCar[]>) => {
-              console.log(response)
               return {
                 data: response.data,
                 meta: response.meta,
@@ -131,6 +132,8 @@ const adminApi = baseApi.injectEndpoints({
             },
             
           }),
+          
+          
 
           getACar: builder.query({
             query: (_id) => {
@@ -139,7 +142,7 @@ const adminApi = baseApi.injectEndpoints({
                 method: 'GET',
               };
             },
-            providesTags:['cars'],
+            // providesTags:['cars'],
             transformResponse: (response: TResponseRedux<TCar>) => {
               return {
                 data: response.data,
@@ -168,10 +171,10 @@ const adminApi = baseApi.injectEndpoints({
           }),
           deleteCar: builder.mutation({
             query: (carId) => ({
-              url: `/cars/${carId}`,
+              url: `/cars/delete/${carId}`,
               method: "PATCH",
             }),
-            invalidatesTags: ['cars'],
+            // invalidatesTags: ['cars'],
           }), 
     
          
@@ -180,4 +183,4 @@ const adminApi = baseApi.injectEndpoints({
 
 export const {useGetACarQuery,useBlockedUserMutation,useUnblockedUserMutation,useDeleteOrderMutation,
   useDeleteCarMutation
-  ,useViewOrdersQuery,useCreateCarMutation,useAllUsersQuery,useAllCarsQuery,useUpdateCarsMutation,useGetAUserQuery} = adminApi;
+  ,useViewOrdersQuery,useCreateCarMutation,useAllUsersQuery,useUpdateCarsMutation,useGetAUserQuery,useAllCarsQuery} = adminApi;
