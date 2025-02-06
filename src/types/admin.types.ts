@@ -1,14 +1,15 @@
 export type TUser ={
     _id: string;        
     name: string;
-    email: string;
+    email?: string;
     role:string;
-    phone: string;
-    address: string;
-    city: string;
+    phone?: string;
+    address?: string;
+    imageUrl?:string;
+    city?: string;
     status: string;    
-    createdAt: string; 
-    updatedAt:string;
+    createdAt?: string; 
+    updatedAt?:string;
 }
 
 export type TCar = {

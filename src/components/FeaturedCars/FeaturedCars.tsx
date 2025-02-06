@@ -1,9 +1,11 @@
 
 
-import { NavLink } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 
 import { Car, CarFront, ShoppingBag, User } from 'lucide-react'
 import { TCar } from '../../types/admin.types'
+import { useAppSelector } from '../../redux/hook';
+import { useCurrentToken } from '../../redux/features/auth/authSlice';
 
 type FeaturedCarsProps = {
   car: TCar;
@@ -12,7 +14,17 @@ const FeaturedCars = ({car}:FeaturedCarsProps) => {
 
   const {_id ,brand,model,
     imageUrl,price,category} = car
-  console.log(_id)
+    const token = useAppSelector(useCurrentToken); 
+    const navigate = useNavigate(); 
+  
+    const handleDetailsClick = () => {
+      if (token) {
+        navigate(`/car-details/${_id}`); 
+      } else {
+        navigate("/login"); 
+      }
+    };
+  
 
   return (
     <div>
@@ -37,10 +49,10 @@ const FeaturedCars = ({car}:FeaturedCarsProps) => {
            <hr className='my-3 text-gray-300' />
             <p className='text-sm text-gray-500'>Price:</p>
             <div className='flex justify-between items-center mt-4 pb-4'>
-                <p className='text-2xl font-bold mr-2'>{price}</p>
-                <NavLink to={`car-details/${_id}`}>
-               <button className='rounded-md px-4 py-1 md:px-6 md:py-2 border-1 hover:text-[#1890ff] hover:bg-transparent  text-white  bg-[#1890ff] font-bold cursor-pointer '>Details</button>
-               </NavLink>
+                <p className='text-2xl font-bold mr-2'>${price}</p>
+              
+               <button onClick={handleDetailsClick} className='rounded-md px-4 py-1 md:px-6 md:py-2 border-1 hover:text-[#1890ff] hover:bg-transparent  text-white  bg-[#1890ff] font-bold cursor-pointer '>Details</button>
+             
             </div>
            </div>
         </div>

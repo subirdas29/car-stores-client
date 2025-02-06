@@ -2,6 +2,8 @@
 import { useParams } from 'react-router-dom';
 import { useGetAUserQuery } from '../../../redux/features/admin/adminApi';
 import moment from 'moment';
+import { Skeleton } from 'antd';
+import ProfileAvatar from '../../../components/ProfileAvatar/ProfileAvatar';
 
 const UserDetails = () => {
     const { userId } = useParams();
@@ -12,7 +14,8 @@ const UserDetails = () => {
 
     console.log(userData)
 
-  
+    if (isLoading) return   <Skeleton className="my-28" active />;
+   
 
   return isLoading?(
     <div className="flex justify-center items-center h-screen">
@@ -20,6 +23,7 @@ const UserDetails = () => {
   </div>
 ) : (
   <div className="mx-8 md:mx-12 lg:mx-24 p-6 my-28">
+    <div className='flex justify-center'><ProfileAvatar imageUrl={userData?.data?.imageUrl} /></div>
     <h1 className="text-3xl font-bold mb-6 text-center">{userData?.data?.name} Details</h1>
     <div className='text-center'>
       

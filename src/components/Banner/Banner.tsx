@@ -31,7 +31,7 @@ const slides = [
 const Banner = () => {
   return (
     <div className="w-full h-[540px] overflow-hidden">
-      <Carousel autoplay autoplaySpeed={1500}>
+      <Carousel autoplay autoplaySpeed={2000}>
         {slides.map((slide, index) => (
           <div
             key={index}

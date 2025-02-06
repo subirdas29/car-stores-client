@@ -37,7 +37,9 @@ export default function VerifyOrder() {
     }
   }, [orderData, dispatch]);
 
-  console.log(orderData)
+  if (isLoading) return   <Skeleton className="my-28" active />;
+
+
 
   return isLoading ? (
     <div className="flex justify-center items-center h-screen">

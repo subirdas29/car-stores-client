@@ -5,6 +5,8 @@ import { logOut, useCurrentToken } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { FiShoppingCart } from "react-icons/fi"; // Import icons
 import { clearCart } from "../../redux/features/cart/cartSlice";
+import ProfileAvatar from "../ProfileAvatar/ProfileAvatar";
+import { useGetMeQuery } from "../../redux/features/user/userApi";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,6 +28,10 @@ const Navbar = () => {
   if (token) {
     user = verifyToken(token);
   }
+
+  const {data} = useGetMeQuery(undefined)
+  const imageUrl: string = data?.data?.imageUrl || "";
+  const name: string = data?.data?.name || "";
 
   const dashboardPath = user ? `/${user.role}/dashboard` : "/login";
 
@@ -91,14 +97,27 @@ const Navbar = () => {
               )}
             </NavLink>
 
+            
+
             {/* Authentication Buttons */}
             {user ? (
+              <>
+               <NavLink to={`/${user.role}/dashboard`} className='mr-0' >
+               <p className="mr-0">{name}</p>
+              </NavLink>
+         
+              <NavLink to={`/${user.role}/dashboard`} className='mr-0 ml-3' >
+              <ProfileAvatar imageUrl={imageUrl}  size={40}/>
+              </NavLink>
+              
               <button
                 onClick={handleLogout}
-                className="rounded-md py-2 px-5 border hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer"
+                className=" ml-3 rounded-md py-2 px-5 border hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer"
               >
                 LogOut
               </button>
+              
+              </>
             ) : (
               <>
                 <NavLink to="/login">
@@ -199,9 +218,19 @@ const Navbar = () => {
         </NavLink>
       </div>
 
-      {/* Auth Buttons (Login, Signup, Logout) */}
+      
       <div className="flex flex-col space-y-4">
+
+      
         {user ? (
+          <>
+          <NavLink to={`/${user.role}/dashboard`} className='mr-0' >
+               <p className="mr-0">{name}</p>
+              </NavLink>
+         
+              <NavLink to={`/${user.role}/dashboard`} className='mr-0 ml-3' >
+              <ProfileAvatar imageUrl={imageUrl}  size={40}/>
+              </NavLink>
           <button
             onClick={() => {
               handleLogout();
@@ -211,6 +240,7 @@ const Navbar = () => {
           >
             LogOut
           </button>
+          </>
         ) : (
           <>
             <NavLink to="/login">

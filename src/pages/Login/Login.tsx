@@ -17,10 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [login] = useLoginMutation();
 
-  const defaultValues = {
-    email: "subir@gmail.com",
-    password: "123456",
-  };
+
 
   const redWarningIcon = <AlertTriangle size={20} className="text-red-500" />;
 
@@ -78,7 +75,7 @@ const Login = () => {
         <h1 className=" mb-4 text-black font-bold text-center text-4xl">Login</h1>
         <Row justify='center' align='middle'>
           
-          <CarForm onSubmit={onSubmit} defaultValues={defaultValues} >
+          <CarForm onSubmit={onSubmit} >
             
             <CarInput type="email" name="email" label="Email:" />
            

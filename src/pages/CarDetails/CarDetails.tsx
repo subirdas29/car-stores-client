@@ -1,8 +1,8 @@
-import { useState } from "react";
-import car1 from "../../../public/assets/images/banner/car1.jpg";
-import car2 from "../../../public/assets/images/banner/car2.jpg";
-import car3 from "../../../public/assets/images/banner/car3.jpg";
-import car4 from "../../../public/assets/images/banner/car4.jpg";
+import { useEffect, useState } from "react";
+
+import car2 from "../../../public/assets/images/banner/cardetails/car-2.jpg";
+import car3 from "../../../public/assets/images/banner/cardetails/car-3.jpg";
+import car4 from "../../../public/assets/images/banner/cardetails/car-4.jpg";
 
 import banner from "../../assets/img/car-gallery/car-1.jpg"
 
@@ -14,18 +14,12 @@ import { addToCart } from "../../redux/features/cart/cartSlice";
 import { useGetACarQuery } from "../../redux/features/admin/adminApi";
 import { Skeleton } from "antd";
 const CarDetails = () => {
-  const [selectedImage, setSelectedImage] = useState(car1); // Initial big image
+// Initial big image
   const { carId } = useParams();
   const { data, isLoading, isError } = useGetACarQuery(carId, {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
   });
-
-  const dispatch = useAppDispatch();
-
-  if (isLoading) return <Toaster />;
-  if (isError) return <div>Error fetching data</div>;
-
   const {
     _id,
     brand,
@@ -36,6 +30,20 @@ const CarDetails = () => {
     description,
     imageUrl,
   } = data?.data ?? {};
+
+
+  const [selectedImage, setSelectedImage] = useState("");
+
+  useEffect(() => {
+    if (imageUrl) {
+      setSelectedImage(imageUrl);
+    }
+  }, [imageUrl]);
+  const dispatch = useAppDispatch();
+
+  if (isLoading) return   <Skeleton className="my-28" active />;
+  if (isError) return  <Skeleton className="my-28" active /> 
+
 
   const handleAddToCart = () => {
     if (!_id) {
@@ -80,7 +88,7 @@ const CarDetails = () => {
     toast.success(`${brand} Add to Cart and CheckOut Now!`);
   };
 
-  const images = [car1, car2, car3, car4];
+  const images = [`${imageUrl}`, car2, car3, car4];
   return  isLoading ? (
     <Skeleton className="my-28" active />
   ) : (
@@ -157,7 +165,7 @@ const CarDetails = () => {
             <div className="flex flex-col items-center">
               <img
                 src={selectedImage}
-                className="rounded-3xl w-full mb-6 lg:mb-8"
+                className="rounded-3xl w-full max-w-[1280px] h-[558px] object-cover mb-6 lg:mb-8"
                 alt="Selected"
               />
 
@@ -167,7 +175,7 @@ const CarDetails = () => {
                   <img
                     key={index}
                     src={image}
-                    className={`rounded-3xl h-20 md:h-28 lg:h-30 cursor-pointer transition-transform transform hover:scale-110 ${
+                    className={`rounded-3xl h-20 md:h-28 lg:h-30 w-[1280px] cursor-pointer transition-transform transform hover:scale-110 ${
                       selectedImage === image ? "ring-3 ring-[#1890ff]" : ""
                     }`}
                     alt={`Thumbnail ${index + 1}`}
@@ -181,7 +189,7 @@ const CarDetails = () => {
               <h1 className="text-3xl font-semibold mb-4">
                 {brand} {model} Descriptions
               </h1>
-              <p>{description}</p>
+              <p className="text-[#7e7e84]">{description}</p>
             </div>
             <div className="mt-10">
               <h1 className="text-2xl font-semibold mb-4">Features</h1>
@@ -215,8 +223,8 @@ const CarDetails = () => {
           </div>
           <div className="my-12 md:my-0">
             <div>
-              <p className="text-xl">
-                Chevrolet nexa bkuysn camaro 2-door convertible dark metblack
+              <p className="text-3xl font-bold">
+                {brand} {model}
               </p>
               <div className="flex justify-between my-2">
                 <div className="flex items-center ">
@@ -234,16 +242,28 @@ const CarDetails = () => {
                 </div>
               </div>
               <hr className="my-4" />
-              <p className="text-2xl font-bold">price: {price}</p>
+              <p className="text-2xl font-bold">price: ${price}</p>
               <p>Add to favorites</p>
             </div>
             <div className="my-8 rounded-4xl p-11 md:p-4 lg:p-11 bg-[#EDF1F4]">
-              <div className="flex justify-between">
+              <div className="flex justify-between ">
                 <div>
                   <p className="font-bold">Make:</p>
                   <p className="font-bold">Model:</p>
                   <p className="font-bold">Drivetype:</p>
                   <p className="font-bold">Category:</p>
+                  <p className="font-bold">Seat:</p>
+                  <p className="font-bold">Door:</p>
+                  <p className="font-bold">Luggage:</p>
+                  <p className="font-bold">Fuel Type:</p>
+                  <p className="font-bold">Engine:</p>
+                  <p className="font-bold">Year:</p>
+                  <p className="font-bold">Mileage:</p>
+                  <p className="font-bold">Transmission:</p>
+                  <p className="font-bold">Drive:</p>
+                  <p className="font-bold">Fuel Economy:</p>
+                  <p className="font-bold">Exterior Color:</p>
+                  <p className="font-bold">Interior Color:</p>
                   <p className="font-bold">Stock:</p>
                 </div>
                 <div>
@@ -251,6 +271,18 @@ const CarDetails = () => {
                   <p>{model}</p>
                   <p>Front wheel drive</p>
                   <p>{category}</p>
+                  <p>2 seats</p>
+                  <p>2 doors</p>
+                  <p>150</p>
+                  <p>Hybrid</p>
+                  <p>3000</p>
+                  <p>2020</p>
+                  <p>200</p>
+                  <p>Automatic</p>
+                  <p>4WD</p>
+                  <p>18.5</p>
+                  <p>Blue Metalic</p>
+                  <p>Black</p>
                   <p>{stock}</p>
                 </div>
               </div>

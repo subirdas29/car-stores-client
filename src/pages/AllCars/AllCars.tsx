@@ -22,7 +22,7 @@ const AllCars = () => {
         >
           <div
             style={{
-              backgroundImage: `url('assets/images/AllCars/allcarsbanner.jpg')`,
+              backgroundImage: `url('assets/images/banner/car2.jpg')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               minHeight: "100%",

@@ -16,8 +16,8 @@ import { RootState } from '../store';
 
   
   const baseQuery = fetchBaseQuery({
-    // baseUrl: 'https://car-stores-api.vercel.app/api',
-    baseUrl: 'http://localhost:5000/api',
+    baseUrl: 'https://car-stores-api.vercel.app/api',
+    // baseUrl: 'http://localhost:5000/api',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => { 
       const token = (getState() as RootState).auth.token;
@@ -50,8 +50,8 @@ import { RootState } from '../store';
     if (result?.error?.status === 401) {
     
   
-      // const res = await fetch('https://car-stores-api.vercel.app/api/auth/refresh-token', 
-      const res = await fetch('http://localhost:5000/api/auth/refresh-token', 
+      const res = await fetch('https://car-stores-api.vercel.app/api/auth/refresh-token', 
+      // const res = await fetch('http://localhost:5000/api/auth/refresh-token', 
       // 
       {
      
@@ -85,6 +85,6 @@ import { RootState } from '../store';
   export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQueryWithRefreshToken,
-    tagTypes:['cars','users','orders','allusers'],
+    tagTypes:['cars','User','orders','allusers'],
     endpoints: () => ({}),
   });

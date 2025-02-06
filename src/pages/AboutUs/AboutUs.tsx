@@ -18,7 +18,7 @@ const AboutUs = () => {
         >
           <div
             style={{
-              backgroundImage: `url('assets/images/AllCars/allcarsbanner.jpg')`,
+              backgroundImage: `url('assets/images/banner/car3.jpg')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               minHeight: "100%",

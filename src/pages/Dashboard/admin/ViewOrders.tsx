@@ -26,7 +26,7 @@ const ViewOrders = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
   const [page, setPage] = useState(1);
 
-  const { data: OrderData, isFetching} = useViewOrdersQuery(
+  const { data: OrderData, isFetching,refetch} = useViewOrdersQuery(
     [
       { name: 'page', value: page },
       { name: 'sort', value: '-createdAt' },
@@ -42,7 +42,7 @@ const ViewOrders = () => {
     try {
       await deleteOrder(id).unwrap();
       toast.success('Order deleted successfully');
-     
+     await refetch()
     
     } catch (err) {
       toast.error('Something went wrong');

@@ -13,7 +13,12 @@ import { toast } from 'sonner';
 
 const AllUsers= () => {
   // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
- const {data:allUsers,isFetching,refetch} = useAllUsersQuery(undefined)
+ const {data:allUsers,isFetching,refetch} = useAllUsersQuery(undefined,
+  {
+    refetchOnMountOrArgChange:true,
+    refetchOnReconnect:true
+  }
+ )
 
   const tableData: TUser[] = allUsers?.data?.map(
     ({ _id, name, email,role, phone, address, city, status, createdAt, updatedAt }) => ({

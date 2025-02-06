@@ -1,14 +1,23 @@
 import { Upload, Button, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
-const UploadImage = () => {
+interface UploadImageProps {
+  defaultImage?: string; // Accept default image prop
+}
+
+const UploadImage = ({ defaultImage }: UploadImageProps) => {
   const { control } = useFormContext();
-  const [loading, setLoading] = useState(false); // Track loading state
+  const [preview, setPreview] = useState(defaultImage || ""); // Use default image if available
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setPreview(defaultImage || "");
+  }, [defaultImage]);
 
   const uploadToCloudinary = async (file: File, onSuccess: (url: string) => void) => {
-    setLoading(true); // Set loading to true when upload starts
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -20,10 +29,10 @@ const UploadImage = () => {
         { method: "POST", body: formData }
       );
       const data = await response.json();
-      console.log("Uploaded Image Data:", data); // Check for response
 
       if (data.secure_url) {
-        onSuccess(data.secure_url); // Update form field with image URL
+        onSuccess(data.secure_url);
+        setPreview(data.secure_url); // Update preview on upload success
         message.success("Image uploaded successfully! ✅");
       } else {
         message.error("Failed to upload image ❌");
@@ -32,7 +41,7 @@ const UploadImage = () => {
       console.error("Image upload failed", error);
       message.error("Image upload failed ❌");
     } finally {
-      setLoading(false); // Set loading to false when upload completes
+      setLoading(false);
     }
   };
 
@@ -40,26 +49,24 @@ const UploadImage = () => {
     <Controller
       name="imageUrl"
       control={control}
-      rules={{ required: "Image is required" }}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
+      rules={{
+        required: !defaultImage ? "Image is required" : false, // Only required if no default image
+      }}
+      render={({ field: { onChange }, fieldState: { error } }) => (
         <>
+          {/* Display default image or uploaded image */}
+          {preview && <img src={preview} alt="Profile" width="100" className="mb-2 rounded-md" />}
+
           <Upload
             showUploadList={false}
             customRequest={({ file }) => uploadToCloudinary(file as File, onChange)}
           >
-            <Button
-              icon={<UploadOutlined />}
-              loading={loading} // Show loading spinner when uploading
-              disabled={loading} 
-            >
-              {loading ? "Uploading..." : "Upload Image"} {/* Text updates based on loading state */}
+            <Button icon={<UploadOutlined />} loading={loading} disabled={loading}>
+              {loading ? "Uploading..." : "Upload Image"}
             </Button>
           </Upload>
 
-          {/* Display uploaded image if available */}
-          {value && <img src={value} alt="Uploaded" width="100" style={{ marginTop: "10px" }} />}
-
-          {/* Show error message if validation fails */}
+          {/* Show error only if no default image and user hasn't uploaded one */}
           {error && <p style={{ color: "red" }}>{error.message}</p>}
         </>
       )}
