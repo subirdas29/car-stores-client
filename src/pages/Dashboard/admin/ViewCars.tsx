@@ -15,7 +15,10 @@ import { toast } from 'sonner';
 
 const ViewCars= () => {
   // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
-  const { data: allCars,isFetching,refetch} = useAllCarsQuery(undefined);
+  const { data: allCars,isFetching,refetch} = useAllCarsQuery(undefined,{
+    refetchOnMountOrArgChange:true,
+    refetchOnReconnect:true
+  });
 
 console.log(allCars)
 
@@ -54,11 +57,7 @@ const handleDeleteCar = async (id: string) => {
   }
 };
 
-
-
-
   console.log(allCars)
-
 
   const tableData = allCars?.data
   ? allCars.data.map(({ _id, brand, model, category, imageUrl, price, stock, description, createdAt, updatedAt }) => ({
@@ -71,6 +70,7 @@ const handleDeleteCar = async (id: string) => {
       imageUrl,
       price,
       stock,
+      // isDeleted,
       createdAt: createdAt ? moment(createdAt).format("DD-MM-YYYY") : "N/A",
       updatedAt: updatedAt ? moment(updatedAt).format("DD-MM-YYYY") : "N/A",
     }))

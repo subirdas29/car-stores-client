@@ -1,17 +1,17 @@
 import React from "react";
-import img1 from '../../assets/img/car-gallery/car-1.jpg'
-import img2 from '../../assets/img/car-gallery/car-2.jpg'
-import img3 from '../../assets/img/car-gallery/car-3.jpg'
-import img4 from '../../assets/img/car-gallery/car-4.jpg'
-import img5 from '../../assets/img/car-gallery/car-5.jpg'
-import img6 from '../../assets/img/car-gallery/car-6.jpg'
+import img1 from '../../assets/img/car-gallery/car-1.webp'
+import img2 from '../../assets/img/car-gallery/car-2.webp'
+import img3 from '../../assets/img/car-gallery/car-3.webp'
+import img4 from '../../assets/img/car-gallery/car-4.webp'
+import img5 from '../../assets/img/car-gallery/car-5.webp'
+import img6 from '../../assets/img/car-gallery/car-6.webp'
 
-import logo1 from '../../assets/img/car-gallery/logo/logo-1.png'
-import logo2 from '../../assets/img/car-gallery/logo/logo-2.png'
-import logo3 from '../../assets/img/car-gallery/logo/logo-3.png'
-import logo4 from '../../assets/img/car-gallery/logo/logo-4.png'
-import logo5 from '../../assets/img/car-gallery/logo/logo-5.png'
-import logo6 from '../../assets/img/car-gallery/logo/logo-6.png'
+import logo1 from '../../assets/img/car-gallery/logo/logo-1.webp'
+import logo2 from '../../assets/img/car-gallery/logo/logo-2.webp'
+import logo3 from '../../assets/img/car-gallery/logo/logo-3.webp'
+import logo4 from '../../assets/img/car-gallery/logo/logo-4.webp'
+import logo5 from '../../assets/img/car-gallery/logo/logo-5.webp'
+import logo6 from '../../assets/img/car-gallery/logo/logo-6.webp'
 
 // Define the type for the car data
 interface CarProps {

@@ -142,7 +142,7 @@ const adminApi = baseApi.injectEndpoints({
                 method: 'GET',
               };
             },
-            // providesTags:['cars'],
+            providesTags:['cars'],
             transformResponse: (response: TResponseRedux<TCar>) => {
               return {
                 data: response.data,
@@ -174,7 +174,7 @@ const adminApi = baseApi.injectEndpoints({
               url: `/cars/delete/${carId}`,
               method: "PATCH",
             }),
-            // invalidatesTags: ['cars'],
+            invalidatesTags: ['cars'],
           }), 
     
          

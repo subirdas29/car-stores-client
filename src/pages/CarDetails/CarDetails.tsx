@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-import car2 from "../../../public/assets/images/banner/cardetails/car-2.jpg";
-import car3 from "../../../public/assets/images/banner/cardetails/car-3.jpg";
-import car4 from "../../../public/assets/images/banner/cardetails/car-4.jpg";
+import car2 from "../../../public/assets/images/banner/cardetails/car-2.webp";
+import car3 from "../../../public/assets/images/banner/cardetails/car-3.webp";
+import car4 from "../../../public/assets/images/banner/cardetails/car-4.webp";
 
-import banner from "../../assets/img/car-gallery/car-1.jpg"
+import banner from "../../assets/img/car-gallery/car-1.webp"
 
 import { NavLink, useParams } from "react-router-dom";
 

@@ -20,6 +20,7 @@ export type TCar = {
     category?:'Sedan' | 'SUV' | 'Truck' | 'Coupe' | 'Convertible',
     description?:string,
     stock: number;
+    isDeleted?:boolean
     imageUrl?: string;
     createdAt: string; 
     updatedAt:string;
