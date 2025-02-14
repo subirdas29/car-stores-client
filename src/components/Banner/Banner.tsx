@@ -3,25 +3,25 @@ import { NavLink } from "react-router-dom";
 
 const slides = [
   {
-    image: "assets/images/banner/car1.jpg",
+    image: "assets/images/banner/car1.webp",
     title: "Welcome to Our Store",
     description: "Explore our products.",
     buttonText: "Learn More",
   },
   {
-    image: "assets/images/banner/car2.jpg",
+    image: "assets/images/banner/car2.webp",
     title: "New Collection",
     description: "Check out our latest arrivals.",
     buttonText: "Shop Now",
   },
   {
-    image: "assets/images/banner/car3.jpg",
+    image: "assets/images/banner/car3.webp",
     title: "Seasonal Offers",
     description: "Don't miss out on great discounts.",
     buttonText: "Explore Offers",
   },
   {
-    image: "assets/images/banner/car4.jpg",
+    image: "assets/images/banner/car4.webp",
     title: "Exclusive Deals",
     description: "Grab them before they're gone.",
     buttonText: "Buy Now",

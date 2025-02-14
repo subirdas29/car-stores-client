@@ -1,8 +1,8 @@
 import EventItem from "./EventItem";
-import img1 from '../../assets/img/car-event/car-event-1.jpg'
-import img2 from '../../assets/img/car-event/car-event-2.jpg'
-import img3 from '../../assets/img/car-event/car-event-3.jpg'
-import img4 from '../../assets/img/car-event/car-event-4.jpg'
+import img1 from '../../assets/img/car-event/car-event-1.webp'
+import img2 from '../../assets/img/car-event/car-event-2.webp'
+import img3 from '../../assets/img/car-event/car-event-3.webp'
+import img4 from '../../assets/img/car-event/car-event-4.webp'
 
 // Define the type for the event list
 interface EventProps {

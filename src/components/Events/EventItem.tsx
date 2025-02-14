@@ -8,7 +8,7 @@ interface EventProps {
   }
   const EventItem: React.FC<{ event: EventProps }> = ({ event }) => {
     return (
-      <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-2xl transition-shadow duration-300">
+      <div className=" rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-2xl transition-shadow duration-300">
         <img
           className="w-full h-56 object-cover transform transition-transform duration-300 hover:scale-105"
           src={event.imageUrl}

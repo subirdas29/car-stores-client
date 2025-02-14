@@ -19,9 +19,60 @@ const UserDetails = () => {
 
   return isLoading?(
     <div className="flex justify-center items-center h-screen">
-    <p className="text-lg font-semibold">Loading...</p>
+    <p className="text-lg font-semibold"><Skeleton/></p>
   </div>
 ) : (
+ <>
+  <div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <div
+    style={{
+      backgroundImage: `url('assets/images/banner/car1.webp')`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      minHeight: "100%",
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "white",
+      textAlign: "center",
+      padding: "80px",
+      position: "relative",
+    }}
+  >
+    {/* Dark Blue Shadow Overlay */}
+    <div
+      style={{
+        position: "absolute",
+        top: "0",
+        left: "0",
+        right: "0",
+        bottom: "0",
+        backgroundColor: "rgba(0, 0, 90, 0.4)", // Dark blue overlay
+        zIndex: "1",
+      }}
+    />
+    {/* Content */}
+    <div
+      style={{
+        position: "relative",
+        zIndex: "2",
+      }}
+    >
+      <h1 style={{ fontSize: "2.5rem", marginBottom: "10px", fontWeight:"bold", color:"white" }}>
+        User Details
+      </h1>
+   
+    </div>
+  </div>
+</div>
   <div className="mx-8 md:mx-12 lg:mx-24 p-6 my-28">
     <div className='flex justify-center'><ProfileAvatar imageUrl={userData?.data?.imageUrl} /></div>
     <h1 className="text-3xl font-bold mb-6 text-center">{userData?.data?.name} Details</h1>
@@ -45,6 +96,7 @@ const UserDetails = () => {
     </div>
    
   </div>
+ </>
 );
   
 }

@@ -22,7 +22,7 @@ const AllCars = () => {
         >
           <div
             style={{
-              backgroundImage: `url('assets/images/banner/car2.jpg')`,
+              backgroundImage: `url('assets/images/banner/car2.webp')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               minHeight: "100%",
@@ -66,7 +66,7 @@ const AllCars = () => {
             </div>
           </div>
         </div>
-        <div className='my-28 mx-12 md:mx-16 lg:mx-24'>
+        <div className='my-28 mx-12 md:mx-16 lg:mx-24 min-h-screen'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5'>
      {
         allCars?.data?.map((car)=><Cars key={car._id} car={car}></Cars>)

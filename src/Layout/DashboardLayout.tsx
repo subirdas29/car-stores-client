@@ -17,7 +17,7 @@ const DashboardLayout = () => {
         >
           <div
            style={{
-            backgroundImage: `url('/assets/images/banner/car1.jpg')`,
+            backgroundImage: `url('/assets/images/banner/car1.webp')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             minHeight: "100%",

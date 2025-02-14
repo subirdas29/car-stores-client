@@ -3,11 +3,11 @@
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300 py-10 ">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8 ">
+      <div className=" mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8 ">
         {/* Company Info */}
-        <div>
+        <div className="col-span-2 md:col-span-1">
       <div className="flex gap-3 items-center">
-      <img src="https://i.ibb.co.com/SXZRH721/car-hunt.png" className="h-14 w-14" alt="" />
+      <img src="https://res.cloudinary.com/dsgnwjmlv/image/upload/v1739543958/car-hunt_ms5cyt.webp" className="h-14 w-14" alt="" />
       <h1 className="text-2xl font-bold text-[#1890ff]">CarHunt</h1>
       </div>
         
@@ -91,7 +91,7 @@ const Footer = () => {
 
       {/* Newsletter Section */}
       <div className="bg-gray-800 mt-10 py-6">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center">
+        <div className=" mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-evenly items-center">
           <p className="text-sm mb-4 md:mb-0">
             Subscribe to our newsletter for the latest updates and offers:
           </p>

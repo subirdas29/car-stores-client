@@ -40,7 +40,7 @@ const SignUp = () => {
       style={{
         height: "100vh",
         width: "100vw",
-        backgroundImage: `url('/assets/images/banner/car1.jpg')`, // Update the path as needed
+        backgroundImage: `url('/assets/images/banner/car1.webp')`, // Update the path as needed
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",

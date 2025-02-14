@@ -5,6 +5,7 @@ import { useCreateOrderMutation } from "../../redux/features/order/orderApi"
 import { useAppDispatch, useAppSelector } from "../../redux/hook"
 import { toast } from "sonner"
 import { removeFromCart, updateQuantity } from "../../redux/features/cart/cartSlice"
+import banner from "../../assets/img/car-gallery/car-1.webp"
 
 import { AlertTriangle, MapPin, Trash } from "lucide-react";
 import { TResponse } from "../../types/global"
@@ -60,11 +61,78 @@ const AddCart = () => {
         if (isError) toast.error(JSON.stringify(error), { id: toastId });
       }, [data, error, isError, isLoading, isSuccess]); 
 
-      console.log(data)
+   
       
 
   return (
-    <div className="my-24  grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl  mx-8 md:mx-12 lg:mx-auto p-6 bg-white shadow-lg rounded-2xl border border-gray-200">
+    <div>
+      <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
+    <div
+      style={{
+        backgroundImage: `url(${banner})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100%",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "white",
+        textAlign: "center",
+        padding: "80px",
+        position: "relative",
+      }}
+    >
+      {/* Dark Blue Shadow Overlay */}
+      <div
+        style={{
+          position: "absolute",
+          top: "0",
+          left: "0",
+          right: "0",
+          bottom: "0",
+          backgroundColor: "rgba(0, 0, 90, 0.4)", // Dark blue overlay
+          zIndex: "1",
+        }}
+      />
+      {/* Content */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: "2",
+        }}
+      >
+        <h1
+          style={{
+            fontSize: "2.5rem",
+            marginBottom: "10px",
+            fontWeight: "bold",
+            color: "white",
+          }}
+        >
+          Add Cart
+        </h1>
+        <p
+          style={{
+            fontSize: "1.2rem",
+            marginBottom: "20px",
+            fontWeight: "bold",
+            color: "white",
+          }}
+        >
+          Add Your Favourite Cars
+        </p>
+      </div>
+    </div>
+  </div>
+    <div className="my-24 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl  mx-8 md:mx-12 lg:mx-auto p-6 bg-white shadow-lg rounded-2xl border border-gray-200">
     {/* Left Side - Cart Items */}
     <div className="md:col-span-2 space-y-4">
       <h2 className="text-2xl font-bold">Shopping Cart</h2>
@@ -148,6 +216,7 @@ const AddCart = () => {
       </button>
     </div>
   </div>
+    </div>
   )
 }
 

@@ -4,11 +4,11 @@ import { useRef, useState, useEffect } from "react";
 
 import { CarouselRef } from "antd/es/carousel";
 
-import person1 from "../../assets/img/reviews/person1.png";
-import person2 from "../../assets/img/reviews/person2.png";
-import person3 from "../../assets/img/reviews/person3.png";
-import person4 from "../../assets/img/reviews/person4.png";
-import person5 from "../../assets/img/reviews/person5.jpeg";
+import person1 from "../../assets/img/reviews/person1.webp";
+import person2 from "../../assets/img/reviews/person2.webp";
+import person3 from "../../assets/img/reviews/person3.webp";
+import person4 from "../../assets/img/reviews/person4.webp";
+import person5 from "../../assets/img/reviews/person5.webp";
 
 const reviews = [
   {

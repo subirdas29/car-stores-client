@@ -1,11 +1,11 @@
-import pic1 from "../../assets/img/connectstore/car_logo_1.png";
-import pic2 from "../../assets/img/connectstore/car_logo_2.png";
-import pic3 from "../../assets/img/connectstore/car_logo_3.png";
-import pic4 from "../../assets/img/connectstore/car_logo_4.png";
-import pic5 from "../../assets/img/connectstore/car_logo_5.png";
-import pic6 from "../../assets/img/connectstore/car_logo_6.png";
-import pic8 from "../../assets/img/connectstore/car_logo_8.png";
-import pic9 from "../../assets/img/connectstore/car_logo_9.png";
+import pic1 from "../../assets/img/connectstore/car_logo_1.webp";
+import pic2 from "../../assets/img/connectstore/car_logo_2.webp";
+import pic3 from "../../assets/img/connectstore/car_logo_3.webp";
+import pic4 from "../../assets/img/connectstore/car_logo_4.webp";
+import pic5 from "../../assets/img/connectstore/car_logo_5.webp";
+import pic6 from "../../assets/img/connectstore/car_logo_6.webp";
+import pic8 from "../../assets/img/connectstore/car_logo_8.webp";
+import pic9 from "../../assets/img/connectstore/car_logo_9.webp";
 
 const images = [pic1, pic2, pic3, pic4, pic5, pic6, pic8, pic9];
 
