@@ -1,4 +1,4 @@
-import { Button, Space, Table, TableColumnsType, TableProps } from 'antd';
+import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from 'antd';
 ;
 
 import { useAllUsersQuery, useBlockedUserMutation, useUnblockedUserMutation } from '../../../redux/features/admin/adminApi';
@@ -7,13 +7,20 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import { toast } from 'sonner';
+import { useState } from 'react';
+// import { TQueryParam } from '../../../types/global';
 
 
 
 
 const AllUsers= () => {
-  // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
- const {data:allUsers,isFetching,refetch} = useAllUsersQuery(undefined,
+// const [params, setParams] = useState<TQueryParam[]>([]);
+  const [page, setPage] = useState(1);
+ const {data:allUsers,isFetching,refetch} = useAllUsersQuery( [
+  { name: 'page', value: page },
+  { name: 'sort', value: '-createdAt' },
+  // ...params,
+],
   {
     refetchOnMountOrArgChange:true,
     refetchOnReconnect:true
@@ -101,11 +108,13 @@ const columns: TableColumnsType<TUser> = [
   {
     title: 'Name',
     key: 'name',
+    fixed: 'left',
     dataIndex: 'name',
   },
   {
     title: 'Email',
     key: 'email',
+    fixed: 'left',
     dataIndex: 'email',
   },
   {
@@ -143,6 +152,7 @@ const columns: TableColumnsType<TUser> = [
   {
     title: 'Action',
     key: 'x',
+    fixed: 'right',
     render: (item) => 
       
      {
@@ -163,37 +173,6 @@ const columns: TableColumnsType<TUser> = [
     )
      }
   },
-//   {
-//     title: 'Status',
-//     key: 'status',
-//     dataIndex: 'status',
-//     render: (status) => (
-//       <span
-//         className={`px-2 py-1 rounded-md ${
-//           status === "Paid" ? "bg-green-500 text-white" : "bg-red-500 text-white"
-//         }`}
-//       >
-//         {status}
-//       </span>
-//     ),
-//   },
-  // {
-  //   title: 'Action',
-  //   key: 'status',
-  //   dataIndex: 'status',
-  //   render: (status) => (
-  //     <span
-  //       className={`px-2 py-1 rounded-md ${
-  //         status === "Paid" ? "bg-green-500 text-white" : "bg-red-500 text-white"
-  //       }`}
-  //     >
-  //       {status}
-  //     </span>
-  //   ),
-  // },
- 
-
-  
   
 ];
 
@@ -207,20 +186,6 @@ const columns: TableColumnsType<TUser> = [
   ) => {
     console.log({filters,extra})
 
-    // if(extra.action=== 'filter'){
-    //   const queryParams :TQueryParam[] = []
-    //   filters.brand?.forEach((item) => 
-    //     queryParams.push({name:'brand', value:item}
-    //   ));
-
-    //   filters.model?.forEach((item) =>
-    //         queryParams.push({ name: 'model', value: item })
-    //       );
-        
-          
-    //   setParams(queryParams)
-     
-    // }
     
    
   };
@@ -232,9 +197,16 @@ const columns: TableColumnsType<TUser> = [
       loading={isFetching}
       columns={columns}
       dataSource={tableData}
+      pagination={false}
       onChange={onChange}
       scroll={{ x: 'max-content' }}
     />
+    <Pagination
+        current={page}
+        onChange={(value) => setPage(value)}
+        pageSize={allUsers?.meta?.limit}
+        total={allUsers?.meta?.total}
+      />
   </div>
   );
 };

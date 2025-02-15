@@ -10,7 +10,7 @@ type FeaturedCarsProps = {
 
 const Cars = ({ car }: FeaturedCarsProps) => {
   console.log(car);
-  const { _id, brand, imageUrl, price, category,model } = car;
+  const { _id, brand, imageUrl, price, category, model } = car;
 
   const token = useAppSelector(useCurrentToken); 
   const navigate = useNavigate(); 
@@ -25,7 +25,13 @@ const Cars = ({ car }: FeaturedCarsProps) => {
 
   return (
     <div className="border-1 border-gray-200 shadow-lg rounded-md">
-      <img src={imageUrl} className="h-[250px] w-full p-3 rounded-md" alt="" />
+
+      <img
+        src={imageUrl}
+        className="h-[250px] w-full p-3 rounded-md"
+        alt={`${brand} ${model}`}
+        loading="lazy"
+      />
       <div className="px-6 py-4">
         <h1 className="font-bold">{brand} {model}</h1>
         <div className="flex justify-between items-center my-2">

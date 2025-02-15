@@ -1,10 +1,5 @@
 import DashboardTable from "./UserComponent/DashboardTable"
-
-
 const UserDashboard = () => {
-
- 
-  
   return (
     <div className="grid grid-cols-4 gap-5">
       <div className="border-1 col-span-2 md:col-span-1 border-gray-200 shadow-lg rounded-md p-6" >

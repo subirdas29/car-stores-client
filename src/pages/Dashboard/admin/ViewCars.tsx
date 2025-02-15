@@ -1,4 +1,4 @@
-import { Button, Space, Table, TableColumnsType, TableProps } from 'antd';
+import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from 'antd';
 ;
 
 import { useAllCarsQuery, useDeleteCarMutation,  } from '../../../redux/features/admin/adminApi';
@@ -9,13 +9,21 @@ import { Link } from 'react-router-dom';
 import UpdateCarModal from './Modal/UpdateCarModal';
 
 import { toast } from 'sonner';
+import { useState } from 'react';
+import { TQueryParam } from '../../../types/global';
 
 
 
 
 const ViewCars= () => {
-  // const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
-  const { data: allCars,isFetching,refetch} = useAllCarsQuery(undefined,{
+  const [params, setParams] = useState<TQueryParam[]>([]);
+
+  const [page, setPage] = useState(1);
+  const { data: allCars,isFetching,refetch} = useAllCarsQuery( [
+    { name: 'page', value: page },
+    { name: 'sort', value: '-createdAt' },
+    ...params,
+  ],{
     refetchOnMountOrArgChange:true,
     refetchOnReconnect:true
   });
@@ -83,11 +91,13 @@ const columns: TableColumnsType<TCar> = [
   {
     title: 'Brand',
     key: 'brand',
+    fixed: 'left',
     dataIndex: 'brand',
   },
   {
     title: 'Model',
     key: 'model',
+    fixed: 'left',
     dataIndex: 'model',
   },
   {
@@ -133,6 +143,7 @@ const columns: TableColumnsType<TCar> = [
   {
     title: 'Action',
     key: 'x',
+    fixed: 'right',
     render: (item) => 
       
      {
@@ -159,20 +170,20 @@ const columns: TableColumnsType<TCar> = [
   ) => {
     console.log({filters,extra})
 
-    // if(extra.action=== 'filter'){
-    //   const queryParams :TQueryParam[] = []
-    //   filters.brand?.forEach((item) => 
-    //     queryParams.push({name:'brand', value:item}
-    //   ));
+    if(extra.action=== 'filter'){
+      const queryParams :TQueryParam[] = []
+      filters.brand?.forEach((item) => 
+        queryParams.push({name:'brand', value:item}
+      ));
 
-    //   filters.model?.forEach((item) =>
-    //         queryParams.push({ name: 'model', value: item })
-    //       );
+      filters.model?.forEach((item) =>
+            queryParams.push({ name: 'model', value: item })
+          );
         
           
-    //   setParams(queryParams)
+      setParams(queryParams)
      
-    // }
+    }
     
    
   };
@@ -185,8 +196,15 @@ const columns: TableColumnsType<TCar> = [
       columns={columns}
       dataSource={tableData}
       onChange={onChange}
+      pagination={false}
       scroll={{ x: 'max-content' }}
     />
+    <Pagination
+        current={page}
+        onChange={(value) => setPage(value)}
+        pageSize={allCars?.meta?.limit}
+        total={allCars?.meta?.total}
+      />
   </div>
   );
 };

@@ -3,7 +3,7 @@
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300 py-10 ">
-      <div className=" mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8 ">
+      <div className=" mx-8 md:mx-12 lg:mx-24 grid grid-cols-1 md:grid-cols-3 gap-8 ">
         {/* Company Info */}
         <div className="col-span-2 md:col-span-1">
       <div className="flex gap-3 items-center">
@@ -90,7 +90,7 @@ const Footer = () => {
       </div>
 
       {/* Newsletter Section */}
-      <div className="bg-gray-800 mt-10 py-6">
+      <div className="bg-gray-800 mt-10 py-6 mx-8 md:mx-12 lg:mx-24">
         <div className=" mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-evenly items-center">
           <p className="text-sm mb-4 md:mb-0">
             Subscribe to our newsletter for the latest updates and offers:

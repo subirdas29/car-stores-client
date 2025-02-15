@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button, Space, Table, TableColumnsType, TableProps } from 'antd';
+import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from 'antd';
 import { useGetMyOrderQuery } from '../../../../redux/features/user/userApi';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useDeleteOrderMutation } from '../../../../redux/features/admin/adminApi';
+import { TQueryParam } from '../../../../types/global';
 
 export type TTableData = {
   key: string;
@@ -21,7 +22,14 @@ export type TTableData = {
 };
 
 const DashboardTable = () => {
-  const { data: myOrderData, isFetching } = useGetMyOrderQuery(undefined, {
+  const [params, setParams] = useState<TQueryParam[]>([]);
+    const [page, setPage] = useState(1);
+
+  const { data: myOrderData, isFetching } = useGetMyOrderQuery( [
+    { name: 'page', value: page },
+    { name: 'sort', value: '-createdAt' },
+    ...params,
+  ], {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
   });
@@ -74,11 +82,13 @@ const DashboardTable = () => {
     {
       title: 'Brand',
       key: 'brand',
+      fixed: 'left',
       dataIndex: 'brand',
     },
     {
       title: 'Model',
       key: 'model',
+      fixed: 'left',
       dataIndex: 'model',
     },
     {
@@ -99,6 +109,7 @@ const DashboardTable = () => {
     {
       title: 'Status',
       key: 'status',
+      fixed: 'right',
       dataIndex: 'status',
       render: (status) => (
         <span
@@ -111,6 +122,7 @@ const DashboardTable = () => {
     {
       title: 'Action',
       key: 'x',
+      fixed: 'right',
       render: (item) => (
         <Space>
           {item.status === 'Paid' ? (
@@ -126,7 +138,13 @@ const DashboardTable = () => {
   ];
 
   const onChange: TableProps<TTableData>['onChange'] = (_pagination, filters, _sorter, extra) => {
-    console.log({ filters, extra });
+    if (extra.action === 'filter') {
+      const queryParams: TQueryParam[] = [];
+      filters.brand?.forEach((item) => queryParams.push({ name: 'brand', value: item }));
+      filters.model?.forEach((item) => queryParams.push({ name: 'model', value: item }));
+      setParams(queryParams);
+      setPage(1);
+    }
   };
 
   return (
@@ -137,7 +155,14 @@ const DashboardTable = () => {
         columns={columns}
         dataSource={tableData}
         onChange={onChange}
+        pagination={false}
         scroll={{ x: 'max-content' }}
+      />
+       <Pagination
+        current={page}
+        onChange={(value) => setPage(value)}
+        pageSize={myOrderData?.meta?.limit}
+        total={myOrderData?.meta?.total}
       />
     </div>
   );

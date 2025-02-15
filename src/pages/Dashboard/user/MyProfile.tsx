@@ -23,12 +23,9 @@ const MyProfile = () => {
   const { data: userData, refetch,  isLoading, error} = useGetMeQuery(undefined,
     {
       refetchOnMountOrArgChange: true,
-  refetchOnReconnect: true, 
+      refetchOnReconnect: true, 
     }
   );
-
- 
-
   let user;
   if (token) {
     user = verifyToken(token);
@@ -74,7 +71,7 @@ if (error) return <p>Error loading user data</p>;
         <div className="grid grid-cols-2 gap-5 font-bold">
           <CarInput type="text" name="name" label="Name:" />
           <CarInput type="email" name="email" label="Email:" disabled />
-          <CarInput type="number" name="phone" label="Phone:" />
+          <CarInput type="text" name="phone" label="Phone:" />
           <CarInput type="text" name="city" label="City:" />
           <CarInput type="textarea" name="address" label="Address:" placeholder="Write your address..." rows={4} maxLength={500} />
 

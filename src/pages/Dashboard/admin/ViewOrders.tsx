@@ -31,7 +31,10 @@ const ViewOrders = () => {
       { name: 'page', value: page },
       { name: 'sort', value: '-createdAt' },
       ...params,
-    ]
+    ],{
+      refetchOnMountOrArgChange:true,
+      refetchOnReconnect:true
+    }
   );
   
  console.log(OrderData)
@@ -74,7 +77,7 @@ const ViewOrders = () => {
 
   const columns: TableColumnsType<TTableData> = [
     { title: 'Transaction ID', key: 'transactionId', dataIndex: 'transactionId' },
-    { title: 'Customer Email', key: 'email', dataIndex: 'email' },
+    { title: 'Customer Email', key: 'email',fixed: 'left', dataIndex: 'email' },
     { title: 'Brand', key: 'brand', dataIndex: 'brand' },
     { title: 'Model', key: 'model', dataIndex: 'model' },
     { title: 'Quantity', key: 'quantity', dataIndex: 'quantity' },
@@ -84,6 +87,7 @@ const ViewOrders = () => {
     {
       title: 'Status',
       key: 'status',
+      fixed: 'right',
       dataIndex: 'status',
       render: (status) => (
         <span
@@ -98,6 +102,7 @@ const ViewOrders = () => {
     {
       title: 'Action',
       key: 'x',
+      fixed: 'right',
       render: (item) => (
         <Space>
           {item.status === 'Success' ? (

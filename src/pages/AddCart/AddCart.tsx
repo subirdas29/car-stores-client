@@ -9,10 +9,35 @@ import banner from "../../assets/img/car-gallery/car-1.webp"
 
 import { AlertTriangle, MapPin, Trash } from "lucide-react";
 import { TResponse } from "../../types/global"
+import { useGetMeQuery } from "../../redux/features/user/userApi"
+import { useNavigate } from "react-router-dom"
+import { useCurrentToken } from "../../redux/features/auth/authSlice"
+import { verifyToken } from "../../utils/verifyToken"
 
 
 const AddCart = () => {
+  const { data:userData } = useGetMeQuery(undefined,
+    {
+      refetchOnMountOrArgChange:true,
+      refetchOnReconnect:true
+    }
+  );
     const cartData = useAppSelector((state) =>state.cart)
+  const token = useAppSelector(useCurrentToken)
+   let user
+    
+        if(token){
+          user = verifyToken(token)
+        }
+        const role = user?.role
+        const email = user?.email
+     
+      console.log(userData)
+
+      const address:string = userData?.data?.address
+      const phone:string = userData?.data?.phone 
+
+      const navigate = useNavigate();
 
     const [createOrder,{isLoading,isSuccess,data,isError,error}] = useCreateOrderMutation()
 
@@ -58,7 +83,7 @@ const AddCart = () => {
           }
         }
       
-        if (isError) toast.error(JSON.stringify(error), { id: toastId });
+        if (isError) toast.error((error as any)?.data?.message || "An error occurred", { id: toastId });
       }, [data, error, isError, isLoading, isSuccess]); 
 
    
@@ -132,7 +157,7 @@ const AddCart = () => {
       </div>
     </div>
   </div>
-    <div className="my-24 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl  mx-8 md:mx-12 lg:mx-auto p-6 bg-white shadow-lg rounded-2xl border border-gray-200">
+    <div className="my-24  grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl  mx-8 md:mx-12 lg:mx-auto p-6 bg-white shadow-lg rounded-2xl border border-gray-200">
     {/* Left Side - Cart Items */}
     <div className="md:col-span-2 space-y-4">
       <h2 className="text-2xl font-bold">Shopping Cart</h2>
@@ -142,7 +167,8 @@ const AddCart = () => {
             <div key={item.car} className="flex flex-col md:flex-row items-center justify-between border-b pb-4">
               <img src={item.imageUrl} alt={item.name} className="w-16 h-16 object-cover rounded-lg" />
               <div className="flex-1 ml-4 text-center md:text-left">
-                <h3 className="text-lg font-semibold">{item.name}</h3>
+                <h3 className="text-lg font-semibold">{item.name} {item.model}</h3>
+                <p className="text-[#7e7e84]">Category: {item.category}</p>
                 <div className="flex items-center justify-center md:justify-start gap-2 mt-1">
                   <button
                     onClick={() => {
@@ -189,11 +215,36 @@ const AddCart = () => {
 
 
     <div className="md:col-span-1 bg-gray-100 p-4 rounded-xl shadow-md">
-      <h3 className="text-lg font-semibold flex items-center gap-2">
+      <h3 className="text-lg font-semibold flex items-center gap-2 mb-2">
         <MapPin size={18} /> Location
       </h3>
-      <p className="text-sm text-gray-600"> Chattogram Sadar, Chattogram</p>
-      <div className="border-b my-3"></div>
+      <p className="text-sm text-gray-600">
+      {address === "N/A" ? (
+        <span
+          className="text-blue-500 underline cursor-pointer"
+          onClick={() => navigate(`/${role}/account-profile`)}
+        >
+          Please add your address from profile
+        </span>
+      ) : (
+        address
+      )}
+    </p>
+      <p className="text-sm text-gray-600 my-2">
+      Phone Number:{phone === "N/A" ? (
+        <span
+          className="text-blue-500 underline cursor-pointer"
+          onClick={() => navigate(`/${role}/account-profile`)}
+        >
+          Please add your Phone number
+        </span>
+      ) : (
+        phone
+      )}
+    </p>
+
+    <p className="text-sm text-gray-600"> Email: {email}</p>
+      <div className="border-b my-5"></div>
       <h3 className="text-lg font-semibold">Order Summary</h3>
       <div className="flex justify-between items-center mt-2">
         <span className="text-sm font-medium text-gray-700">Subtotal ({cartData.totalQuantity} items):</span>
