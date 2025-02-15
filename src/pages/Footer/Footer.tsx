@@ -19,7 +19,7 @@ const Footer = () => {
         </div>
 
         {/* Quick Links */}
-        <div>
+        <div className="col-span-2 sm:col-span-1">
           <h4 className="text-xl font-semibold text-white mb-4">Quick Links</h4>
           <ul className="space-y-2">
             <li>
