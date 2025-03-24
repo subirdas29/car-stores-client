@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { toast } from "sonner";
-import { useCreateCarMutation } from "../../../redux/features/admin/adminApi";
+
 import { TCar } from "../../../types/admin.types";
 import { TResponse } from "../../../types/global";
 import CarForm from "../../../components/form/CarForm";
@@ -9,6 +9,7 @@ import CarInput from "../../../components/form/CarInput";
 import CarSelect from "../../../components/form/CarSelect";
 import { carCategoryOptions } from "../../../constants/global";
 import UploadImage from "../../../components/form/UploadImage";
+import { useCreateCarMutation } from "../../../redux/features/car/carApi";
 
 const AddCars = () => {
   const [createCar, { isLoading }] = useCreateCarMutation();

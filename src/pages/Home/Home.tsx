@@ -6,21 +6,13 @@ import EventList from "../../components/Events/EventList";
 import AllFeaturedCars from "../../components/FeaturedCars/AllFeaturedCars";
 import CarGallery from "../../components/Gallery/Gallery";
 import Reviews from "../../components/Reviews/Reviews";
+import PopularMakes from "../../components/PopularMakes/PopularMakes";
+import ChooseUs from "../../components/ChooseUs/ChooseUs";
 
 // Animation Variants
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut" } },
-};
-
-const fadeLeft = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeInOut" } },
-};
-
-const fadeRight = {
-  hidden: { opacity: 0, x: 50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeInOut" } },
 };
 
 const Home = () => {
@@ -30,15 +22,19 @@ const Home = () => {
   const eventsRef = useRef(null);
   const brandRef = useRef(null);
   const reviewsRef = useRef(null);
+  const makesRef = useRef(null);
+  const chooseUsRef = useRef(null);
 
   const isFeaturedInView = useInView(featuredRef, { once: true });
   const isGalleryInView = useInView(galleryRef, { once: true });
   const isEventsInView = useInView(eventsRef, { once: true });
   const isBrandInView = useInView(brandRef, { once: true });
   const isReviewsInView = useInView(reviewsRef, { once: true });
+  const isMakesInView = useInView(makesRef, { once: true });
+  const isChooseUsInView = useInView(chooseUsRef, { once: true });
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 overflow-hidden">
       {/* Hero Banner - Smooth Fade-In */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
         <Banner />
@@ -49,13 +45,23 @@ const Home = () => {
         <AllFeaturedCars />
       </motion.div>
 
-      {/* Car Gallery - Slide from Left */}
-      <motion.div ref={galleryRef} initial="hidden" animate={isGalleryInView ? "visible" : "hidden"} variants={fadeLeft}>
+      {/* Car Gallery - Fade Up */}
+      <motion.div ref={galleryRef} initial="hidden" animate={isGalleryInView ? "visible" : "hidden"} variants={fadeUp}>
         <CarGallery />
       </motion.div>
 
-      {/* Event List - Slide from Right */}
-      <motion.div ref={eventsRef} initial="hidden" animate={isEventsInView ? "visible" : "hidden"} variants={fadeRight}>
+      {/* Popular Makes - Fade Up */}
+      <motion.div ref={makesRef} initial="hidden" animate={isMakesInView ? "visible" : "hidden"} variants={fadeUp}>
+        <PopularMakes />
+      </motion.div>
+
+      {/* Choose Us - Fade Up */}
+      <motion.div ref={chooseUsRef} initial="hidden" animate={isChooseUsInView ? "visible" : "hidden"} variants={fadeUp}>
+        <ChooseUs />
+      </motion.div>
+
+      {/* Event List - Fade Up */}
+      <motion.div ref={eventsRef} initial="hidden" animate={isEventsInView ? "visible" : "hidden"} variants={fadeUp}>
         <EventList />
       </motion.div>
 
@@ -64,8 +70,8 @@ const Home = () => {
         <ConnectBrand />
       </motion.div>
 
-      {/* Reviews - Smooth Fade-In */}
-      <motion.div ref={reviewsRef} initial={{ opacity: 0 }} animate={isReviewsInView ? { opacity: 1 } : { opacity: 0 }} transition={{ duration: 0.8, ease: "easeInOut" }}>
+      {/* Reviews - Fade Up */}
+      <motion.div ref={reviewsRef} initial="hidden" animate={isReviewsInView ? "visible" : "hidden"} variants={fadeUp}>
         <Reviews />
       </motion.div>
     </div>

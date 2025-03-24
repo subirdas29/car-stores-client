@@ -85,6 +85,6 @@ import { RootState } from '../store';
   export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQueryWithRefreshToken,
-    tagTypes:['cars','User','orders','allusers'],
+    tagTypes:['Cars','User','Orders'],
     endpoints: () => ({}),
   });

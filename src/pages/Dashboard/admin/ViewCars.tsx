@@ -1,7 +1,7 @@
 import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from 'antd';
 ;
 
-import { useAllCarsQuery, useDeleteCarMutation,  } from '../../../redux/features/admin/adminApi';
+
 import { TCar } from '../../../types/admin.types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ import UpdateCarModal from './Modal/UpdateCarModal';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { TQueryParam } from '../../../types/global';
+import { useAllCarsQuery, useDeleteCarMutation } from '../../../redux/features/car/carApi';
 
 
 

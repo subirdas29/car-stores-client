@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Form } from "antd";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { FieldValues, FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 type TFormConfig = {
@@ -14,17 +14,28 @@ type TFormProps = {
 } & TFormConfig;
 
 const CarForm = ({ onSubmit, children, defaultValues, resolver }: TFormProps) => {
-  const formConfig: TFormConfig = {};
+  // const formConfig: TFormConfig = {};
 
-  if (defaultValues) {
-    formConfig["defaultValues"] = defaultValues;
-  }
+  // if (defaultValues) {
+  //   formConfig["defaultValues"] = defaultValues;
+  // }
 
-  if (resolver) {
-    formConfig["resolver"] = resolver;
-  }
+  // if (resolver) {
+  //   formConfig["resolver"] = resolver;
+  // }
 
-  const methods = useForm(formConfig);
+  // const methods = useForm(formConfig);
+
+  const methods = useForm({defaultValues,resolver})
+
+  useEffect(() => {
+    if (defaultValues) {
+      methods.reset(defaultValues);
+    }
+  }, [defaultValues, methods]);
+  
+
+
 
   const submit: SubmitHandler<FieldValues> = (data) => {
   

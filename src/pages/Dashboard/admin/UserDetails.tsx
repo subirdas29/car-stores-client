@@ -1,9 +1,10 @@
 
 import { useParams } from 'react-router-dom';
-import { useGetAUserQuery } from '../../../redux/features/admin/adminApi';
+
 import moment from 'moment';
 import { Skeleton } from 'antd';
 import ProfileAvatar from '../../../components/ProfileAvatar/ProfileAvatar';
+import { useGetAUserQuery } from '../../../redux/features/user/userApi';
 
 const UserDetails = () => {
     const { userId } = useParams();

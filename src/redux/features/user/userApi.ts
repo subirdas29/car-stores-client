@@ -1,7 +1,8 @@
-import { TQueryParam, TResponseRedux } from "../../../types/global";
-import { TOrder } from "../../../types/users.types";
 
+
+import { TQueryParam, TResponseRedux } from "../../../types/global";
 import { baseApi } from "../../api/baseApi";
+import { TUser } from "../../../types/admin.types";
 
 const userApi = baseApi.injectEndpoints({
     endpoints:(builder) =>({
@@ -23,39 +24,73 @@ const userApi = baseApi.injectEndpoints({
           method: "PATCH",
           body: args.data,
         }),
-        invalidatesTags: ["User"], // ✅ Ensure tag name matches "providesTags"
+        invalidatesTags: ["User"], 
       }),
       
       
 
-        getMyOrder: builder.query({
-          query: (args) => {
-            const params = new URLSearchParams();
+      allUsers: builder.query({
+        query: (args) => {
+          const params = new URLSearchParams();
+  
+          if (args) {
+            args.forEach((item: TQueryParam) => {
+              params.append(item.name, item.value as string);
+            });
+          }
+  
+          return {
+            url: '/user/all-users',
+            method: 'GET',
+            params: params,
+          };
+        },
+         providesTags: ['User'],
+        transformResponse: (response: TResponseRedux<TUser[]>) => {
+          console.log(response)
+          return {
+            data: response.data,
+            meta: response.meta,
+          };
+        },
         
-            if (args) {
-              args.forEach((item: TQueryParam) => {
-                params.append(item.name, item.value as string);
-              });
-            }
-        
-            return {
-              url: "/user/my-order/details",
-              method: "GET",
-              params: params,
-              
-            };
-          },
-          providesTags: ["orders"],
-          transformResponse: (response: TResponseRedux<TOrder[]>) => {
-           
-            return response;
-          },
-        }),
+      }),
 
+      getAUser: builder.query({
+        query: (userId) => {
+          return {
+            url: `/user/${userId}`,
+            method: 'GET',
+          };
+        },
+        providesTags:['User'],
+        transformResponse: (response: TResponseRedux<TUser>) => {
+          return {
+            data: response.data,
+            meta: response.meta,
+          };
+        },
+      }),
+
+      blockedUser: builder.mutation({
+        query: (userId) => ({
+          url: `/user/block-user/${userId}`,
+          method: 'PATCH',
+          
+        }),
+        invalidatesTags: ['User'],
+      }),
       
-        
+      unblockedUser: builder.mutation({
+        query: (userId) => ({
+          url: `/user/unblock-user/${userId}`,
+          method: 'PATCH',
+           
+        }),
+        invalidatesTags: ['User'],
+      }),
         
     })
 })
 
-export const {useGetMeQuery,useGetMyOrderQuery,useProfileUpdateMutation} = userApi;
+export const {useGetMeQuery,useProfileUpdateMutation,useBlockedUserMutation,useUnblockedUserMutation,useAllUsersQuery,useGetAUserQuery} = userApi;

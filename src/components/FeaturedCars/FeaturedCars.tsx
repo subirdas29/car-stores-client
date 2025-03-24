@@ -1,8 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { Car, CarFront, ShoppingBag, User } from 'lucide-react';
 import { TCar } from '../../types/admin.types';
-import { useAppSelector } from '../../redux/hook';
-import { useCurrentToken } from '../../redux/features/auth/authSlice';
 
 type FeaturedCarsProps = {
   car: TCar;
@@ -10,16 +8,8 @@ type FeaturedCarsProps = {
 
 const FeaturedCars = ({ car }: FeaturedCarsProps) => {
   const { _id, brand, model, imageUrl, price, category } = car;
-  const token = useAppSelector(useCurrentToken); 
-  const navigate = useNavigate(); 
 
-  const handleDetailsClick = () => {
-    if (token) {
-      navigate(`/car-details/${_id}`); 
-    } else {
-      navigate("/login"); 
-    }
-  };
+
 
   return (
     <div>
@@ -43,12 +33,14 @@ const FeaturedCars = ({ car }: FeaturedCarsProps) => {
           <p className="text-sm text-gray-500">Price:</p>
           <div className="flex justify-between items-center mt-4 pb-4">
             <p className="text-2xl font-bold mr-2">${price}</p>
+            <Link to={`/car-details/${_id}`}>
             <button
-              onClick={handleDetailsClick}
+            
               className="rounded-md px-4 py-1 md:px-6 md:py-2 border-1 hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer"
             >
               Details
             </button>
+            </Link>
           </div>
         </div>
       </div>

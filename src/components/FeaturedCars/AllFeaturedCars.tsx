@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom"
 
 import FeaturedCars from "./FeaturedCars"
-import { Skeleton } from "antd"
-import { useAllCarsQuery } from "../../redux/features/admin/adminApi";
+
+
+import Skeleton from "../ui/Skeleton/Skeleton";
+import { useAllCarsQuery } from "../../redux/features/car/carApi";
 
 
 const AllFeaturedCars = () => {
@@ -11,11 +13,16 @@ const AllFeaturedCars = () => {
     refetchOnReconnect: true
   });
 
+  console.log(allCars)
  
 
-  console.log(allCars)
+  console.log(allCars,"home car")
   return isLoading ? (
-    <Skeleton className="my-28" active />
+   <>
+   {[...Array(4)].map((_,index)=>(
+    <Skeleton key={index}/>
+   ))}
+   </>
   ) : (
     <div>
       <div className='mt-28 mx-12 md:mx-16 lg:mx-24'>
@@ -23,8 +30,8 @@ const AllFeaturedCars = () => {
         <p className='text-center mb-8'>
           Driving your dreams to reality with an exquisite fleet of versatile vehicles for unforgettable journeys.
         </p>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5'>
-          {allCars?.data?.slice(0, 6).map((car) => (
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5'>
+          {allCars?.data?.slice(0, 4).map((car) => (
             <FeaturedCars key={car._id} car={car} />
           ))}
         </div>

@@ -11,8 +11,9 @@ import { NavLink, useParams } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 import { useAppDispatch } from "../../redux/hook";
 import { addToCart } from "../../redux/features/cart/cartSlice";
-import { useGetACarQuery } from "../../redux/features/admin/adminApi";
+
 import { Skeleton } from "antd";
+import { useGetACarQuery } from "../../redux/features/car/carApi";
 const CarDetails = () => {
 // Initial big image
   const { carId } = useParams();

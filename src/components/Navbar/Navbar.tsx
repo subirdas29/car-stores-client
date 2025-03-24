@@ -43,6 +43,7 @@ const Navbar = () => {
     { title: "Contact Us", path: "/contact-us" },
   ];
 
+
   const handleLogout = () => {
     dispatch(clearCart());
     dispatch(logOut());
@@ -96,25 +97,20 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex space-x-8">
-          {menuData.map((item, index) => (
-            <NavLink
-              key={index}
-              to={item.path}
-              className={({ isActive }) =>
-                `font-medium ${
-                  isActive ? "text-[#1890ff]" : "hover:text-[#1890ff]"
-                }`
-              }
-              onClick={() => {
-                if (item.title === "Dashboard" && !user) {
-                  navigate("/login");
-                }
-              }}
-            >
-              {item.title}
-            </NavLink>
-          ))}
-        </div>
+  {menuData
+    .filter((item) => user || item.title !== "Dashboard") 
+    .map((item, index) => (
+      <NavLink
+        key={index}
+        to={item.path}
+        className={({ isActive }) =>
+          `font-medium ${isActive ? "text-[#1890ff]" : "hover:text-[#1890ff]"}`
+        }
+      >
+        {item.title}
+      </NavLink>
+    ))}
+</div>
 
         {/* Icons and Buttons */}
         <div className="hidden lg:flex items-center space-x-6">

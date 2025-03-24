@@ -4,8 +4,9 @@ import {  useState } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useDeleteOrderMutation, useViewOrdersQuery } from '../../../redux/features/admin/adminApi';
+
 import { TQueryParam } from '../../../types/global';
+import { useDeleteOrderMutation, useViewOrdersQuery } from '../../../redux/features/order/orderApi';
 
 
 export type TTableData = {

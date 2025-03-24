@@ -1,13 +1,14 @@
 import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from 'antd';
 ;
 
-import { useAllUsersQuery, useBlockedUserMutation, useUnblockedUserMutation } from '../../../redux/features/admin/adminApi';
+
 import { TUser } from '../../../types/admin.types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import { toast } from 'sonner';
 import { useState } from 'react';
+import { useAllUsersQuery, useBlockedUserMutation, useUnblockedUserMutation } from '../../../redux/features/user/userApi';
 // import { TQueryParam } from '../../../types/global';
 
 

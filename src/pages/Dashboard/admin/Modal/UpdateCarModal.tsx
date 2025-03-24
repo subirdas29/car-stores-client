@@ -8,9 +8,10 @@ import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
 import CarForm from "../../../../components/form/CarForm";
 import CarSelect from "../../../../components/form/CarSelect";
 import { carCategoryOptions } from "../../../../constants/global";
-import {  useUpdateCarsMutation } from "../../../../redux/features/admin/adminApi";
+
 import { toast } from "sonner";
 import { TResponse } from "../../../../types/global";
+import { useUpdateCarsMutation } from "../../../../redux/features/car/carApi";
 
 
 type TCarProps = {

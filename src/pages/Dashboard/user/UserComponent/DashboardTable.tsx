@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from 'antd';
-import { useGetMyOrderQuery } from '../../../../redux/features/user/userApi';
+
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useDeleteOrderMutation } from '../../../../redux/features/admin/adminApi';
+
 import { TQueryParam } from '../../../../types/global';
+import { useDeleteOrderMutation, useGetMyOrderQuery } from '../../../../redux/features/order/orderApi';
 
 export type TTableData = {
   key: string;

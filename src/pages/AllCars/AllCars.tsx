@@ -1,37 +1,99 @@
-import { Flex, Pagination, Skeleton, Checkbox } from 'antd';
-import { useAllCarsQuery } from '../../redux/features/admin/adminApi';
-import Cars from './Cars';
-import { useState } from 'react';
-import { TQueryParam } from '../../types/global';
+import { Flex, Pagination, Checkbox, Input, Slider, Button } from 'antd';
 
-const brand = ['Ford', 'Audi', 'BMW', 'Tesla', 'Mercedes-Benz', 'Porsche'];
-const model = ['2025 Mustang GT', '2025 A8', 'Model S', '2025 X5', '2025 GLC', '2025 911'];
-const category = ['Sedan', 'SUV', 'Truck', 'Coupe', 'Convertible'];
+import Cars from './Cars';
+import { useState, useEffect } from 'react';
+import Skeleton from '../../components/ui/Skeleton/Skeleton';
+import { TCar } from '../../types/admin.types';
+import { useAllCarsQuery } from '../../redux/features/car/carApi';
+import banner from "../../assets/img/car-gallery/car-1.webp"
 
 const AllCars = () => {
-  const [params, setParams] = useState<TQueryParam[]>([]);
   const [page, setPage] = useState(1);
-  
-  const { data: allCars, isLoading } = useAllCarsQuery([
+  const { data: allCarsData, isLoading } = useAllCarsQuery([
     { name: 'page', value: page },
     { name: 'sort', value: '-createdAt' },
-    ...params,
   ]);
 
-  const handleCheckboxChange = (checkedValues: string[], type: string) => {
-    setParams((prevParams) => [
-      ...prevParams.filter((param) => param.name !== type),
-      ...checkedValues.map((value) => ({ name: type, value })),
-    ]);
-    setPage(1);
+  const [filteredCars, setFilteredCars] = useState<TCar[]>([]);
+  const [initialFilters, setInitialFilters] = useState<{ brand: string[]; model: string[]; category: string[] }>({
+    brand: [],
+    model: [],
+    category: [],
+  });
+
+  const [search, setSearch] = useState('');
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [selectedModels, setSelectedModels] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100000]);
+  const [showFilters, setShowFilters] = useState(false);
+
+  useEffect(() => {
+    if (allCarsData?.data) {
+      const brands = new Set<string>();
+      const models = new Set<string>();
+      const categories = new Set<string>();
+
+      allCarsData.data.forEach((car) => {
+        if (car.brand) brands.add(car.brand);
+        if (car.model) models.add(car.model);
+        if (car.category) categories.add(car.category);
+      });
+
+      setInitialFilters({
+        brand: Array.from(brands),
+        model: Array.from(models),
+        category: Array.from(categories),
+      });
+
+      setFilteredCars(allCarsData.data);
+    }
+  }, [allCarsData]);
+
+  useEffect(() => {
+    if (allCarsData?.data) {
+      let filtered = allCarsData.data;
+      if (search) {
+        filtered = filtered.filter((car) =>
+          car.brand.toLowerCase().includes(search.toLowerCase())
+        );
+      }
+      filtered = filtered.filter((car) => car.price >= priceRange[0] && car.price <= priceRange[1]);
+      if (selectedBrands.length) {
+        filtered = filtered.filter((car) => selectedBrands.includes(car.brand));
+      }
+      if (selectedModels.length) {
+        filtered = filtered.filter((car) => selectedModels.includes(car.model));
+      }
+   
+      if (selectedCategories.length) {
+        filtered = filtered.filter(
+          (car) =>
+            car.category &&
+            selectedCategories.map((cat) => cat.trim().toLowerCase()).includes(car.category.trim().toLowerCase())
+        );
+      }
+      setFilteredCars(filtered);
+    }
+  }, [search, priceRange, selectedBrands, selectedModels, selectedCategories, allCarsData]);
+
+  const resetFilters = () => {
+    setSearch('');
+    setSelectedBrands([]);
+    setSelectedModels([]);
+    setSelectedCategories([]);
+    setPriceRange([0, 100000]);
   };
 
   return isLoading ? (
-    <Skeleton className="my-28" active />
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mx-12">
+    {[...Array(4)].map((_, index) => (
+      <Skeleton key={index} />
+    ))}
+  </div>
   ) : (
     <div>
-      {/* Banner Section */}
-      <div
+       <div
         style={{
           display: "flex",
           alignItems: "center",
@@ -40,7 +102,7 @@ const AllCars = () => {
       >
         <div
           style={{
-            backgroundImage: `url('assets/images/banner/car2.webp')`,
+            backgroundImage: `url(${banner})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             minHeight: "100%",
@@ -74,51 +136,92 @@ const AllCars = () => {
               zIndex: "2",
             }}
           >
-            <h1 style={{ fontSize: "2.5rem", marginBottom: "10px", fontWeight: "bold", color: "white" }}>
+            <h1
+              style={{
+                fontSize: "2.5rem",
+                marginBottom: "10px",
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
               Cars
             </h1>
-            <p style={{ fontSize: "1.2rem", marginBottom: "20px", fontWeight: "bold", color: "white" }}>
+            <p
+              style={{
+                fontSize: "1.2rem",
+                marginBottom: "20px",
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
               Explore the world’s finest cars and find your perfect match.
             </p>
           </div>
         </div>
       </div>
-
-      {/* Main Content */}
       <div className="my-28 mx-8 md:mx-12 lg:mx-24 min-h-screen">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5">
-          {/* Filters */}
-          <div className="flex flex-col gap-4 lg:gap-5">
-            {[{ label: 'Brand', data: brand }, { label: 'Model', data: model }, { label: 'Category', data: category }].map(
+        <Input
+          placeholder="Search cars..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="!w-1/2 !mb-4"
+        />
+        <Button 
+          className="mb-4 w-full lg:!hidden" 
+          onClick={() => setShowFilters(!showFilters)}
+        >
+          {showFilters ? 'Hide Filters' : 'Show Filters'}
+        </Button>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-5">
+          <div className={`${showFilters ? 'block' : 'hidden'} lg:block flex flex-col gap-4 lg:gap-5`}> 
+            <div className="border border-gray-200 shadow-lg rounded-md p-4">
+              <h1 className="font-bold mb-2">Price Range</h1>
+              <Slider
+                range
+                min={0}
+                max={100000}
+                step={1000}
+                value={priceRange}
+                onChange={(value) => setPriceRange(value as [number, number])}
+              />
+            </div>
+
+            {[{ label: 'Brand', state: selectedBrands, setState: setSelectedBrands, data: initialFilters.brand }, 
+              { label: 'Model', state: selectedModels, setState: setSelectedModels, data: initialFilters.model }, 
+              { label: 'Category', state: selectedCategories, setState: setSelectedCategories, data: initialFilters.category }].map(
               (filter) => (
                 <div key={filter.label} className="border border-gray-200 shadow-lg rounded-md p-4">
                   <h1 className="font-bold mb-2">{filter.label} Type</h1>
                   <Checkbox.Group
                     options={filter.data.map((item) => ({ label: item, value: item }))}
-                    onChange={(values) => handleCheckboxChange(values, filter.label.toLowerCase())}
+                    value={filter.state}
+                    onChange={(values) => filter.setState(values as string[])}
                     className="flex flex-col gap-2"
                   />
                 </div>
               )
             )}
-          </div>
 
-          {/* Cars List */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5 mb-6 lg:col-span-2 items-start">
-            {allCars?.data?.map((car) => (
-              <Cars key={car._id} car={car} />
-            ))}
+            <Button className="w-full mt-2" onClick={resetFilters}>Reset Filters</Button>
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4 lg:col-span-3 items-start">
+  {filteredCars.map((car) => (
+    <Cars key={car._id} car={car}  />
+  ))}
+</div>
+
+
+
         </div>
 
-        {/* Pagination */}
         <div className="my-4">
           <Flex justify="end" align="center">
             <Pagination
               current={page}
               onChange={(value) => setPage(value)}
-              pageSize={allCars?.meta?.limit}
-              total={allCars?.meta?.total}
+              pageSize={allCarsData?.meta?.limit}
+              total={allCarsData?.meta?.total}
             />
           </Flex>
         </div>

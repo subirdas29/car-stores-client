@@ -11,11 +11,16 @@ import { setUser, TUser } from "../../redux/features/auth/authSlice";
 import CarForm from "../../components/form/CarForm";
 import CarInput from "../../components/form/CarInput";
 import { AlertTriangle } from "lucide-react";
+import {  useState } from "react";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [login] = useLoginMutation();
+
+  
+
+  const [defaultValues, setDefaultValues] = useState({ email: "", password: "" });
 
 
 
@@ -46,12 +51,21 @@ const Login = () => {
     }
   };
 
+  const defaultValuesUser = {
+    email: "subirdas1045@gmail.com",
+    password: "123456"
+  }
+
+  const defaultValuesAdmin = {
+    email: "subir@gmail.com",
+    password: "12345678"
+  }
   return (
     <div
       style={{
         height: "100vh",
-        width: "100vw",
-        backgroundImage: `url('/assets/images/banner/car1.webp')`, // Update the path as needed
+        // width: "100vw",
+        backgroundImage: `url('/assets/images/banner/car1.webp')`, 
         backgroundSize: "cover",
         backgroundPosition: "center",
         display: "flex",
@@ -61,7 +75,7 @@ const Login = () => {
     >
       <div
         style={{
-          backgroundColor: "white", // Black overlay with transparency
+          backgroundColor: "white",
           paddingTop: "50px",
           paddingBottom: "50px",
           borderRadius: "10px",
@@ -73,11 +87,17 @@ const Login = () => {
         }}
       >
         <h1 className=" mb-4 text-black font-bold text-center text-4xl">Login</h1>
+
+       <div className="my-6">
+       <Button className="mr-4" onClick={()=>setDefaultValues(defaultValuesUser)}>User Credentials</Button>
+       <Button onClick={()=>setDefaultValues(defaultValuesAdmin)}>Admin Credentials</Button>
+       
+       </div>
         <Row justify='center' align='middle'>
           
-          <CarForm onSubmit={onSubmit} >
+          <CarForm onSubmit={onSubmit} defaultValues={defaultValues} >
             
-            <CarInput type="email" name="email" label="Email:" />
+            <CarInput type="email" name="email" label="Email:"   />
            
             <CarInput type="password" name="password" label="Password:" />
             <Button htmlType="submit" style={{backgroundColor:"#1890ff", paddingTop:"20px", paddingBottom:"20px", marginBottom:"16px", color:"white"}}  block>

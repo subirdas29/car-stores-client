@@ -1,7 +1,8 @@
 import { Card, Statistic } from "antd";
 import { PieChartOutlined, CarOutlined, UserOutlined, DollarOutlined } from "@ant-design/icons";
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
-import { useAllUsersQuery } from "../../../redux/features/admin/adminApi";
+import { useAllUsersQuery } from "../../../redux/features/user/userApi";
+
 
 const userData = [
   { month: "Jan", users: 100 },

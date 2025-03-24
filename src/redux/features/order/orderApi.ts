@@ -1,3 +1,5 @@
+import { TQueryParam, TResponseRedux } from "../../../types/global";
+import { TOrder } from "../../../types/users.types";
 import { baseApi } from "../../api/baseApi";
 
 const orderApi = baseApi.injectEndpoints({
@@ -8,7 +10,7 @@ const orderApi = baseApi.injectEndpoints({
         method: "POST",
         body: userInfo,
       }),
-      invalidatesTags:['orders']
+      invalidatesTags:['Orders']
     }),
 
   
@@ -19,10 +21,68 @@ const orderApi = baseApi.injectEndpoints({
         params: { order_id },
         method: "GET",
       }),
-      providesTags:['orders']
+      providesTags:['Orders']
     }),
 
+  viewOrders: builder.query({
+          query: (args) => {
+            const params = new URLSearchParams();
+    
+            if (args) {
+              args.forEach((item: TQueryParam) => {
+                params.append(item.name, item.value as string);
+              });
+            }
+    
+            return {
+              url: '/orders',
+              method: 'GET',
+              params: params,
+             
+            };
+          },
+          providesTags: ['Orders'],
+          transformResponse: (response: TResponseRedux<TOrder[]>) => {
+            return {
+              data: response.data,
+              meta: response.meta,
+            };
+          },
   
+          
+        }),
+  
+        deleteOrder: builder.mutation({
+          query: (orderId) => ({
+            url: `/orders/${orderId}`,
+            method: "DELETE",
+          }),
+          invalidatesTags: ['Orders'],  
+        }), 
+
+        getMyOrder: builder.query({
+          query: (args) => {
+            const params = new URLSearchParams();
+        
+            if (args) {
+              args.forEach((item: TQueryParam) => {
+                params.append(item.name, item.value as string);
+              });
+            }
+        
+            return {
+              url: "/user/my-order/details",
+              method: "GET",
+              params: params,
+              
+            };
+          },
+          providesTags: ["Orders"],
+          transformResponse: (response: TResponseRedux<TOrder[]>) => {
+           
+            return response;
+          },
+        }),
     
   }),
 });
@@ -30,5 +90,5 @@ const orderApi = baseApi.injectEndpoints({
 export const {
   useCreateOrderMutation,
   useVerifyOrderQuery,
-  
+  useDeleteOrderMutation,useViewOrdersQuery,useGetMyOrderQuery,
 } = orderApi;
