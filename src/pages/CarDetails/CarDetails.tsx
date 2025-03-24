@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import car2 from "../../../public/assets/images/banner/cardetails/car-2.webp";
-import car3 from "../../../public/assets/images/banner/cardetails/car-3.webp";
-import car4 from "../../../public/assets/images/banner/cardetails/car-4.webp";
+// import car2 from "../../../public/assets/images/banner/cardetails/car-2.webp";
+// import car3 from "../../../public/assets/images/banner/cardetails/car-3.webp";
+// import car4 from "../../../public/assets/images/banner/cardetails/car-4.webp";
 
 import banner from "../../assets/img/car-gallery/car-1.webp"
 
@@ -37,7 +37,7 @@ const CarDetails = () => {
 
   useEffect(() => {
     if (imageUrl) {
-      setSelectedImage(imageUrl);
+      setSelectedImage(imageUrl[0]);
     }
   }, [imageUrl]);
   const dispatch = useAppDispatch();
@@ -93,7 +93,7 @@ const CarDetails = () => {
     toast.success(`${brand} Add to Cart and CheckOut Now!`);
   };
 
-  const images = [`${imageUrl}`, car2, car3, car4];
+
   return  isLoading ? (
     <Skeleton className="my-28" active />
   ) : (
@@ -176,7 +176,7 @@ const CarDetails = () => {
 
               {/* Thumbnails */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 ">
-                {images.map((image, index) => (
+                {imageUrl?.map((image, index) => (
                   <img
                     key={index}
                     src={image}

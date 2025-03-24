@@ -12,7 +12,9 @@ const AllCars = () => {
   const { data: allCarsData, isLoading } = useAllCarsQuery([
     { name: 'page', value: page },
     { name: 'sort', value: '-createdAt' },
+
   ]);
+  console.log(allCarsData,'allcars')
 
   const [filteredCars, setFilteredCars] = useState<TCar[]>([]);
   const [initialFilters, setInitialFilters] = useState<{ brand: string[]; model: string[]; category: string[] }>({
@@ -160,12 +162,14 @@ const AllCars = () => {
         </div>
       </div>
       <div className="my-28 mx-8 md:mx-12 lg:mx-24 min-h-screen">
-        <Input
+
+       <Input
           placeholder="Search cars..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="!w-1/2 !mb-4"
+          className="!w-full !mb-4"
         />
+
         <Button 
           className="mb-4 w-full lg:!hidden" 
           onClick={() => setShowFilters(!showFilters)}
@@ -175,17 +179,22 @@ const AllCars = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-5">
           <div className={`${showFilters ? 'block' : 'hidden'} lg:block flex flex-col gap-4 lg:gap-5`}> 
-            <div className="border border-gray-200 shadow-lg rounded-md p-4">
-              <h1 className="font-bold mb-2">Price Range</h1>
-              <Slider
-                range
-                min={0}
-                max={100000}
-                step={1000}
-                value={priceRange}
-                onChange={(value) => setPriceRange(value as [number, number])}
-              />
-            </div>
+          <div className="border border-gray-200 shadow-lg rounded-md p-4">
+  <h1 className="font-bold mb-2">Price Range</h1>
+  <Slider
+    range
+    min={0}
+    max={100000}
+    step={1000}
+    value={priceRange}
+    onChange={(value) => setPriceRange(value as [number, number])}
+  />
+  <div className="flex justify-between text-sm text-gray-700 mt-2">
+    <span>Min: ${priceRange[0]}</span>
+    <span>Max: ${priceRange[1]}</span>
+  </div>
+</div>
+
 
             {[{ label: 'Brand', state: selectedBrands, setState: setSelectedBrands, data: initialFilters.brand }, 
               { label: 'Model', state: selectedModels, setState: setSelectedModels, data: initialFilters.model }, 

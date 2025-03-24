@@ -165,7 +165,7 @@ const AddCart = () => {
         <div className="space-y-4">
           {cartData.items.map((item) => (
             <div key={item.car} className="flex flex-col md:flex-row items-center justify-between border-b pb-4">
-              <img src={item.imageUrl} alt={item.name} className="w-16 h-16 object-cover rounded-lg" />
+              <img src={item.imageUrl[0]} alt={item.name} className="w-16 h-16 object-cover rounded-lg" />
               <div className="flex-1 ml-4 text-center md:text-left">
                 <h3 className="text-lg font-semibold">{item.name} {item.model}</h3>
                 <p className="text-[#7e7e84]">Category: {item.category}</p>

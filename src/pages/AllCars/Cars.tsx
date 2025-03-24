@@ -18,7 +18,7 @@ const Cars = ({ car }: FeaturedCarsProps) => {
     <div className="border-1 border-gray-200 shadow-lg rounded-md ">
 
       <img
-        src={imageUrl}
+        src={imageUrl?.[0]}
         className="h-[170px] w-full p-3 rounded-md"
         alt={`${brand} ${model}`}
         loading="lazy"

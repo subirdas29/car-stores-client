@@ -21,7 +21,7 @@ export type TCar = {
     description?:string,
     stock: number;
     isDeleted?:boolean
-    imageUrl?: string;
+    imageUrl?: string[];
     createdAt: string; 
     updatedAt:string;
   };

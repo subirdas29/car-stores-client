@@ -8,21 +8,31 @@ import CarForm from "../../../components/form/CarForm";
 import CarInput from "../../../components/form/CarInput";
 import CarSelect from "../../../components/form/CarSelect";
 import { carCategoryOptions } from "../../../constants/global";
-import UploadImage from "../../../components/form/UploadImage";
+// import UploadImage from "../../../components/form/UploadImage";
 import { useCreateCarMutation } from "../../../redux/features/car/carApi";
+import { useState } from "react";
+import NBImageUploader from "../../../components/ui/NBImageUploader";
+import ImagePreviewer from "../../../components/ui/NBImageUploader/ImagePreviewer";
+
 
 const AddCars = () => {
   const [createCar, { isLoading }] = useCreateCarMutation();
+  const [imageFiles, setImageFiles] = useState<File[] | []>([]);
+  const [imagePreview, setImagePreview] = useState<string[] | []>([]);
 
   const onSubmit = async (data: any) => {
     const toastId = toast.loading("Loading...");
+    const uploadedImageUrls = imageFiles
+                .map((file) => (typeof file === "string" ? file : ""))
+                .filter((url) => url !== "");
+        
     const carInfo = {
       brand: data.brand,
       model: data.model,
       category: data.category,
       price: Number(data.price),
       stock: Number(data.stock),
-      imageUrl: data.imageUrl,
+      imageUrl: uploadedImageUrls,
       description: data.description,
     };
 
@@ -52,7 +62,20 @@ const AddCars = () => {
      
     </div>
     <p className="mb-4">Image</p>
-    <UploadImage /> 
+    <div className="flex gap-4 ">
+                                <NBImageUploader
+                                    setImageFiles={setImageFiles}
+                                    setImagePreview={setImagePreview}
+                                    label="Upload Image"
+                                    className="w-1/3 mt-0"
+                                />
+                                <ImagePreviewer
+                                    className="flex flex-wrap gap-4"
+                                    setImageFiles={setImageFiles}
+                                    imagePreview={imagePreview}
+                                    setImagePreview={setImagePreview}
+                                />
+                            </div>
 <div className="flex justify-center">
   
 <button
