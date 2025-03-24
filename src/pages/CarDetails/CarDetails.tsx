@@ -21,6 +21,8 @@ const CarDetails = () => {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
   });
+
+  console.log(data,'cardetails')
   const {
     _id,
     brand,
