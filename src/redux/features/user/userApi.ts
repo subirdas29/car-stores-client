@@ -89,8 +89,26 @@ const userApi = baseApi.injectEndpoints({
         }),
         invalidatesTags: ['User'],
       }),
+
+      createContact: builder.mutation({
+        query: (contactInfo) => ({
+          url: "/contact",
+          method: "POST",
+          body: contactInfo,
+        }),
+        invalidatesTags:['Contacts']
+      }),
+      createSubscribe: builder.mutation({
+        query: (subscribeInfo) => ({
+          url: "/subscribe",
+          method: "POST",
+          body: subscribeInfo,
+        }),
+        invalidatesTags:['Subscribes']
+      }),
+  
         
     })
 })
 
-export const {useGetMeQuery,useProfileUpdateMutation,useBlockedUserMutation,useUnblockedUserMutation,useAllUsersQuery,useGetAUserQuery} = userApi;
+export const {useGetMeQuery,useProfileUpdateMutation,useBlockedUserMutation,useUnblockedUserMutation,useAllUsersQuery,useGetAUserQuery, useCreateContactMutation,useCreateSubscribeMutation} = userApi;

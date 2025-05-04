@@ -1,33 +1,39 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-interface FormData {
-  name: string;
-  email: string;
-  message: string;
-}
+import { FieldValues, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { useCreateContactMutation } from '../../redux/features/user/userApi';
+
 
 const ContactUs: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    message: '',
-  });
+   const [contact] = useCreateContactMutation();
+  const {register, handleSubmit, reset} = useForm()
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    alert('Form Submitted!');
-    // Here you can add your form submission logic
-  };
+  const onSubmit = async(data:FieldValues)=>{
+  
+    try {
+      
+      const contactInfo = {
+        name:data.name,
+        email:data.email,
+        message:data.message
+      }
+
+      const res = await contact(contactInfo).unwrap();
+
+      toast.success(res.message );
+      reset()
+  
+    } catch (err:any) {
+      
+      toast.error(err.data.message);
+    }
+  
+   }
 
   return (
+    
    <div>
      <div
     style={{
@@ -86,15 +92,14 @@ const ContactUs: React.FC = () => {
       
       <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">Contact Us</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label htmlFor="name" className="block text-gray-700 font-semibold">Full Name</label>
             <input
               type="text"
               id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
+          
+              {...register("name",{required:true})}
               className="w-full px-4 py-2 border border-gray-300 rounded-md mt-2 focus:outline-none focus:ring-2 focus:ring-[#1890ff"
               required
             />
@@ -105,9 +110,9 @@ const ContactUs: React.FC = () => {
             <input
               type="email"
               id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
+         
+         
+              {...register("email",{required:true})}
               className="w-full px-4 py-2 border border-gray-300 rounded-md mt-2 focus:outline-none focus:ring-2 focus:ring-[#1890ff]"
               required
             />
@@ -117,9 +122,7 @@ const ContactUs: React.FC = () => {
             <label htmlFor="message" className="block text-gray-700 font-semibold">Your Message</label>
             <textarea
               id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
+              {...register("message",{required:true})}
               rows={5}
               className="w-full px-4 py-2 border border-gray-300 rounded-md mt-2 focus:outline-none focus:ring-2 focus:ring-[#1890ff]"
               required

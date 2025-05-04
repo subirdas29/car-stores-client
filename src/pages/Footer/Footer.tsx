@@ -1,6 +1,34 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { FieldValues, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { useCreateSubscribeMutation } from "../../redux/features/user/userApi";
 
 
 const Footer = () => {
+
+ const {register,handleSubmit,reset}=useForm()
+   const [subscribe] = useCreateSubscribeMutation();
+
+ const onSubmit = async(data:FieldValues)=>{
+  
+  try {
+
+    const subscribeInfo = data
+
+
+    const res = await subscribe(subscribeInfo).unwrap();
+
+    toast.success(res.message );
+    reset()
+
+  } catch (err:any) {
+    
+    toast.error(err.data.message);
+  }
+
+ }
+
   return (
     <footer className="bg-gray-900 text-gray-300 py-10 ">
       <div className=" mx-8 md:mx-12 lg:mx-24 grid grid-cols-1 md:grid-cols-3 gap-8 ">
@@ -15,7 +43,7 @@ const Footer = () => {
             Car Hunt is your ultimate destination for exploring, discovering,
             and purchasing top-tier cars. We strive to provide you with the best
             automotive experience, connecting you to the car of your dreams.
-          </p>
+          </p>  
         </div>
 
         {/* Quick Links */}
@@ -23,28 +51,24 @@ const Footer = () => {
           <h4 className="text-xl font-semibold text-white mb-4">Quick Links</h4>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="hover:text-white">
+              <a href="/" className="hover:text-white">
                 Home
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-white">
+              <a href="/all-cars" className="hover:text-white">
+                All Cars
+              </a>
+            </li>
+            <li>
+              <a href="/about" className="hover:text-white">
                 About Us
               </a>
             </li>
+           
             <li>
-              <a href="#" className="hover:text-white">
-                Services
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-white">
+              <a href="/contact-us" className="hover:text-white">
                 Contact
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-white">
-                Blog
               </a>
             </li>
           </ul>
@@ -95,11 +119,12 @@ const Footer = () => {
           <p className="text-sm mb-4 md:mb-0">
             Subscribe to our newsletter for the latest updates and offers:
           </p>
-          <form className="flex w-full md:w-auto">
-            <input
+          <form className="flex" onSubmit={handleSubmit(onSubmit)}>
+            <input 
               type="email"
               placeholder="Enter your email"
               className="px-4 py-2 rounded-l-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1890ff] outline-none"
+              {...register("email",{required:true})}
             />
             <button
               type="submit"

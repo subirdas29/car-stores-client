@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { logOut, useCurrentToken } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
@@ -86,7 +86,8 @@ const Navbar = () => {
     >
       <div className="flex justify-between items-center py-3 mx-8 md:mx-12 lg:mx-24">
         {/* Logo */}
-        <div className="flex justify-center items-center">
+       <Link to='/'>
+       <div className="flex justify-center items-center">
           <img
             src="https://res.cloudinary.com/dsgnwjmlv/image/upload/v1739543958/car-hunt_ms5cyt.webp"
             className="h-14 w-14"
@@ -94,6 +95,7 @@ const Navbar = () => {
           />
           <h1 className="text-2xl font-bold text-[#1890ff]">CarHunt</h1>
         </div>
+       </Link>
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex space-x-8">
