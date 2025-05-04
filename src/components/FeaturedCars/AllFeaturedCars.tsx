@@ -18,14 +18,14 @@ const AllFeaturedCars = () => {
 
   console.log(allCars,"home car")
   return isLoading ? (
-   <>
-   {[...Array(4)].map((_,index)=>(
-    <Skeleton key={index}/>
-   ))}
-   </>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-8 md:mx-16 lg:mx-24">
+    {[...Array(4)].map((_, index) => (
+      <Skeleton key={index} />
+    ))}
+  </div>
   ) : (
     <div>
-      <div className='mt-28 mx-12 md:mx-16 lg:mx-24'>
+      <div className='mt-28 mx-8 md:mx-16 lg:mx-24'>
         <h1 className='text-4xl font-bold mb-4 text-center'>Featured Cars</h1>
         <p className='text-center mb-8'>
           Driving your dreams to reality with an exquisite fleet of versatile vehicles for unforgettable journeys.

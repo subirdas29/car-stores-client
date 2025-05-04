@@ -6,18 +6,19 @@ import { useEffect, useState } from "react";
 
 import banner from "../../assets/img/car-gallery/car-1.webp"
 
-import { NavLink, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 
 import { toast, Toaster } from "sonner";
 import { useAppDispatch } from "../../redux/hook";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 
-import { Skeleton } from "antd";
+
 import { useGetACarQuery } from "../../redux/features/car/carApi";
+import SingleSkeleton from "../../components/ui/Skeleton/SingleSkeleton";
 const CarDetails = () => {
 // Initial big image
   const { carId } = useParams();
-  const { data, isLoading, isError } = useGetACarQuery(carId, {
+  const { data, isLoading} = useGetACarQuery(carId, {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
   });
@@ -44,8 +45,7 @@ const CarDetails = () => {
   }, [imageUrl]);
   const dispatch = useAppDispatch();
 
-  if (isLoading) return   <Skeleton className="my-28" active />;
-  if (isError) return  <Skeleton className="my-28" active /> 
+
 
 
   const handleAddToCart = () => {
@@ -71,33 +71,35 @@ const CarDetails = () => {
     toast.success(`${brand} added to cart!`);
   };
 
-  const handleBuyNow = () => {
-    if (!_id) {
-      toast.error("Car ID is missing.");
-      return;
-    }
+  // const handleBuyNow = () => {
+  //   if (!_id) {
+  //     toast.error("Car ID is missing.");
+  //     return;
+  //   }
 
-    dispatch(
-      addToCart({
-        _id,
-        car: _id,
-        name: brand!,
-        model:model!,
-        category:category!,
-        price: price!,
-        quantity: 1,
-        stock: stock!,
-        imageUrl: imageUrl!,
-      })
-    );
+  //   dispatch(
+  //     addToCart({
+  //       _id,
+  //       car: _id,
+  //       name: brand!,
+  //       model:model!,
+  //       category:category!,
+  //       price: price!,
+  //       quantity: 1,
+  //       stock: stock!,
+  //       imageUrl: imageUrl!,
+  //     })
+  //   );
 
-    // Show toast notification
-    toast.success(`${brand} Add to Cart and CheckOut Now!`);
-  };
+  //   // Show toast notification
+  //   toast.success(`${brand} Add to Cart and CheckOut Now!`);
+  // };
 
 
   return  isLoading ? (
-    <Skeleton className="my-28" active />
+    <div className="mx-8 md:mx-16 lg:mx-24 max-h-screen">
+      <SingleSkeleton />
+  </div>
   ) : (
     <div>
       <div
@@ -249,7 +251,7 @@ const CarDetails = () => {
                 </div>
               </div>
               <hr className="my-4" />
-              <p className="text-2xl font-bold">price: ${price}</p>
+              <p className="text-2xl font-bold">price: ৳ {price}</p>
               <p>Add to favorites</p>
             </div>
             <div className="my-8 rounded-4xl p-11 md:p-4 lg:p-11 bg-[#EDF1F4]">
@@ -297,20 +299,21 @@ const CarDetails = () => {
             <div>
               <button
                 onClick={handleAddToCart}
-                className="rounded-md py-2 px-5 border-1 w-full bg-transparent  hover:text-white  text-[#1890ff]   hover:bg-[#1890ff] font-bold cursor-pointer mb-4"
+              
+                  className="rounded-md py-2 px-5 border-1 hover:text-[#1890ff]  w-full hover:bg-transparent  text-white  bg-[#1890ff] font-bold cursor-pointer mb-4"
               >
                 <Toaster />
                 Add To Cart
               </button>
 
-              <NavLink to="/cart">
+              {/* <NavLink to="/cart">
                 <button
                   onClick={handleBuyNow}
-                  className="rounded-md py-2 px-5 border-1 hover:text-[#1890ff]  w-full hover:bg-transparent  text-white  bg-[#1890ff] font-bold cursor-pointer "
+                    className="rounded-md py-2 px-5 border-1 w-full bg-transparent  hover:text-white  text-[#1890ff]   hover:bg-[#1890ff] font-bold cursor-pointer "
                 >
                   Buy Now
                 </button>
-              </NavLink>
+              </NavLink> */}
             </div>
           </div>
         </div>

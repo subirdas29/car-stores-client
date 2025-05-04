@@ -43,7 +43,7 @@ const Cars = ({ car }: FeaturedCarsProps) => {
         <hr className="my-3 text-gray-300" />
         <p className="text-sm text-gray-500">Price:</p>
         <div className="flex justify-between items-center pb-4">
-          <p className="text-lg lg:text-xl font-bold">${price}</p>
+          <p className="text-lg lg:text-xl font-bold">৳ {price}</p>
         <Link to={`/car-details/${_id}`}>
         <button
            className="rounded-md px-3 py-1 lg:px-4  border-1 hover:text-[#1890ff] hover:bg-transparent text-white bg-[#1890ff] font-bold cursor-pointer"

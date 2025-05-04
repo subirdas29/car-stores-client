@@ -5,7 +5,7 @@ import banner from "../../assets/img/features/img-1.png";
 const ChooseUs: React.FC = () => {
   return (
     <div className="bg-gray-50 py-16">
-      <div className="mx-12 md:mx-16 lg:mx-24">
+      <div className="mx-8 md:mx-16 lg:mx-24">
         {/* Section Title */}
         <div className="text-center mb-14">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">Why Choose Us?</h1>

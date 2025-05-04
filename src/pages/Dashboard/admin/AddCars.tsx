@@ -13,12 +13,14 @@ import { useCreateCarMutation } from "../../../redux/features/car/carApi";
 import { useState } from "react";
 import NBImageUploader from "../../../components/ui/NBImageUploader";
 import ImagePreviewer from "../../../components/ui/NBImageUploader/ImagePreviewer";
+import { useNavigate } from "react-router-dom";
 
 
 const AddCars = () => {
   const [createCar, { isLoading }] = useCreateCarMutation();
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[] | []>([]);
+  const navigate = useNavigate()
 
   const onSubmit = async (data: any) => {
     const toastId = toast.loading("Loading...");
@@ -43,6 +45,7 @@ const AddCars = () => {
         toast.error(res.error.data.message, { id: toastId });
       } else {
         toast.success(`Car created successfully`, { id: toastId });
+        navigate('/admin/view-cars')
       }
       console.log(res);
     } catch (err: any) {

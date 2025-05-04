@@ -198,7 +198,7 @@ const AddCart = () => {
                   </button>
                 </div>
               </div>
-              <p className="text-sm font-semibold text-gray-800">${(item.quantity * item.price).toFixed(2)}</p>
+              <p className="text-sm font-semibold text-gray-800">৳ {(item.quantity * item.price).toFixed(2)}</p>
               <button
                 onClick={() => dispatch(removeFromCart(item.car))}
                 className="text-[#1890ff] hover:text-blue-600 cursor-pointer ml-2"
@@ -248,16 +248,16 @@ const AddCart = () => {
       <h3 className="text-lg font-semibold">Order Summary</h3>
       <div className="flex justify-between items-center mt-2">
         <span className="text-sm font-medium text-gray-700">Subtotal ({cartData.totalQuantity} items):</span>
-        <span className="text-lg font-bold">${cartData.totalPrice.toFixed(2)}</span>
+        <span className="text-lg font-bold">৳ {cartData.totalPrice.toFixed(2)}</span>
       </div>
       <div className="flex justify-between items-center mt-2">
         <span className="text-sm font-medium text-gray-700">Shipping Fee:</span>
-        <span className="text-lg font-bold">$0.00</span>
+        <span className="text-lg font-bold">৳ 0.00</span>
       </div>
       <div className="border-b my-3"></div>
       <div className="flex justify-between items-center mt-2">
         <span className="text-lg font-bold">Total:</span>
-        <span className="text-lg font-bold">${cartData.totalPrice.toFixed(2)}</span>
+        <span className="text-lg font-bold">৳ {cartData.totalPrice.toFixed(2)}</span>
       </div>
       <button
         className="w-full cursor-pointer bg-[#1890ff] border hover:text-[#1890ff] text-white font-semibold rounded-md py-3 mt-4 hover:bg-transparent"

@@ -2,7 +2,7 @@
 
 const Skeleton = () => {
   return (
-    <div className=" p-6 my-24 rounded-md bg-white shadow-md mx-auto max-w-fit">
+    <div className="p-3 rounded-md bg-white shadow-md mx-auto ">
     <div className="animate-pulse">
         {/* Product Image Skeleton */}
         <div className="w-[300px] lg:h-52 md:h-52 h-48 rounded-lg bg-gray-300 mb-6"></div>

@@ -2,7 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Banner from "../../components/Banner/Banner";
 import ConnectBrand from "../../components/ConnectBrand/ConnectBrand";
-import EventList from "../../components/Events/EventList";
+// import EventList from "../../components/Events/EventList";
 import AllFeaturedCars from "../../components/FeaturedCars/AllFeaturedCars";
 import CarGallery from "../../components/Gallery/Gallery";
 import Reviews from "../../components/Reviews/Reviews";
@@ -20,7 +20,7 @@ const Home = () => {
   // Refs for detecting when sections come into view
   const featuredRef = useRef(null);
   const galleryRef = useRef(null);
-  const eventsRef = useRef(null);
+  // const eventsRef = useRef(null);
   const brandRef = useRef(null);
   const reviewsRef = useRef(null);
   // const makesRef = useRef(null);
@@ -29,7 +29,7 @@ const Home = () => {
 
   const isFeaturedInView = useInView(featuredRef, { once: true });
   const isGalleryInView = useInView(galleryRef, { once: true });
-  const isEventsInView = useInView(eventsRef, { once: true });
+  // const isEventsInView = useInView(eventsRef, { once: true });
   const isBrandInView = useInView(brandRef, { once: true });
   const isReviewsInView = useInView(reviewsRef, { once: true });
   // const isMakesInView = useInView(makesRef, { once: true });
@@ -71,9 +71,9 @@ const Home = () => {
       </motion.div>
 
       {/* Event List - Fade Up */}
-      <motion.div ref={eventsRef} initial="hidden" animate={isEventsInView ? "visible" : "hidden"} variants={fadeUp}>
+      {/* <motion.div ref={eventsRef} initial="hidden" animate={isEventsInView ? "visible" : "hidden"} variants={fadeUp}>
         <EventList />
-      </motion.div>
+      </motion.div> */}
 
       {/* Connect Brand - Fade Up */}
       <motion.div ref={brandRef} initial="hidden" animate={isBrandInView ? "visible" : "hidden"} variants={fadeUp}>

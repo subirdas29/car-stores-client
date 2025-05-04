@@ -77,7 +77,7 @@ const Banner = () => {
                     {slide.description}
                   </p>
                   <NavLink to="/all-cars">
-                    <button className="bg-[#1890ff] text-white px-6 py-3 text-lg rounded-md hover:bg-[#0073e6] transition-all">
+                    <button className="bg-[#1890ff] cursor-pointer text-white px-6 py-3 text-lg rounded-md hover:bg-[#0073e6] transition-all">
                       {slide.buttonText}
                     </button>
                   </NavLink>

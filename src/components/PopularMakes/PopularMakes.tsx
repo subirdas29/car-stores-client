@@ -16,8 +16,8 @@ const PopularMakes: React.FC = () => {
         miles: '900 Miles',
         fuel: 'Petrol',
         transmission: 'Automatic',
-        price: '$45,000',
-        originalPrice: '$500.00',
+        price: '৳ 4,45,000',
+        originalPrice: '500.00',
         image: banner,
       },
       {
@@ -117,7 +117,7 @@ const PopularMakes: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-8">
-      <div className="px-4 mx-12 md:mx-16 lg:mx-24">
+      <div className="px-4 mx-8 md:mx-16 lg:mx-24">
         <h1 className="text-4xl font-bold text-center mb-8">Popular Makes</h1>
 
         {/* Tab System */}

@@ -11,7 +11,7 @@ const StatsSection = () => {
   const scaleBackground = useTransform(scrollYProgress, [0, 1], [1, 1.2]); // Scale to fill the space
 
   return (
-    <div ref={sectionRef} className="relative w-full h-[80vh] flex flex-col items-center justify-center text-white overflow-hidden">
+    <div ref={sectionRef} className="relative w-full h-[80vh] flex flex-col items-center justify-center text-white overflow-hidden px-4 py-10 sm:px-6 sm:py-2">
       {/* Background Image with Smooth Parallax */}
       <motion.div
         className="absolute inset-0 w-full h-full bg-cover bg-center"

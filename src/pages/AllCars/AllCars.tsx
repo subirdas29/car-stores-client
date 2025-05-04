@@ -88,7 +88,7 @@ const AllCars = () => {
   };
 
   return isLoading ? (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mx-12">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-8 md:mx-16 lg:mx-24">
     {[...Array(4)].map((_, index) => (
       <Skeleton key={index} />
     ))}
@@ -190,8 +190,8 @@ const AllCars = () => {
     onChange={(value) => setPriceRange(value as [number, number])}
   />
   <div className="flex justify-between text-sm text-gray-700 mt-2">
-    <span>Min: ${priceRange[0]}</span>
-    <span>Max: ${priceRange[1]}</span>
+    <span>Min: ৳ {priceRange[0]}</span>
+    <span>Max: ৳ {priceRange[1]}</span>
   </div>
 </div>
 
@@ -215,7 +215,18 @@ const AllCars = () => {
             <Button className="w-full mt-2" onClick={resetFilters}>Reset Filters</Button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4 lg:col-span-3 items-start">
-  {filteredCars.map((car) => (
+  {
+    filteredCars.length === 0 ?
+       <div className="flex flex-col items-center justify-center mx-auto p-6 text-center text-gray-600 ">
+         <img src='https://res.cloudinary.com/dsgnwjmlv/image/upload/v1746369140/undraw_no-data_ig65_z1mgrp.webp'/>
+                 <h2 className="text-xl font-semibold mt-4">No results found</h2>
+                 <p className="mt-2 text-sm">
+                   Try adjusting your filters or searching with different keywords.
+                 </p>
+               </div>
+    :
+  
+  filteredCars.map((car) => (
     <Cars key={car._id} car={car}  />
   ))}
 </div>

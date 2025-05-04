@@ -28,19 +28,19 @@ interface CarProps {
 
 const CarGallery: React.FC = () => {
   const cars: CarProps[] = [
-    { name: "2025 Mustang GT", model: "Mustang", price: "$45,000", imageUrl: img1, logoUrl: logo1, size: "row-span-2" },
-    { name: "2025 Audi A8", model: "Audi", price: "$90,000", imageUrl: img2, logoUrl: logo2, size: "" },
-    { name: "Tesla Model S", model: "Tesla", price: "$70,000", imageUrl: img3, logoUrl: logo3, size: "" },
-    { name: "2025 BMW X5", model: "BMW", price: "$85,000", imageUrl: img4, logoUrl: logo4, size: "col-span-2" },
-    { name: "2025 Mercedes-Benz GLC", model: "Mercedes-Benz", price: "$60,000", imageUrl: img5, logoUrl: logo5, size: "row-span-2" },
-    { name: "2025 Porsche 911", model: "Porsche", price: "$100,000", imageUrl: img6, logoUrl: logo6, size: "" },
-    { name: "2025 Jaguar F-Type", model: "Jaguar", price: "$80,000", imageUrl: img8, logoUrl: logo8, size: "" },
-    { name: "2025 Lexus RX", model: "Lexus", price: "$55,000", imageUrl: img7, logoUrl: logo7, size: "col-span-2" },
+    { name: "2025 Mustang GT", model: "Mustang", price: "৳ 4,50,000", imageUrl: img1, logoUrl: logo1, size: "row-span-2" },
+    { name: "2025 Audi A8", model: "Audi", price: "৳ 9,40,000", imageUrl: img2, logoUrl: logo2, size: "" },
+    { name: "Tesla Model S", model: "Tesla", price: "৳ 7,50,000", imageUrl: img3, logoUrl: logo3, size: "" },
+    { name: "2025 BMW X5", model: "BMW", price: "৳ 8,50,000", imageUrl: img4, logoUrl: logo4, size: "col-span-2" },
+    { name: "2025 Mercedes-Benz GLC", model: "Mercedes-Benz", price: "৳ 6,30,000", imageUrl: img5, logoUrl: logo5, size: "row-span-2" },
+    { name: "2025 Porsche 911", model: "Porsche", price: "৳ 10,50,000", imageUrl: img6, logoUrl: logo6, size: "" },
+    { name: "2025 Jaguar F-Type", model: "Jaguar", price: "৳ 4,80,000", imageUrl: img8, logoUrl: logo8, size: "" },
+    { name: "2025 Lexus RX", model: "Lexus", price: "৳ 5,56,000", imageUrl: img7, logoUrl: logo7, size: "col-span-2" },
    
   ];
 
   return (
-    <div className="mx-8 md:mx-12 lg:mx-24 my-28 p-6">
+    <div className="mx-8 md:mx-12 lg:mx-24 mt-28">
       <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-8">Car Gallery</h1>
       <p className="text-center text-gray-600 max-w-2xl mx-auto mb-12">
   Explore our premium collection of the latest cars, featuring top brands and 
