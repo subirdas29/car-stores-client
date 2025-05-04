@@ -1,6 +1,6 @@
 
 import { FaCar, FaDollarSign, FaTools, FaFileContract } from "react-icons/fa";
-import banner from "../../assets/img/features/img-1.png";
+import banner from "../../assets/img/features/img-1.webp";
 
 const ChooseUs: React.FC = () => {
   return (

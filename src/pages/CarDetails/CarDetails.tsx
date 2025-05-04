@@ -97,7 +97,7 @@ const CarDetails = () => {
 
 
   return  isLoading ? (
-    <div className="mx-8 md:mx-16 lg:mx-24 max-h-screen">
+    <div className="mx-8 md:mx-16 lg:mx-24 h-screen">
       <SingleSkeleton />
   </div>
   ) : (

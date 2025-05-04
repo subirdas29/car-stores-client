@@ -7,6 +7,7 @@ import { FiShoppingCart } from "react-icons/fi"; // Import icons
 import { clearCart } from "../../redux/features/cart/cartSlice";
 import ProfileAvatar from "../ProfileAvatar/ProfileAvatar";
 import { useGetMeQuery } from "../../redux/features/user/userApi";
+import { CarFront, Contact, Home, LayoutDashboard, Notebook } from "lucide-react";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,11 +37,11 @@ const Navbar = () => {
   const dashboardPath = user ? `/${user.role}/dashboard` : "/login";
 
   const menuData = [
-    { title: "Home", path: "/" },
-    { title: "All Cars", path: `/all-cars` },
-    { title: "Dashboard", path: dashboardPath },
-    { title: "About Us", path: "/about" },
-    { title: "Contact Us", path: "/contact-us" },
+    { title: "Home", path: "/" , icon: <Home/>},
+    { title: "All Cars", path: `/all-cars` ,icon: <CarFront/> },
+    { title: "Dashboard", path: dashboardPath ,icon: <LayoutDashboard/> },
+    { title: "About Us", path: "/about" ,icon: <Notebook/>},
+    { title: "Contact Us", path: "/contact-us" ,icon: <Contact/>},
   ];
 
 
@@ -106,10 +107,12 @@ const Navbar = () => {
         key={index}
         to={item.path}
         className={({ isActive }) =>
-          `font-medium ${isActive ? "text-[#1890ff]" : "hover:text-[#1890ff]"}`
+          `font-medium text-lg ${isActive ? "text-[#1890ff]" : "hover:text-[#1890ff]"}`
         }
       >
-        {item.title}
+       <div className="flex items-center gap-2"> {item.icon}
+       {item.title}
+       </div>
       </NavLink>
     ))}
 </div>
@@ -225,7 +228,9 @@ const Navbar = () => {
                   setMenuOpen(false);
                 }}
               >
-                {item.title}
+                <div className="flex items-center justify-center gap-2"> {item.icon}
+                 {item.title}
+                </div>
               </NavLink>
             ))}
 
