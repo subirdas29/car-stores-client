@@ -82,7 +82,7 @@ const Reviews = () => {
   };
 
   return (
-    <div className="bg-[#F7F7F7] relative py-24 mt-28">
+    <div className="bg-[#F7F7F7]  py-24 mt-28">
       <div className="mx-8 md:mx-16 lg:mx-24">
         <div className="mb-12 lg:mb-20 text-center lg:text-left lg:flex gap-12 lg:justify-start">
           <h1 className="text-4xl font-bold w-full lg:w-2/6">
@@ -94,25 +94,8 @@ const Reviews = () => {
             experience. 🚗✨
           </p>
         </div>
-
-        {/* Fixed Navigation Buttons (Visible on all screen sizes) */}
-        <div className="absolute top-130 md:top-120 transform z-50 -translate-y-1/2 lg:left-16 md:left-10  sm:left-4">
-          <Button
-            onClick={handlePrev}
-            className="text-white bg-[#1890ff] hover:bg-[#0073e6] rounded-full p-3 cursor-pointer shadow-lg"
-            icon={<LeftOutlined />}
-          />
-        </div>
-        <div className="absolute top-130 md:top-120 right-8 z-50 transform -translate-y-1/2 lg:right-16 md:right-10 sm:right-4 ">
-          <Button
-            onClick={handleNext}
-            className="text-white bg-[#1890ff] hover:bg-[#0073e6] rounded-full p-3 cursor-pointer shadow-lg"
-            icon={<RightOutlined />}
-          />
-        </div>
-
-        {/* Carousel */}
-        <Carousel ref={carouselRef} dots autoplay infinite slidesToShow={visibleSlides}>
+        <div className="relative">
+       <Carousel ref={carouselRef} dots autoplay infinite slidesToShow={visibleSlides}>
           {reviews.map((review, index) => (
             <div key={index} className="p-3">
               <div className="h-[340px] p-6 md:p-10 bg-white border border-gray-200 shadow-lg rounded-md">
@@ -129,6 +112,26 @@ const Reviews = () => {
             </div>
           ))}
         </Carousel>
+    
+
+        {/* Fixed Navigation Buttons (Visible on all screen sizes) */}
+        <div className="absolute top-1/2 transform -translate-y-1/2 z-50 left-0">
+          <Button
+            onClick={handlePrev}
+            className="text-white bg-[#1890ff] hover:bg-[#0073e6] rounded-full p-3 cursor-pointer shadow-lg"
+            icon={<LeftOutlined />}
+          />
+        </div>
+        <div className="absolute top-1/2 transform -translate-y-1/2 z-50 right-0">
+          <Button
+            onClick={handleNext}
+            className="text-white bg-[#1890ff] hover:bg-[#0073e6] rounded-full p-3 cursor-pointer shadow-lg"
+            icon={<RightOutlined />}
+          />
+        </div>
+        </div>
+        {/* Carousel */}
+      
       </div>
     </div>
   );

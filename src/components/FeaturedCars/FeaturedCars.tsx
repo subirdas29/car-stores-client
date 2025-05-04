@@ -1,14 +1,39 @@
 import { Link} from 'react-router-dom';
-import { Car, CarFront, ShoppingBag, User } from 'lucide-react';
+import { Car, CarFront, ShoppingBag, ShoppingCart, User } from 'lucide-react';
 import { TCar } from '../../types/admin.types';
+import { useAppDispatch } from '../../redux/hook';
+import { addToCart } from '../../redux/features/cart/cartSlice';
+import { toast, Toaster } from 'sonner';
 
 type FeaturedCarsProps = {
   car: TCar;
 };
 
 const FeaturedCars = ({ car }: FeaturedCarsProps) => {
-  const { _id, brand, model, imageUrl, price, category } = car;
+  const { _id, brand, model, imageUrl, price, category,stock } = car;
+  const dispatch = useAppDispatch();
+  const handleAddToCart = () => {
+    if (!_id) {
+      toast.error("Car ID is missing.");
+      return;
+    }
+    dispatch(
+      addToCart({
+        _id,
+        car: _id,
+        name: brand!,
+        model: model!,
+        category: category!,
+        price: price!,
+        quantity: 1,
+        stock: stock!,
+        imageUrl: imageUrl!,
+      })
+    );
 
+    // Show toast notification
+    toast.success(`${brand} added to cart!`);
+  };
 
 
   return (
@@ -23,7 +48,18 @@ const FeaturedCars = ({ car }: FeaturedCarsProps) => {
           loading="lazy"
         />
         <div className="py-2 px-3 lg:px-6 lg:py-4">
-          <h1 className="font-bold">{brand} {model}</h1>
+        <div className="flex justify-between">
+     <h1 className="font-bold">
+          {brand} {model}
+        </h1>
+        <button
+            onClick={handleAddToCart}
+          className="cursor-pointer"
+          >
+            <Toaster />
+            <ShoppingCart color="#1890ff"/>
+          </button>
+     </div>
           <div className="flex justify-between items-center my-2">
             <p className="flex gap-1"><User size={20} color="#1890ff" />5</p>
             <p className="flex gap-1"><Car size={20} color="#1890ff" />2</p>

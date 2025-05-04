@@ -119,22 +119,24 @@ const Footer = () => {
           <p className="text-sm mb-4 md:mb-0">
             Subscribe to our newsletter for the latest updates and offers:
           </p>
-          <form className="flex" onSubmit={handleSubmit(onSubmit)}>
+  
+        <form className="flex" onSubmit={handleSubmit(onSubmit)}>
             <input 
               type="email"
               placeholder="Enter your email"
-              className="px-4 py-2 rounded-l-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1890ff] outline-none"
+              className="md:px-4 px-3 py-2 rounded-l-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1890ff] outline-none"
               {...register("email",{required:true})}
             />
             <button
               type="submit"
-              className="bg-[#1890ff] text-white px-6 py-2 rounded-r-md hover:bg-blue-600"
+              className="bg-[#1890ff] text-white md:px-6 px-4 py-2 rounded-r-md hover:bg-blue-600"
             >
               Subscribe
             </button>
           </form>
         </div>
-      </div>
+        </div>
+ 
 
       {/* Footer Bottom */}
       <div className="mt-10 text-center text-sm text-gray-500">

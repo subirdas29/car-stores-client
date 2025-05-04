@@ -70,14 +70,14 @@ const Banner = () => {
 
                 {/* Content */}
                 <div className="relative z-10 px-6 md:px-12">
-                  <h1 className="text-white text-2xl md:text-4xl font-bold mb-2">
+                  <h1 className="text-white text-3xl md:text-4xl font-bold mb-2">
                     {slide.title}
                   </h1>
                   <p className="text-white text-lg font-bold mb-4">
                     {slide.description}
                   </p>
                   <NavLink to="/all-cars">
-                    <button className="bg-[#1890ff] cursor-pointer text-white px-6 py-3 text-lg rounded-md hover:bg-[#0073e6] transition-all">
+                    <button className="bg-[#1890ff] cursor-pointer text-white px-4 py-2 md:px-6 md:py-3 text-lg rounded-md hover:bg-[#0073e6] transition-all">
                       {slide.buttonText}
                     </button>
                   </NavLink>
