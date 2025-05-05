@@ -43,7 +43,8 @@ const DashboardTable = () => {
       setTableData(
         myOrderData.data.flatMap((order) =>
           order.cars.map(({ _id, car, quantity }) => ({
-            key: _id,
+            key: `${order._id}-${_id}`,
+            id:_id,
             orderId: order._id,
             transactionId: order.transaction.id,
             email: order.email,
@@ -59,9 +60,9 @@ const DashboardTable = () => {
     }
   }, [myOrderData]);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string,carIdToDelete:string) => {
     try {
-      await deleteOrder(id).unwrap();
+      await deleteOrder({orderId:id, carIdToDelete}).unwrap();
       toast.success('Order deleted successfully');
       setTableData((prevData) => prevData.filter((item) => item.orderId !== id));
     } catch (err) {
@@ -124,17 +125,20 @@ const DashboardTable = () => {
       title: 'Action',
       key: 'x',
       fixed: 'right',
-      render: (item) => (
-        <Space>
-          {item.status === 'Paid' ? (
-            <Link to={`/orders/verify?order_id=${item.transactionId}`}>
-              <Button>View Details</Button>
-            </Link>
-          ) : (
-            <Button onClick={() => handleDelete(item.orderId)}>Cancel</Button>
-          )}
-        </Space>
-      ),
+      render: (item) => 
+        {
+          return (
+            <Space>
+              {item.status === 'Paid' ? (
+                <Link to={`/orders/verify?order_id=${item.transactionId}`}>
+                  <Button>View Details</Button>
+                </Link>
+              ) : (
+                <Button onClick={() => handleDelete(item.orderId,item.id)}>Cancel</Button>
+              )}
+            </Space>
+          );
+        },
     },
   ];
 

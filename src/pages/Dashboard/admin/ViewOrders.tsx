@@ -42,9 +42,9 @@ const ViewOrders = () => {
 
   const [deleteOrder] = useDeleteOrderMutation();
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string,carIdToDelete:string) => {
     try {
-      await deleteOrder(id).unwrap();
+      await deleteOrder({orderId:id,carIdToDelete}).unwrap();
       toast.success('Order deleted successfully');
      await refetch()
     
@@ -59,7 +59,8 @@ const ViewOrders = () => {
     order.cars
       ?.filter(({ car }) => car !== null) // 
       .map(({ _id, car, quantity }) => ({
-        key: _id,
+        key: `${order._id}-${_id}`,
+        id:_id,
         orderId: order._id,
         transactionId: order.transaction?.id || 'N/A',
         email: order.email || 'N/A',
@@ -111,7 +112,7 @@ const ViewOrders = () => {
               <Button>View Details</Button>
             </Link>
           ) : (
-            <Button onClick={() => handleDelete(item.orderId)}>Cancel</Button>
+            <Button onClick={() => handleDelete(item.orderId,item.id)}>Cancel</Button>
           )}
         </Space>
       ),

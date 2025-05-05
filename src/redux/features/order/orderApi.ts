@@ -52,13 +52,6 @@ const orderApi = baseApi.injectEndpoints({
           
         }),
   
-        deleteOrder: builder.mutation({
-          query: (orderId) => ({
-            url: `/orders/${orderId}`,
-            method: "DELETE",
-          }),
-          invalidatesTags: ['Orders'],  
-        }), 
 
         getMyOrder: builder.query({
           query: (args) => {
@@ -83,6 +76,14 @@ const orderApi = baseApi.injectEndpoints({
             return response;
           },
         }),
+        
+        deleteOrder: builder.mutation({
+          query: ({ orderId, carIdToDelete }: { orderId: string; carIdToDelete: string }) => ({
+            url: `/orders/${orderId}/${carIdToDelete}`,
+            method: "DELETE",
+          }),
+          invalidatesTags: ['Orders'],  
+        }), 
     
   }),
 });
