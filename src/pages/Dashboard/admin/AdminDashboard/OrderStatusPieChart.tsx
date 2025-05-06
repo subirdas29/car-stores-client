@@ -8,15 +8,16 @@ const COLORS = ["#0088FE", "#FF8042", "#00C49F"];
 const OrderStatusPieChart = () => {
   const { data: orders } = useViewOrdersQuery(undefined);
 
+  console.log(orders)
+
   const statusData = [
     { name: "Paid", value: orders?.data?.filter((o) => o.status === "Paid")?.length || 0 },
     { name: "Pending", value: orders?.data?.filter((o) => o.status === "Pending")?.length || 0 },
-    { name: "Cancelled", value: orders?.data?.filter((o) => o.status === "Cancelled")?.length || 0 },
   ];
 
   return (
     <div>
-      <h2 className="font-semibold mb-2">Order Status Overview</h2>
+      <h2 className="font-semibold text-center mt-8 md:mt-0 mb-4">Order Status Overview</h2>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie data={statusData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} label>
