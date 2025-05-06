@@ -14,6 +14,9 @@ import { useEffect, useState } from "react";
 const MostOrderedCarsChart = () => {
   const carCount: Record<string, number> = {};
   const { data: myOrderData } = useGetMyOrderQuery(undefined);
+  
+  const paidOrders = myOrderData?.data?.filter((paid)=>paid.status==="Paid")
+
   const [windowWidth, setWindowWidth] = useState(1024); // Default to desktop width
 
   useEffect(() => {
@@ -27,7 +30,7 @@ const MostOrderedCarsChart = () => {
 
   const isSmallDevice = windowWidth < 850; // tablet and mobile
 
-  myOrderData?.data?.forEach((order) => {
+  paidOrders?.forEach((order) => {
     order.cars?.forEach((car) => {
       const carName = car.car?.model || "Unknown Car";
       carCount[carName] = (carCount[carName] || 0) + car.quantity;

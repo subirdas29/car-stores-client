@@ -16,7 +16,10 @@ import PopularCarsPieChart from "./OrderOfCarPieChart";
 
 const AdminDashboard = () => {
 
-  const {data:users} = useAllUsersQuery(undefined)
+  const {data:users} = useAllUsersQuery(undefined, {
+    refetchOnMountOrArgChange:true,
+    refetchOnReconnect:true
+  })
   const {data: allCars } = useAllCarsQuery(undefined);
   const {data: orders} = useViewOrdersQuery(undefined);
 

@@ -8,9 +8,10 @@ import MostOrderedCarsChart from "./MostOrderedCarsChart";
 
 const UserDashboard = () => {
 
-    const { data: myOrderData} = useGetMyOrderQuery(undefined);
-
-    console.log(myOrderData,'check')
+    const { data: myOrderData} = useGetMyOrderQuery(undefined, {
+      refetchOnMountOrArgChange:true,
+      refetchOnReconnect:true
+    });
 
     const paidOrders = myOrderData?.data?.filter((paid)=>paid.status==="Paid")
     const pendingOrders = myOrderData?.data?.filter((pending)=>pending.status==="Pending")
