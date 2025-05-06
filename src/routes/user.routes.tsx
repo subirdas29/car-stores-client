@@ -9,7 +9,7 @@ import {
 import MyProfile from "../pages/Dashboard/user/MyProfile";
 import UserDashboard from "../pages/Dashboard/user/UserDashboard";
 import ChangePassword from "../pages/Dashboard/changePassword/ChangePassword";
-import DashboardTable from "../pages/Dashboard/user/UserComponent/DashboardTable";
+import DashboardTable from "../pages/Dashboard/user/MyOrders";
 
 export const userPaths = [
 {

@@ -6,8 +6,8 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 
-import { TQueryParam } from '../../../../types/global';
-import { useDeleteOrderMutation, useGetMyOrderQuery } from '../../../../redux/features/order/orderApi';
+import { TQueryParam } from '../../../types/global';
+import { useDeleteOrderMutation, useGetMyOrderQuery } from '../../../redux/features/order/orderApi';
 
 export type TTableData = {
   key: string;
@@ -22,7 +22,7 @@ export type TTableData = {
   status: 'Pending' | 'Paid' | 'Shipped' | 'Completed' | 'Cancelled';
 };
 
-const DashboardTable = () => {
+const MyOrders = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
     const [page, setPage] = useState(1);
 
@@ -173,4 +173,4 @@ const DashboardTable = () => {
   );
 };
 
-export default DashboardTable;
+export default MyOrders;

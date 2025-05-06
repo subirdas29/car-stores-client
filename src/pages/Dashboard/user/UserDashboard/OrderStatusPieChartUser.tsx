@@ -1,12 +1,12 @@
 // components/charts/OrderStatusPieChart.tsx
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { useViewOrdersQuery } from "../../../../redux/features/order/orderApi";
+import { useGetMyOrderQuery } from "../../../../redux/features/order/orderApi";
 
 
 const COLORS = ["#0088FE", "#FF8042", "#00C49F"];
 
 const OrderStatusPieChart = () => {
-  const { data: orders } = useViewOrdersQuery(undefined);
+  const { data: orders } = useGetMyOrderQuery(undefined);
 
   
 

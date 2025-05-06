@@ -10,7 +10,20 @@ import {
 } from "recharts";
 import { useViewOrdersQuery } from "../../../../redux/features/order/orderApi";
 
-const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 const MonthlyRevenueBarChart = () => {
   const { data: orders } = useViewOrdersQuery(undefined);
@@ -48,17 +61,19 @@ const MonthlyRevenueBarChart = () => {
 
   return (
     <div>
-      <h2 className="font-semibold text-center mt-8 md:mt-0 mb-4">Monthly Revenue</h2>
+      <h2 className="font-semibold text-center mt-8 md:mt-0 mb-4">
+        Monthly Revenue
+      </h2>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={monthlyRevenue}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
-  dataKey="month"
-  interval={0}
-  angle={isSmallDevice ? -45 : 0}
-  textAnchor={isSmallDevice ? "end" : "middle"}
-  tick={{ fontSize: isSmallDevice ? 10 : 12 }}
-/>
+            dataKey="month"
+            interval={0}
+            angle={isSmallDevice ? -45 : 0}
+            textAnchor={isSmallDevice ? "end" : "middle"}
+            tick={{ fontSize: isSmallDevice ? 10 : 12 }}
+          />
 
           <YAxis />
           <Tooltip />
