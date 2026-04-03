@@ -8,8 +8,8 @@ Car Hunt enables users to explore car listings, manage their orders, and securel
 
 ## 🌍 Live Demo
 
-Client Site: [Visit Car Hunt](https://car-hunt.vercel.app/)
-Server Site: [Visit Car Hunt Api](https://car-stores-api.vercel.app/)
+Client Site: [Visit Car Hunt](https://car-hunt-stores.vercel.app/)
+Server Site: [Visit Car Hunt Api](https://car-hunt-server.vercel.app/)
 ---
 
 ## 🖥️ Tech Stack 🛠️

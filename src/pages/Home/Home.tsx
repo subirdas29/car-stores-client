@@ -13,8 +13,8 @@ import StatsSection from "../../components/CarSellState/CarSellState";
 // Animation Variants
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut" } },
-};
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+} as const;
 
 const Home = () => {
   // Refs for detecting when sections come into view

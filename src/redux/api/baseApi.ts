@@ -16,7 +16,7 @@ import { RootState } from '../store';
 
   
   const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://car-stores-api.vercel.app/api',
+    baseUrl: 'https://car-hunt-server.vercel.app/api',
     // baseUrl: 'http://localhost:5000/api',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => { 
@@ -50,7 +50,7 @@ import { RootState } from '../store';
     if (result?.error?.status === 401) {
     
   
-      const res = await fetch('https://car-stores-api.vercel.app/api/auth/refresh-token', 
+      const res = await fetch('https://car-hunt-server.vercel.app/api/auth/refresh-token', 
       // const res = await fetch('http://localhost:5000/api/auth/refresh-token', 
       // 
       {
